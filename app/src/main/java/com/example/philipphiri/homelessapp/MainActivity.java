@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final EditText logField = (EditText) findViewById(R.id.login);
                 final EditText passField = (EditText) findViewById(R.id.password);
+                final Button cancel = (Button) findViewById(R.id.cancelButton);
 
                 login.setOnClickListener(
                         new View.OnClickListener() {
@@ -74,9 +75,19 @@ public class MainActivity extends AppCompatActivity {
 
                 );
 
-
                 logField.setVisibility(View.VISIBLE);
                 passField.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
+
+                cancel.setOnClickListener(
+                        new View.OnClickListener() {
+                            public void onClick(View view) {
+                                Intent b = new Intent(MainActivity.this, MainActivity.class);
+                                //restarts welcome screen to refresh buttons
+                                startActivity(b);
+                            }
+                        }
+                );
             }
         });
 
