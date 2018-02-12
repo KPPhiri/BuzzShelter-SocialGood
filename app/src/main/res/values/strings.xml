@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Homeless App</string>
+    <string name="activity2_name">Main2Activity</string>
 </resources>
