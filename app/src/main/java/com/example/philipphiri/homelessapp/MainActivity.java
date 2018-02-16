@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Button login = (Button) findViewById(R.id.loginButton);
+        final Button register = (Button) findViewById(R.id.regButton);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,8 +89,21 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                 );
+
+
             }
+
+
         });
+
+        register.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        Intent b = new Intent(MainActivity.this, Register.class);
+                        //restarts welcome screen to refresh buttons
+                        startActivity(b);
+                    }
+                });
 
     }
 
