@@ -21,8 +21,8 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/activity2_name"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".Register"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".RegistrationActivity"></activity>
     </application>
 
 </manifest>

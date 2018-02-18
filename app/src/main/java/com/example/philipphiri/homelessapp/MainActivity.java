@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        Intent b = new Intent(MainActivity.this, Register.class);
+                        Intent b = new Intent(MainActivity.this, RegistrationActivity.class);
                         //restarts welcome screen to refresh buttons
                         startActivity(b);
                     }
