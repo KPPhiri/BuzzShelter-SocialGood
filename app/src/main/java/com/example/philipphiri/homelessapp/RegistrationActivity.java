@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if(view.getId() == R.id.buttonRegister) {
             registerUser();
         } else if (view.getId() == R.id.textExist){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, WelcomePageActivity.class));
         }
     }
 }

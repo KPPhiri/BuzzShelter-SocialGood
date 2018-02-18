@@ -16,7 +16,7 @@ public class Main2Activity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Main2Activity.this, MainActivity.class ));
+                startActivity(new Intent(Main2Activity.this, WelcomePageActivity.class ));
             }
         });
     }

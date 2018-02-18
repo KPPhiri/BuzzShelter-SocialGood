@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomePageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (logField.getText().toString().equals("user")
                                         && passField.getText().toString().equals("pass")) {
                                     Log.i("clicks","Success");
-                                    Intent i = new Intent(MainActivity.this, Main2Activity.class);
+                                    Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
                                     startActivity(i);
                                 } else {
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 cancel.setOnClickListener(
                         new View.OnClickListener() {
                             public void onClick(View view) {
-                                Intent b = new Intent(MainActivity.this, MainActivity.class);
+                                Intent b = new Intent(WelcomePageActivity.this, WelcomePageActivity.class);
                                 //restarts welcome screen to refresh buttons
                                 startActivity(b);
                             }
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        Intent b = new Intent(MainActivity.this, RegistrationActivity.class);
+                        Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
                         //restarts welcome screen to refresh buttons
                         startActivity(b);
                     }
