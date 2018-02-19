@@ -72,16 +72,16 @@
     </LinearLayout>
 
 
-
     <EditText
-        android:id="@+id/login"
+        android:id="@+id/editTextEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_below="@+id/cancelButton"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="53dp"
+        android:layout_toEndOf="@+id/cancelButton"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:text="Username"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,14 +90,15 @@
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/editTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_alignTop="@+id/cancelButton"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/cancelButton"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:text="Password"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
