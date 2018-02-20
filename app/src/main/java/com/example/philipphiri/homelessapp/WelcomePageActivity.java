@@ -4,11 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,8 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class WelcomePageActivity extends AppCompatActivity {
+public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
+    private FirebaseAuth user;
+    private EditText editTextEmail, editTextPassword;
 
     Dialog myDialog;
     @Override
@@ -28,10 +38,13 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDialog = new Dialog(this);
+// Bianca
+//         myDialog = new Dialog(this);
 
-        final Button login = (Button) findViewById(R.id.loginButton);
-        final Button register = (Button) findViewById(R.id.regButton);
+//         final Button login = (Button) findViewById(R.id.loginButton);
+//         final Button register = (Button) findViewById(R.id.regButton);
+        
+        //----
 
         //final Button okay = (Button) findViewById(R.id.okayButton);
 //        login.setOnClickListener(new View.OnClickListener() {
@@ -103,22 +116,76 @@ public class WelcomePageActivity extends AppCompatActivity {
 //
 //
 //        });
-        login.setOnClickListener(new View.OnClickListener() {
+//Biancaaaa
+//         login.setOnClickListener(new View.OnClickListener() {
+//             @Override
+//             public void onClick(View view) {
+//                 ShowPopUp(view);
+//---END
+        user = FirebaseAuth.getInstance();
+        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button regButton = (Button) findViewById(R.id.regButton);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        Button cancel = (Button) findViewById(R.id.cancelButton);
+        editTextEmail.setVisibility(View.VISIBLE);
+        editTextPassword.setVisibility(View.VISIBLE);
+        cancel.setVisibility(View.VISIBLE);
+
+        findViewById(R.id.loginButton).setOnClickListener(this);
+        findViewById(R.id.regButton).setOnClickListener(this);
+        findViewById(R.id.cancelButton).setOnClickListener(this);
+
+    }
+
+    private void loginUser() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
+            return;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
+
+        }  else if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return;
+        } else if (password.length() < 6) {
+            editTextPassword.setError("Password must be at least 6 characters");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        user.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onClick(View view) {
-                ShowPopUp(view);
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Log.i("clicks","Success");
+                    Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
+                    startActivity(i);
+                } else {
+                    //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    editTextEmail.setError("GRATAFASKLJFLASJDLF");
+                }
             }
         });
+    }
 
-        register.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
-                        //restarts welcome screen to refresh buttons
-                        startActivity(b);
-                    }
-                });
-
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.loginButton) {
+            loginUser();
+        } else if (view.getId() == R.id.cancelButton){
+            startActivity(new Intent(this, WelcomePageActivity.class));
+        } else if (view.getId() == R.id.regButton){
+            Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+            //restarts welcome screen to refresh buttons
+            startActivity(b);
+        }
     }
     public void ShowPopUp(View v) {
         Button okay;

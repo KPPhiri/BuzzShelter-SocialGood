@@ -21,10 +21,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ProgressBar progressBar;
-    EditText editTextEmail, editTextPassword;
+    private ProgressBar progressBar;
+    private EditText editTextEmail, editTextPassword;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance();
 
         findViewById(R.id.buttonRegister).setOnClickListener(this);
         findViewById(R.id.textExist).setOnClickListener(this);
@@ -52,8 +52,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
-            return;
-        } else if (password.isEmpty()) {
+
+        }  else if (password.isEmpty()) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
             return;
@@ -65,7 +65,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
