@@ -31,6 +31,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth user;
     private EditText editTextEmail, editTextPassword;
+    Button okay;
+    Button cancel;
+    Button loginButton, regButton;
 
     Dialog myDialog;
     @Override
@@ -38,103 +41,16 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-// Bianca
-//         myDialog = new Dialog(this);
-
-//         final Button login = (Button) findViewById(R.id.loginButton);
-//         final Button register = (Button) findViewById(R.id.regButton);
-        
-        //----
-
-        //final Button okay = (Button) findViewById(R.id.okayButton);
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final EditText logField = (EditText) findViewById(R.id.login);
-//                final EditText passField = (EditText) findViewById(R.id.password);
-//                //final Button cancel = (Button) findViewById(R.id.cancelButton);
-//
-//                login.setOnClickListener(
-//                        new View.OnClickListener() {
-//                            public void onClick(View view) {
-//                                if (logField.getText().toString().equals("user")
-//                                        && passField.getText().toString().equals("pass")) {
-//                                    Log.i("clicks","Success");
-//                                    Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
-//                                    startActivity(i);
-//                                } else {
-//
-//                                    // inflate the layout of the popup window
-//                                    LayoutInflater inflater = (LayoutInflater)
-//                                            getSystemService(LAYOUT_INFLATER_SERVICE);
-//                                    View popupView = inflater.inflate(R.layout.wrong_login, null);
-//
-//                                    // create the popup window
-//                                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-//                                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//                                    boolean focusable = true; // lets taps outside the popup also dismiss it
-//                                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-//
-//                                    // show the popup window
-//                                    ConstraintLayout activity_main_layout;
-//                                    activity_main_layout = findViewById(R.id.main_activity_layout);
-//
-//                                    popupWindow.showAtLocation(activity_main_layout, Gravity.CENTER, 0, 0);
-//
-//                                    // dismiss the popup window when touched
-//                                    popupView.setOnTouchListener(new View.OnTouchListener() {
-//                                        @Override
-//                                        public boolean onTouch(View v, MotionEvent event) {
-//                                            popupWindow.dismiss();
-//                                            return true;
-//                                        }
-//                                    });
-//
-//                                }
-//                            }
-//                        }
-//
-//
-//                );
-//
-//                logField.setVisibility(View.VISIBLE);
-//                passField.setVisibility(View.VISIBLE);
-//                cancel.setVisibility(View.VISIBLE);
-//
-//                cancel.setOnClickListener(
-//                        new View.OnClickListener() {
-//                            public void onClick(View view) {
-//                                Intent b = new Intent(WelcomePageActivity.this, WelcomePageActivity.class);
-//                                //restarts welcome screen to refresh buttons
-//                                startActivity(b);
-//                            }
-//                        }
-//                );
-//
-//
-//            }
-//
-//
-//        });
-//Biancaaaa
-//         login.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View view) {
-//                 ShowPopUp(view);
-//---END
+        myDialog = new Dialog(this);
         user = FirebaseAuth.getInstance();
-        Button loginButton = (Button) findViewById(R.id.loginButton);
-        Button regButton = (Button) findViewById(R.id.regButton);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        Button cancel = (Button) findViewById(R.id.cancelButton);
-        editTextEmail.setVisibility(View.VISIBLE);
-        editTextPassword.setVisibility(View.VISIBLE);
-        cancel.setVisibility(View.VISIBLE);
+
+        loginButton = (Button) findViewById(R.id.loginButton);
+        regButton = (Button) findViewById(R.id.regButton);
+
+
 
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.regButton).setOnClickListener(this);
-        findViewById(R.id.cancelButton).setOnClickListener(this);
 
     }
 
@@ -168,28 +84,15 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                     Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
                     startActivity(i);
                 } else {
-                    //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    editTextEmail.setError("GRATAFASKLJFLASJDLF");
+                    myDialog.dismiss();
                 }
             }
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.loginButton) {
-            loginUser();
-        } else if (view.getId() == R.id.cancelButton){
-            startActivity(new Intent(this, WelcomePageActivity.class));
-        } else if (view.getId() == R.id.regButton){
-            Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
-            //restarts welcome screen to refresh buttons
-            startActivity(b);
-        }
-    }
-    public void ShowPopUp(View v) {
-        Button okay;
-        Button cancel;
+
+    private void ShowPopUp(View v) {
+
         myDialog.setContentView(R.layout.loginpopup);
         cancel = (Button) myDialog.findViewById(R.id.cancelButton);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -199,21 +102,13 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
-        final String logField = "user";
-        final String passField = "pass"; //these will make it always go to the app
         okay = (Button) myDialog.findViewById(R.id.okayButton);
+        editTextEmail = (EditText) myDialog.findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) myDialog.findViewById(R.id.editTextPassword);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (logField.equals("user")
-                        && passField.equals("pass")) {
-                    //Log.i("clicks","Success");
-                    Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
-                    startActivity(i);
-                } else {
-                    myDialog.dismiss();
-                    //warning should popup not dismiss!
-                }
+                loginUser();
             }
         });
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -221,5 +116,17 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.loginButton) {
+            ShowPopUp(view);
+        } else if (view.getId() == R.id.regButton){
+            Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+            //restarts welcome screen to refresh buttons
+            startActivity(b);
+        }
+
+    }
+
+
 }

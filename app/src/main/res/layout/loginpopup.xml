@@ -19,7 +19,7 @@
 
 
         <EditText
-            android:id="@+id/login"
+            android:id="@+id/editTextEmail"
             style="@style/editText_style"
             android:layout_width="175dp"
             android:layout_margin="10dp"
@@ -30,7 +30,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/editTextPassword"
             style="@style/editText_style"
             android:layout_width="175dp"
             android:layout_margin="10dp"
