@@ -27,13 +27,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth user;
+    private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
-    Button okay;
-    Button cancel;
-    Button loginButton, regButton;
+    private Button okay;
+    private Button cancel;
+    private Button loginButton, regButton;
+
 
     Dialog myDialog;
     @Override
@@ -43,6 +51,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
         myDialog = new Dialog(this);
         user = FirebaseAuth.getInstance();
+        userData = FirebaseDatabase.getInstance().getReference();
+
 
         loginButton = (Button) findViewById(R.id.loginButton);
         regButton = (Button) findViewById(R.id.regButton);
@@ -81,6 +91,24 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Log.i("clicks","Success");
+                    String user_id = user.getCurrentUser().getUid();
+                    DatabaseReference current_user = userData.child("Users").child(user_id);
+                    current_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String type = dataSnapshot.child("UserType").getValue(String.class);
+                            if(type.equals("Admin")) {
+
+                            } else {
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     Intent i = new Intent(WelcomePageActivity.this, Main2Activity.class);
                     startActivity(i);
                 } else {
@@ -90,7 +118,18 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-
+//    private static class UserViewHolder extends RecyclerView.ViewHolder{
+//        View vView;
+//        public UserViewHolder(View itemView) {
+//            super(itemView);
+//            vView = itemView;
+//        }
+//
+//        public void setUserName(String name) {
+//
+//        }
+//
+//    }
     private void ShowPopUp(View v) {
 
         myDialog.setContentView(R.layout.loginpopup);

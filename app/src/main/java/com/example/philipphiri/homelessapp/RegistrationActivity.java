@@ -10,14 +10,17 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
-
+import android.widget.RadioGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,6 +28,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText editTextEmail, editTextPassword;
 
     private FirebaseAuth user;
+    private DatabaseReference userData;
+
+    private RadioButton buttonAdmin;
+    private RadioButton buttonUser;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +43,19 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
+        buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
+        buttonUser = (RadioButton) findViewById(R.id.buttonUser);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+
+
         user = FirebaseAuth.getInstance();
 
         findViewById(R.id.buttonRegister).setOnClickListener(this);
         findViewById(R.id.textExist).setOnClickListener(this);
+
+        user = FirebaseAuth.getInstance();
+        userData = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     private void registerUser() {
@@ -70,8 +87,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
+                    String user_id = user.getCurrentUser().getUid();
+                    DatabaseReference current_user = userData.child(user_id);
+
+                    if(radioGroup.getCheckedRadioButtonId() == buttonAdmin.getId()) {
+                        current_user.child("User Type: ").setValue("Admin");
+                    } else {
+                        current_user.child("User Type: ").setValue("User");
+                    }
                     finish();
-                    //startActivity(new Intent(SignUpActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(RegistrationActivity.this, WelcomePageActivity.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -86,6 +111,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
+
+
 
     @Override
     public void onClick(View view) {
