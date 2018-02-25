@@ -91,9 +91,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     DatabaseReference current_user = userData.child(user_id);
 
                     if(radioGroup.getCheckedRadioButtonId() == buttonAdmin.getId()) {
-                        current_user.child("User Type: ").setValue("Admin");
+                        current_user.child("UserType").setValue("Admin");
                     } else {
-                        current_user.child("User Type: ").setValue("User");
+                        current_user.child("UserType").setValue("User");
                     }
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, WelcomePageActivity.class));

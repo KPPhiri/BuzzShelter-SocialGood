@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.util.Patterns;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +44,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
 
     Dialog myDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,69 +59,68 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         regButton = (Button) findViewById(R.id.regButton);
 
 
-
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.regButton).setOnClickListener(this);
 
     }
 
     private void loginUser() {
-        Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
-        startActivity(i);
-//        String email = editTextEmail.getText().toString().trim();
-//        String password = editTextPassword.getText().toString().trim();
-//
-//        if (email.isEmpty()) {
-//            editTextEmail.setError("Email is required");
-//            editTextEmail.requestFocus();
-//            return;
-//        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            editTextEmail.setError("Please enter a valid email");
-//            editTextEmail.requestFocus();
-//
-//        }  else if (password.isEmpty()) {
-//            editTextPassword.setError("Password is required");
-//            editTextPassword.requestFocus();
-//            return;
-//        } else if (password.length() < 6) {
-//            editTextPassword.setError("Password must be at least 6 characters");
-//            editTextPassword.requestFocus();
-//            return;
-//        }
-//
-//        user.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()) {
-//                    Log.i("clicks","Success");
-//                    String user_id = user.getCurrentUser().getUid();
-//                    DatabaseReference current_user = userData.child("Users").child(user_id);
-//                    current_user.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String type = dataSnapshot.child("UserType").getValue(String.class);
-//                            if(type.equals("Admin")) {
-//
-//                            } else {
-//
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                    Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
-//                    startActivity(i);
-//                } else {
-//                    myDialog.dismiss();
-//                }
-//            }
-//        });
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
+            return;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
+
+        } else if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return;
+        } else if (password.length() < 6) {
+            editTextPassword.setError("Password must be at least 6 characters");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        user.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.i("clicks", "Success");
+                    String user_id = user.getCurrentUser().getUid();
+                    DatabaseReference current_user = userData.child("Users").child(user_id);
+                    current_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String type = dataSnapshot.child("UserType").getValue(String.class);
+                            if (type.equals("Admin")) {
+//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                startActivity(i);
+                            } else {
+//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                startActivity(i);
+                            }
+                            Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
+                            startActivity(i);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                } else {
+                    myDialog.dismiss();
+                }
+            }
+        });
     }
 
-//    private static class UserViewHolder extends RecyclerView.ViewHolder{
+    //    private static class UserViewHolder extends RecyclerView.ViewHolder{
 //        View vView;
 //        public UserViewHolder(View itemView) {
 //            super(itemView);
@@ -149,15 +159,14 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.loginButton) {
+        if (view.getId() == R.id.loginButton) {
             ShowPopUp(view);
-        } else if (view.getId() == R.id.regButton){
+        } else if (view.getId() == R.id.regButton) {
             Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
             //restarts welcome screen to refresh buttons
             startActivity(b);
         }
 
     }
-
-
 }
+
