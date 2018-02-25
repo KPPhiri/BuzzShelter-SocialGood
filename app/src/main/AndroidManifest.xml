@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main2Activity"
+            android:name=".ShelterListActivity"
             android:label="@string/activity2_name"
             android:parentActivityName=".WelcomePageActivity" />
         <activity android:name=".RegistrationActivity"></activity>
