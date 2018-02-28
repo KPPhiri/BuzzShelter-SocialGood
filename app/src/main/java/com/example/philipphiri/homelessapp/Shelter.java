@@ -26,4 +26,11 @@ public class Shelter {
         this.specialNotes = specialNotes;
         this.uniqueKey = uniqueKey;
     }
+
+    public String getShelterName() {
+        return shelterName;
+    }
+    public String getShelterAddress(){
+        return address;
+    }
 }
