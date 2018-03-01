@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "452196402731-5d1vnlo2bfioqiu209g0k7g6jhnu8ved.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.philipphiri.homelessapp",
+            "certificate_hash": "e63f1a601d56917a146c869bb9a9f9740e75b18a"
+          }
+        },
+        {
           "client_id": "452196402731-cnq0k3agnpnon4bith0v2nusllf4hr8t.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452196402731-cnq0k3agnpnon4bith0v2nusllf4hr8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
