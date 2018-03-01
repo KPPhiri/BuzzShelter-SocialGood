@@ -18,6 +18,8 @@ public class User {
         return userType;
     }
 
+
+
     public String getPermissionLevel(){
         return permissionLevel;
     }
@@ -29,4 +31,5 @@ public class User {
     public void setPermissionLevel(){
         this.permissionLevel = permissionLevel;
     }
+
 }

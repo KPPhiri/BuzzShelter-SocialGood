@@ -36,11 +36,12 @@ public class ShelterListActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
+        Intent intent = getIntent();
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
         listViewShelters = (ListView) findViewById(R.id.shelterListView);
-
+        shelters = new ArrayList<>();
 
         logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
@@ -57,20 +58,17 @@ public class ShelterListActivity extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        databaseShelters.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                shelters = new ArrayList<>();
-                Shelter e = new Shelter("address", "capacity", "latitude", "longitude",
-                "phoneNumber", "restrictions", "shelterName", "specialNotes", "uniqueKey");
-                shelters.add(e);
+                shelters.clear();
                 //not going into for loop!
-                for (DataSnapshot dsp: dataSnapshot.getChildren()) {
-                    Map singleShelter = (Map) dsp.getValue();
-                    Shelter s = new Shelter((String) singleShelter.get("Address"),(String) singleShelter.get("Capacity"), (String)singleShelter.get("Latitude "),
-                    (String) singleShelter.get("Longitude "), (String)singleShelter.get("Phone Number"), (String) singleShelter.get("Restrictions"),
-                    (String) singleShelter.get("Shelter Name"), (String)singleShelter.get("Special Notes"), (String)singleShelter.get("UniqueKey"));
-                    shelters.add(s);
+                for (DataSnapshot tuple: dataSnapshot.getChildren()) {
+                  Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), (String)tuple.child("Latitude ").getValue(),
+                  (String) tuple.child("Longitude ").getValue(), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+                  (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    //Shelter shelter = tuple.getValue(Shelter.class);
+                    shelters.add(shelter);
                 }
                 //creating adapter
                 ShelterList shelterAdapter = new ShelterList(ShelterListActivity.this, shelters);
