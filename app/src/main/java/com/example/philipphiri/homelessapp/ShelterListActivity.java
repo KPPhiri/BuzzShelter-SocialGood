@@ -14,8 +14,9 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,7 @@ public class ShelterListActivity extends AppCompatActivity {
     ListView listViewShelters;
     List<Shelter> shelters;
     DatabaseReference databaseShelters;
+    Spinner filters;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,8 +51,12 @@ public class ShelterListActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
-        //need a way so that when a specific shelter is clicked the popup will open corresponding data
-        //right now there's no way to open popup
+
+        filters = (Spinner) findViewById(R.id.filterSpinner);
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
+                Filter.values());
+        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        filters.setAdapter(filterAdapter);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +71,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 ShowDetails(v,s);
             }
         });
+
     }
 
     protected void onStart() {
