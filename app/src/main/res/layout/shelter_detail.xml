@@ -63,7 +63,7 @@
             android:layout_marginTop="6dp">
             <TextView
                 android:id="@+id/shelterAddress"
-                android:text="Phone Number: "
+                android:text="Address: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
