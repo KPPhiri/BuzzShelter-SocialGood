@@ -33,4 +33,17 @@ public class Shelter {
     public String getShelterAddress(){
         return address;
     }
+    public String getShelterCapacity() { return capacity; }
+    public String getShelterRestrictions() { return restrictions; }
+    public String getShelterLongitude() {
+        return longitude;
+    }
+    public String getShelterLatitude() { return latitude; }
+    public String getShelterPhone() {
+        return phoneNumber;
+    }
+    public String getShelterNotes() {
+        return specialNotes;
+    }
+
 }

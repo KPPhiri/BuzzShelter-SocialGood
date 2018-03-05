@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:orientation="vertical"
-    android:layout_height="300dp"
+    android:layout_height="320dp"
     android:background="@color/colorPrimaryDark"
     android:padding="5dp"
     android:layout_gravity="center"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="ShelterName"
             android:textColor="#ffffff"
             android:textStyle="bold" />
 
@@ -43,24 +42,120 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dp">
             <TextView
-                android:id="@+id/shelterCapacity"
-                android:text="ShelterCapacity:"
+                android:id="@+id/shelterPhone"
+                android:text="Phone Number: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
-            <EditText
-                android:id="@+id/shelterCapacityEdit"
+            <TextView
+                android:id="@+id/shelterphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:id="@+id/shelterAddress"
+                android:text="Phone Number: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="number"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
+                android:textColor="#ffffff"/>
+            <TextView
+                android:id="@+id/shelteradd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:id="@+id/shelterCapacity"
+                android:text="Shelter Capacity: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:textColor="#ffffff"/>
+            <TextView
+                android:id="@+id/shelterCap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:id="@+id/restrictions"
+                android:text="Restrictions: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:textColor="#ffffff"/>
+            <TextView
+                android:id="@+id/shelterRes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:id="@+id/shelterLongitudeLatitude"
+                android:text="Longitude and Latitude: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:textColor="#ffffff"/>
+            <TextView
+                android:id="@+id/shelterLongLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+            <TextView
+                android:id="@+id/shelterSpecialNotes"
+                android:text="Special Notes: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:textColor="#ffffff"/>
+            <TextView
+                android:id="@+id/shelternotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
 
