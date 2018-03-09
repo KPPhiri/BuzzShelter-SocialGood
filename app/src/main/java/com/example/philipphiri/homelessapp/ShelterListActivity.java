@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -31,7 +32,9 @@ import java.util.Map;
 
 public class ShelterListActivity extends AppCompatActivity {
     private Button logout;
+    private Button filter;
     Dialog myDialog;
+    Dialog categories;
 
     ListView listViewShelters;
     List<Shelter> shelters;
@@ -52,11 +55,27 @@ public class ShelterListActivity extends AppCompatActivity {
         logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
 
+        categories = new Dialog(this);
         filters = (Spinner) findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
                 Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
+
+        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Gender")){
+                    showCategoriesPopUp();
+                }
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +91,17 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void showCategoriesPopUp() {
+        categories.setContentView(R.layout.gender_categories);
+        filter = (Button) categories.findViewById(R.id.filterButton);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                categories.dismiss();
+            }
+        });
+        categories.show();
     }
 
     protected void onStart() {
