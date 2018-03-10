@@ -27,11 +27,12 @@ tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
         android:layout_height="50dp"
         android:inputType="text"
         android:singleLine="true">
+    </EditText>
 
         <StackView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </EditText>
+
     <Spinner
         android:layout_marginTop="14dp"
         android:id="@+id/filterSpinner"
