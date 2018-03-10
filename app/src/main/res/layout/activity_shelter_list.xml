@@ -29,10 +29,6 @@ tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
         android:singleLine="true">
     </EditText>
 
-        <StackView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     <Spinner
         android:layout_marginTop="14dp"
         android:id="@+id/filterSpinner"
@@ -40,9 +36,6 @@ tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
         android:layout_height="wrap_content">
     </Spinner>
 
-    <StackView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>
 
 <ListView
