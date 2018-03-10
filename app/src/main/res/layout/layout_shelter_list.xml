@@ -3,16 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp">
     <TextView
         android:text="Name"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:id="@+id/textViewName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/textViewAddress"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Address" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewCapacityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="Capacity: " />
+
+        <TextView
+            android:id="@+id/textViewCapacity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CapacityNum"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewCapacityLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="/MaxCapacity"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
 </LinearLayout>
