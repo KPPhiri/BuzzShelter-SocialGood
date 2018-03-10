@@ -40,6 +40,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     private EditText editTextEmail, editTextPassword;
     private Button okay;
     private Button cancel;
+    private Button back;
     private Button loginButton, regButton;
 
 
@@ -75,7 +76,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
-
+            return;
         } else if (password.isEmpty()) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
@@ -114,7 +115,14 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                         }
                     });
                 } else {
-                    myDialog.dismiss();
+                    myDialog.setContentView(R.layout.wrong_login);
+                    back = (Button) myDialog.findViewById(R.id.backButton);
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ShowPopUp(view);
+                        }
+                    });
                 }
             }
         });
