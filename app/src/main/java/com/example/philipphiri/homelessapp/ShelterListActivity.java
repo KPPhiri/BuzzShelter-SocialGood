@@ -8,15 +8,24 @@ import android.provider.ContactsContract;
 import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ArrayAdapter;
+import android.text.TextWatcher;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ShelterListActivity extends AppCompatActivity {
@@ -37,6 +47,9 @@ public class ShelterListActivity extends AppCompatActivity {
     List<Shelter> shelters;
     DatabaseReference databaseShelters;
     Spinner filters;
+    ShelterList shelterAdapter;
+
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -47,6 +60,7 @@ public class ShelterListActivity extends AppCompatActivity {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
         listViewShelters = (ListView) findViewById(R.id.shelterListView);
+        listViewShelters.setTextFilterEnabled(true);
         shelters = new ArrayList<>();
 
         logout = findViewById(R.id.logoutButton);
@@ -72,27 +86,65 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    protected void onStart() {
-        super.onStart();
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 shelters.clear();
 
                 for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-                  Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), (String)tuple.child("Latitude ").getValue(),
-                  (String) tuple.child("Longitude ").getValue(), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                  (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), (String)tuple.child("Latitude ").getValue(),
+                            (String) tuple.child("Longitude ").getValue(), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
                     //Shelter shelter = tuple.getValue(Shelter.class);
                     shelters.add(shelter);
                 }
                 //creating adapter
-                ShelterList shelterAdapter = new ShelterList(ShelterListActivity.this, shelters);
+                shelterAdapter = new ShelterList(ShelterListActivity.this, shelters);
                 //attaching adapter to the listview
                 listViewShelters.setAdapter(shelterAdapter);
+
+//                search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                    @Override
+//                    public boolean onQueryTextSubmit(String s) {
+//                        shelterAdapter.getFilter().filter(s);
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onQueryTextChange(String s) {
+//                        shelterAdapter.getFilter().filter(s);
+//                        shelterAdapter.notifyDataSetChanged();
+//
+//                        return false;
+//                    }
+//                });
+
+                final EditText searchET = (EditText)findViewById(R.id.searchBar);
+                // Capture Text in EditText
+                searchET.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void afterTextChanged(Editable arg0) {
+                        // TODO Auto-generated method stub
+                        String text = searchET.getText().toString().toLowerCase(Locale.getDefault());
+                        shelterAdapter.filter(text);
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence arg0 , int arg1,
+                                                  int arg2, int arg3) {
+                        // TODO Auto-generated method stub
+                    }
+
+
+                    @Override
+                    public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                              int arg3) {
+                        // TODO Auto-generated method stub
+                    }
+                });
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -101,6 +153,15 @@ public class ShelterListActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
+//    protected void onStart() {
+//        super.onStart();
+//
+//
+//    }
 
     //for shelter details popup
     public void ShowDetails(View v, Shelter s) {
