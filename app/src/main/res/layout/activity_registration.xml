@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="153dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="96dp"
         android:ems="10"
         android:hint="Enter Username"
         android:inputType="textEmailAddress"
@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="153dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="textPassword"
@@ -38,26 +37,27 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="280dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="17dp"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textExist" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <TextView
         android:id="@+id/textExist"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginBottom="9dp"
         android:layout_marginEnd="151dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:text="Email already registered? Sign in."
+        android:text="Email is already registered. Sign in?"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,25 +75,25 @@
         android:id="@+id/radioGroup"
         android:layout_width="199dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginTop="220dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="191dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <RadioButton
             android:id="@+id/buttonUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="User" />
 
         <RadioButton
             android:id="@+id/buttonAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Admin" />
     </RadioGroup>
 
