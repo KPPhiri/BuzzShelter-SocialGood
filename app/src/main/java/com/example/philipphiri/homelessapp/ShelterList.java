@@ -41,11 +41,11 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewAddress = (TextView) listViewItem.findViewById(R.id.textViewAddress);
+        TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
 
         Shelter shelter = shelterList.get(position);
         textViewName.setText(shelter.getShelterName());
-        textViewAddress.setText(shelter.getShelterAddress());
+        textViewCapacity.setText(shelter.getShelterCapacity());
 
         return listViewItem;
     }
