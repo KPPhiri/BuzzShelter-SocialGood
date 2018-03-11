@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -115,6 +116,17 @@ public class ShelterListActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
+                CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
+                    //remove all the shelters that contain only women restrictions
+                    shelterAdapter.genFilter("Women");
+                }
+                if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
+                    //remove all the shelters that contain only men restrictions
+                    shelterAdapter.genFilter("Men");
+                }
+
                 genderCategories.dismiss();
             }
         });
@@ -152,21 +164,6 @@ public class ShelterListActivity extends AppCompatActivity {
                 //attaching adapter to the listview
                 listViewShelters.setAdapter(shelterAdapter);
 
-//                search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                    @Override
-//                    public boolean onQueryTextSubmit(String s) {
-//                        shelterAdapter.getFilter().filter(s);
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onQueryTextChange(String s) {
-//                        shelterAdapter.getFilter().filter(s);
-//                        shelterAdapter.notifyDataSetChanged();
-//
-//                        return false;
-//                    }
-//                });
 
                 final EditText searchET = (EditText)findViewById(R.id.searchBar);
                 // Capture Text in EditText
