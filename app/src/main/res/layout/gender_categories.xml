@@ -22,13 +22,13 @@
         app:layout_constraintVertical_bias="0.241">
 
         <CheckBox
-            android:id="@+id/Female"
+            android:id="@+id/female"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Female" />
 
         <CheckBox
-            android:id="@+id/Male"
+            android:id="@+id/male"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Male" />
