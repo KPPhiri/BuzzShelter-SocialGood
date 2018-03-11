@@ -34,7 +34,8 @@ public class ShelterListActivity extends AppCompatActivity {
     private Button logout;
     private Button filter;
     Dialog myDialog;
-    Dialog categories;
+    Dialog genderCategories;
+    Dialog ageCategories;
 
     ListView listViewShelters;
     List<Shelter> shelters;
@@ -55,7 +56,8 @@ public class ShelterListActivity extends AppCompatActivity {
         logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
 
-        categories = new Dialog(this);
+        genderCategories = new Dialog(this);
+        ageCategories = new Dialog(this);
         filters = (Spinner) findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
                 Filter.values());
@@ -68,7 +70,9 @@ public class ShelterListActivity extends AppCompatActivity {
             {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("Gender")){
-                    showCategoriesPopUp();
+                    showGenderPopUp();
+                } else if (selectedItem.equals("Age")) {
+                    showAgePopUp();
                 }
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent)
@@ -92,16 +96,28 @@ public class ShelterListActivity extends AppCompatActivity {
         });
 
     }
-    private void showCategoriesPopUp() {
-        categories.setContentView(R.layout.gender_categories);
-        filter = (Button) categories.findViewById(R.id.filterButton);
+    private void showGenderPopUp() {
+        genderCategories.setContentView(R.layout.gender_categories);
+        filter = (Button) genderCategories.findViewById(R.id.filterButton);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categories.dismiss();
+                genderCategories.dismiss();
             }
         });
-        categories.show();
+        genderCategories.show();
+    }
+
+    private void showAgePopUp() {
+        ageCategories.setContentView(R.layout.age_categories);
+        filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ageCategories.dismiss();
+            }
+        });
+        ageCategories.show();
     }
 
     protected void onStart() {
