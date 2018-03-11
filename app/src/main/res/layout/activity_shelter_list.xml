@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
 
-    <Button
-        android:id="@+id/logoutButton"
-        style="@style/button_style"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:textSize="12sp"
-        android:layout_gravity="right"
-        android:text="Logout"
-        android:visibility="visible" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
-        <SearchView
-            android:layout_width="250dp"
-            android:layout_height="50dp">
+<Button
+    android:id="@+id/logoutButton"
+    style="@style/button_style"
+    android:layout_width="60dp"
+    android:layout_height="40dp"
+    android:textSize="12sp"
+    android:layout_gravity="right"
+    android:text="Logout"
+    android:visibility="visible" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+    <EditText
+        android:hint="Search or enter shelter name"
+        android:id="@+id/searchBar"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="text"
+        android:singleLine="true">
+    </EditText>
 
-        </SearchView>
-        <Spinner
-            android:layout_marginTop="14dp"
-            android:id="@+id/filterSpinner"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content">
-        </Spinner>
+    <Spinner
+        android:layout_marginTop="14dp"
+        android:id="@+id/filterSpinner"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content">
+    </Spinner>
 
-    </LinearLayout>
+</LinearLayout>
 
-    <ListView
-        android:id="@+id/shelterListView"
-        android:layout_width="368dp"
-        android:layout_height="515dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        />
+<ListView
+    android:id="@+id/shelterListView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+
+    android:layout_marginRight="10dp"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="15.0sp"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="8dp"
+    />
 
 </LinearLayout>

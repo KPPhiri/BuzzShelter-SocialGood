@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.philipphiri.homelessapp.R.layout.activity_shelter_list;
 
@@ -18,14 +21,18 @@ import static com.example.philipphiri.homelessapp.R.layout.activity_shelter_list
  * Created by philipphiri on 2/24/18.
  */
 
-public class ShelterList extends ArrayAdapter<Shelter> {
+public class ShelterList extends ArrayAdapter<Shelter>{
     private Activity context;
     List<Shelter> shelterList;
+    private ArrayList<Shelter> arraylist=null;
 
     public ShelterList(Activity context, List<Shelter> shelterList) {
         super(context, R.layout.layout_shelter_list, shelterList);
         this.context = context;
         this.shelterList = shelterList;
+
+        this.arraylist = new ArrayList<>();
+        this.arraylist.addAll(shelterList);
     }
 
     @NonNull
@@ -34,12 +41,29 @@ public class ShelterList extends ArrayAdapter<Shelter> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewAddress = (TextView) listViewItem.findViewById(R.id.textViewAddress);
+        TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
 
         Shelter shelter = shelterList.get(position);
         textViewName.setText(shelter.getShelterName());
-        textViewAddress.setText(shelter.getShelterAddress());
+        textViewCapacity.setText(shelter.getShelterCapacity());
 
         return listViewItem;
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        shelterList.clear();
+        if (charText.length() == 0) {
+            shelterList.addAll(arraylist);
+        }
+        else
+        {
+            for (Shelter wp : arraylist) {
+                if (wp.getShelterName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    shelterList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
