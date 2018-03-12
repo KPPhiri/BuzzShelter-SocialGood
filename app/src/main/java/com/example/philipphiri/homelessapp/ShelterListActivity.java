@@ -1,6 +1,7 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,15 +10,18 @@ import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -43,7 +47,8 @@ public class ShelterListActivity extends AppCompatActivity {
     private Button logout;
     private Button filter;
     Dialog myDialog;
-    Dialog categories;
+    Dialog genderCategories;
+    Dialog ageCategories;
 
     ListView listViewShelters;
     List<Shelter> shelters;
@@ -68,24 +73,24 @@ public class ShelterListActivity extends AppCompatActivity {
         logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
 
-        categories = new Dialog(this);
+        genderCategories = new Dialog(this);
+        ageCategories = new Dialog(this);
         filters = (Spinner) findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
                 Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
-        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals("Gender")){
-                    showCategoriesPopUp();
+                if (selectedItem.equals("Gender")) {
+                    showGenderPopUp();
+                } else if (selectedItem.equals("Age")) {
+                    showAgePopUp();
                 }
             } // to close the onItemSelected
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -105,16 +110,69 @@ public class ShelterListActivity extends AppCompatActivity {
         });
 
     }
-    private void showCategoriesPopUp() {
-        categories.setContentView(R.layout.gender_categories);
-        filter = (Button) categories.findViewById(R.id.filterButton);
+
+    private void showGenderPopUp() {
+        genderCategories.setContentView(R.layout.gender_categories);
+        filter = (Button) genderCategories.findViewById(R.id.filterButton);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categories.dismiss();
+                CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
+                CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+//                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
+//                    //remove all the shelters that contain only women restrictions
+//                    shelterAdapter.genFilter("Women");
+//                }
+//                if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
+//                    //remove all the shelters that contain only men restrictions
+//                    shelterAdapter.genFilter("Men");
+//                }
+
+                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
+                    shelterAdapter.genFilter("Men");
+                }
+                if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
+                    shelterAdapter.genFilter("Women");
+                }
+
+                genderCategories.dismiss();
             }
         });
-        categories.show();
+        genderCategories.show();
+    }
+
+    private void showAgePopUp() {
+        ageCategories.setContentView(R.layout.age_categories);
+        filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox checkBoxN = (CheckBox) ageCategories.findViewById(R.id.Newborns);
+                CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
+                CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
+                CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
+
+                if(checkBoxN.isChecked()) {
+                    //adds all the shelters that contain only Newborns restrictions
+                    shelterAdapter.ageFilter("Newborns");
+                    shelterAdapter.ageFilter("Families w/ Newborns");
+                    shelterAdapter.ageFilter("newborns");
+                }
+                if(checkBoxC.isChecked()) {
+                    shelterAdapter.ageFilter("Children");
+                }
+                if (checkBoxY.isChecked()) {
+                    shelterAdapter.ageFilter("Young Adults");
+                    shelterAdapter.ageFilter("Young adults");
+                }
+                if (checkBoxA.isChecked()) {
+                    shelterAdapter.ageFilter("Anyone");
+                }
+
+                ageCategories.dismiss();
+            }
+        });
+        ageCategories.show();
     }
 
     protected void onStart() {
@@ -136,21 +194,6 @@ public class ShelterListActivity extends AppCompatActivity {
                 //attaching adapter to the listview
                 listViewShelters.setAdapter(shelterAdapter);
 
-//                search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                    @Override
-//                    public boolean onQueryTextSubmit(String s) {
-//                        shelterAdapter.getFilter().filter(s);
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onQueryTextChange(String s) {
-//                        shelterAdapter.getFilter().filter(s);
-//                        shelterAdapter.notifyDataSetChanged();
-//
-//                        return false;
-//                    }
-//                });
 
                 final EditText searchET = (EditText)findViewById(R.id.searchBar);
                 // Capture Text in EditText

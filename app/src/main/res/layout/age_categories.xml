@@ -7,8 +7,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="136dp"
-        android:layout_height="121dp"
+        android:layout_width="171dp"
+        android:layout_height="190dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -16,27 +16,39 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241">
+        app:layout_constraintVertical_bias="0.317">
 
         <CheckBox
-            android:id="@+id/female"
+            android:id="@+id/Newborns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Female" />
+            android:text="Families with Newborns" />
 
         <CheckBox
-            android:id="@+id/male"
+            android:id="@+id/Children"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Male" />
+            android:text="Children" />
+
+        <CheckBox
+            android:id="@+id/Young_Adults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Young Adults" />
+
+        <CheckBox
+            android:id="@+id/Anyone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Anyone" />
 
         <Button
-            android:id="@+id/filterButton"
+            android:id="@+id/filterButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Filter" />
+            android:text="filter" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

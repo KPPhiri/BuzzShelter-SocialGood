@@ -66,4 +66,30 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         }
         notifyDataSetChanged();
     }
+
+    public void genFilter(String option) {
+        shelterList.clear();
+        {
+            for (Shelter wp : arraylist) {
+                if (wp.getShelterRestrictions().contains(option)) {
+                    shelterList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void ageFilter(String option) {
+        shelterList.clear();
+        {
+            for (Shelter wp : arraylist) {
+                if ((wp.getShelterRestrictions().contains(option))) {
+                    shelterList.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
 }
