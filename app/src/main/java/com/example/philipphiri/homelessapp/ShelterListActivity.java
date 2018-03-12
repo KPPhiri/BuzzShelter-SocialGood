@@ -1,6 +1,7 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,10 +10,12 @@ import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -78,19 +81,16 @@ public class ShelterListActivity extends AppCompatActivity {
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
-        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals("Gender")){
+                if (selectedItem.equals("Gender")) {
                     showGenderPopUp();
                 } else if (selectedItem.equals("Age")) {
                     showAgePopUp();
                 }
             } // to close the onItemSelected
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -110,6 +110,7 @@ public class ShelterListActivity extends AppCompatActivity {
         });
 
     }
+
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
         filter = (Button) genderCategories.findViewById(R.id.filterButton);
@@ -139,6 +140,28 @@ public class ShelterListActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CheckBox checkBoxN = (CheckBox) ageCategories.findViewById(R.id.Newborns);
+                CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
+                CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
+                CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
+
+                if(checkBoxN.isChecked()) {
+                    //adds all the shelters that contain only Newborns restrictions
+                    shelterAdapter.ageFilter("Newborns");
+                    shelterAdapter.ageFilter("Families w/ Newborns");
+                    shelterAdapter.ageFilter("newborns");
+                }
+                if(checkBoxC.isChecked()) {
+                    shelterAdapter.ageFilter("Children");
+                }
+                if (checkBoxY.isChecked()) {
+                    shelterAdapter.ageFilter("Young Adults");
+                    shelterAdapter.ageFilter("Young adults");
+                }
+                if (checkBoxA.isChecked()) {
+                    shelterAdapter.ageFilter("Anyone");
+                }
+
                 ageCategories.dismiss();
             }
         });
