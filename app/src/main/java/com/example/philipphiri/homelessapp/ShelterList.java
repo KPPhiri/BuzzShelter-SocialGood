@@ -71,7 +71,7 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         shelterList.clear();
         {
             for (Shelter wp : arraylist) {
-                if (!(wp.getShelterRestrictions().contains(option))) {
+                if (wp.getShelterRestrictions().contains(option)) {
                     shelterList.add(wp);
                 }
             }
