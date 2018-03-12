@@ -29,12 +29,12 @@ tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
         android:singleLine="true">
     </EditText>
 
-    <Spinner
+    <com.example.philipphiri.homelessapp.NDSpinner
         android:layout_marginTop="14dp"
         android:id="@+id/filterSpinner"
         android:layout_width="140dp"
         android:layout_height="wrap_content">
-    </Spinner>
+    </com.example.philipphiri.homelessapp.NDSpinner>
 
 </LinearLayout>
 
