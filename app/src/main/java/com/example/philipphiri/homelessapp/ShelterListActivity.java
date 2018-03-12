@@ -119,13 +119,20 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
                 CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+//                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
+//                    //remove all the shelters that contain only women restrictions
+//                    shelterAdapter.genFilter("Women");
+//                }
+//                if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
+//                    //remove all the shelters that contain only men restrictions
+//                    shelterAdapter.genFilter("Men");
+//                }
+
                 if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
-                    //remove all the shelters that contain only women restrictions
-                    shelterAdapter.genFilter("Women");
+                    shelterAdapter.genFilter("Men");
                 }
                 if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
-                    //remove all the shelters that contain only men restrictions
-                    shelterAdapter.genFilter("Men");
+                    shelterAdapter.genFilter("Women");
                 }
 
                 genderCategories.dismiss();
