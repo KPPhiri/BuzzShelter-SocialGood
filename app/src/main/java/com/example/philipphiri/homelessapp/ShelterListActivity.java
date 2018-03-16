@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class ShelterListActivity extends AppCompatActivity {
     ListView listViewShelters;
     List<Shelter> shelters;
     DatabaseReference databaseShelters;
-    Spinner filters;
+    NDSpinner filters;
     ShelterList shelterAdapter;
 
 
@@ -75,7 +76,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
-        filters = (Spinner) findViewById(R.id.filterSpinner);
+        filters = (NDSpinner) findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
                 Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
