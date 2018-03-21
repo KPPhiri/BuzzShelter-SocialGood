@@ -105,7 +105,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 //                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
 //                                startActivity(i);
                             }
-                            Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
                             startActivity(i);
                         }
                         @Override

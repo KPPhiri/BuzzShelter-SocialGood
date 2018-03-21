@@ -13,7 +13,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/common_plus_signin_btn_text_dark_disabled"
         android:text="Wrong Login or Password"
         android:textAlignment="center"
         android:textAllCaps="false"
