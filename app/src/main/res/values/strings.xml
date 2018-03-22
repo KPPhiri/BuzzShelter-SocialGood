@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Homeless App</string>
     <string name="activity2_name">Main2Activity</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main_page">MainPageActivity</string>
 </resources>
