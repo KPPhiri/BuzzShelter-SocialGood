@@ -7,15 +7,15 @@ package com.example.philipphiri.homelessapp;
 public class Shelter {
     private String address;
     private String capacity;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
     private String phoneNumber;
     private String restrictions;
     private String shelterName;
     private String specialNotes;
     private String uniqueKey;
 
-    public Shelter(String address, String capacity, String latitude, String longitude, String phoneNumber, String restrictions, String shelterName, String specialNotes, String uniqueKey) {
+    public Shelter(String address, String capacity, double latitude, double longitude, String phoneNumber, String restrictions, String shelterName, String specialNotes, String uniqueKey) {
         this.address = address;
         this.capacity = capacity;
         this.latitude = latitude;
@@ -35,10 +35,10 @@ public class Shelter {
     }
     public String getShelterCapacity() { return capacity; }
     public String getShelterRestrictions() { return restrictions; }
-    public String getShelterLongitude() {
+    public double getShelterLongitude() {
         return longitude;
     }
-    public String getShelterLatitude() { return latitude; }
+    public double getShelterLatitude() { return latitude; }
     public String getShelterPhone() {
         return phoneNumber;
     }

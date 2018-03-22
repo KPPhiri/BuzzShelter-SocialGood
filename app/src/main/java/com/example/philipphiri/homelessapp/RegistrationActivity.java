@@ -95,6 +95,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     } else {
                         current_user.child("UserType").setValue("User");
                     }
+                    current_user.child("ShelterRegistered").setValue("none");
+                    current_user.child("NumberClaimed").setValue("0");
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, WelcomePageActivity.class));
                 } else {

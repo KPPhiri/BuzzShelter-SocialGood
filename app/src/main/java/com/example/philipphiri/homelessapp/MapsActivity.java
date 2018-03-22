@@ -3,21 +3,36 @@ package com.example.philipphiri.homelessapp;
 import android.app.Dialog;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private GoogleMap mMap;
+    List<Shelter> shelters;
+    DatabaseReference databaseShelters;
     //private static final String TAG = "MapsActivity";
 
     @Override
@@ -28,7 +43,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
+        shelters = new ArrayList<>();
     }
 
 
@@ -50,6 +66,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        }
 //        return false;
 //    }
+//
+//    protected void addShelters() {
+//        databaseShelters.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                shelters.clear();
+//
+//                for (DataSnapshot tuple: dataSnapshot.getChildren()) {
+//                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
+//                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+//                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+//                    //Shelter shelter = tuple.getValue(Shelter.class);
+//                    shelters.add(shelter);
+//
+//
+//                    Log.d("test value", Double.parseDouble((String) tuple.child("Longitude ").getValue())+" ");
+//                    latLngs.add(new LatLng(Double.parseDouble((String)tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue())));
+//                    Log.d("ADD SHELTERS SIZE", latLngs.size()+" ");
+//                }
+//
+//
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
+
 
 
 
@@ -65,11 +111,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        databaseShelters.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                shelters.clear();
+
+                for (DataSnapshot tuple: dataSnapshot.getChildren()) {
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    //Shelter shelter = tuple.getValue(Shelter.class);
+                    shelters.add(shelter);
+
+                    LatLng x = new LatLng(Double.parseDouble((String)tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
+                    mMap.addMarker(new MarkerOptions().position(x).title((String) tuple.child("Shelter Name").getValue()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(x));
+
+                }
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //puts all the shelters on the map
     }
 }
