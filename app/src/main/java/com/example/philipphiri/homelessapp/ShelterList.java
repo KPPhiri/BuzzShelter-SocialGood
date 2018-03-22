@@ -91,5 +91,15 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         notifyDataSetChanged();
     }
 
+    public void noFilter() {
+        shelterList.clear();
+        {
+            for (Shelter wp : arraylist) {
+                    shelterList.add(wp);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
 }

@@ -7,15 +7,6 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context="com.example.philipphiri.homelessapp.ShelterListActivity">
 
-<Button
-    android:id="@+id/logoutButton"
-    style="@style/button_style"
-    android:layout_width="60dp"
-    android:layout_height="40dp"
-    android:textSize="12sp"
-    android:layout_gravity="right"
-    android:text="Logout"
-    android:visibility="visible" />
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

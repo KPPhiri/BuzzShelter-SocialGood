@@ -105,12 +105,13 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 //                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
 //                                startActivity(i);
                             }
-                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
+//                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this, MainPageActivity.class);
                             startActivity(i);
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Intent i = new Intent(WelcomePageActivity.this, ShelterListActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this, WelcomePageActivity.class);
                             startActivity(i);
                         }
                     });
