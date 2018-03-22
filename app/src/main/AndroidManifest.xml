@@ -56,7 +56,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="Map" />
-        <activity android:name=".MainPageActivity"></activity>
+        <activity android:name=".MainPageActivity" />
+        <activity android:name=".UserProfileActivity"></activity>
     </application>
 
 </manifest>

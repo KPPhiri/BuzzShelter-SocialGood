@@ -60,7 +60,7 @@ public class MainPageActivity extends AppCompatActivity {
         userProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //user profile popup
+                startActivity(new Intent(MainPageActivity.this, UserProfileActivity.class ));
             }
         });
     }
