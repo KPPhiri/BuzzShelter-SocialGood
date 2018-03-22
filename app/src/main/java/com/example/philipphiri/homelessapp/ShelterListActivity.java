@@ -1,6 +1,7 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
