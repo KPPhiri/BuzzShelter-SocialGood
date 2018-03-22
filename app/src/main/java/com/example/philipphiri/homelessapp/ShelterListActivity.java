@@ -46,7 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ShelterListActivity extends AppCompatActivity {
-    private Button logout;
+    //private Button logout;
     private Button filter;
     Dialog myDialog;
     Dialog genderCategories;
@@ -72,7 +72,7 @@ public class ShelterListActivity extends AppCompatActivity {
         listViewShelters.setTextFilterEnabled(true);
         shelters = new ArrayList<>();
 
-        logout = findViewById(R.id.logoutButton);
+        //logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
 
         genderCategories = new Dialog(this);
@@ -90,6 +90,8 @@ public class ShelterListActivity extends AppCompatActivity {
                     showGenderPopUp();
                 } else if (selectedItem.equals("Age")) {
                     showAgePopUp();
+                } else if (selectedItem.equals("No Filters")) {
+                    showEntireList();
                 }
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent) {
@@ -97,12 +99,12 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ShelterListActivity.this, WelcomePageActivity.class ));
-            }
-        });
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ShelterListActivity.this, WelcomePageActivity.class ));
+//            }
+//        });
         listViewShelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -175,6 +177,10 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
         ageCategories.show();
+    }
+
+    private void showEntireList() {
+        shelterAdapter.noFilter();
     }
 
     protected void onStart() {

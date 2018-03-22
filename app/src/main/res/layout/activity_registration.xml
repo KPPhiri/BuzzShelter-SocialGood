@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context="com.example.philipphiri.homelessapp.RegistrationActivity">
 
+
+    <TextView
+        android:id="@+id/regInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:text="Registration Information" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="153dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter Name" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -13,14 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="153dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="96dp"
         android:ems="10"
-        android:hint="Enter Username"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -31,37 +47,18 @@
         android:ems="10"
         android:hint="Enter Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        />
 
-    <Button
-        android:id="@+id/buttonRegister"
+    <EditText
+        android:id="@+id/editTextReligion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="280dp"
+        android:layout_marginEnd="153dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="17dp"
-        android:text="Register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter Religion" />
 
-    <TextView
-        android:id="@+id/textExist"
-        android:layout_width="wrap_content"
-        android:layout_height="23dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginStart="16dp"
-        android:text="Email is already registered. Sign in?"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -75,12 +72,10 @@
         android:id="@+id/radioGroup"
         android:layout_width="199dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
-        android:layout_marginTop="220dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_marginEnd="153dp"
+        android:layout_marginStart="16dp"
+        >
 
         <RadioButton
             android:id="@+id/buttonUser"
@@ -97,4 +92,20 @@
             android:text="Admin" />
     </RadioGroup>
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="17dp"
+        android:text="Register" />
+
+    <TextView
+        android:id="@+id/textExist"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginLeft="17dp"
+        android:text="Already registered? Sign in."
+        />
+
+</LinearLayout>
