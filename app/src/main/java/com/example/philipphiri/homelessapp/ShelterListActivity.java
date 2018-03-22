@@ -191,8 +191,8 @@ public class ShelterListActivity extends AppCompatActivity {
                 shelters.clear();
 
                 for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), (String)tuple.child("Latitude ").getValue(),
-                            (String) tuple.child("Longitude ").getValue(), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
                             (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
                     //Shelter shelter = tuple.getValue(Shelter.class);
                     shelters.add(shelter);
