@@ -70,6 +70,14 @@
                 android:textSize="18sp"
                 android:text="is"
                 android:textColor="@color/White"/>
+
+            <Button
+                android:id="@+id/releaseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Release Claims"
+                style="@style/button_style"/>
         </LinearLayout>
         <LinearLayout
             android:background="@color/Orange"
