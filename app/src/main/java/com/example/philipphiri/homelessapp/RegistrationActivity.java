@@ -25,9 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar progressBar;
-    private EditText editTextEmail, editTextPassword;
+    private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
 
-    private FirebaseAuth user;
+    private static FirebaseAuth user;
     private DatabaseReference userData;
 
     private RadioButton buttonAdmin;
@@ -39,8 +39,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        editTextName = (EditText) findViewById(R.id.editTextName);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextReligion = (EditText) findViewById(R.id.editTextReligion);
+
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
@@ -59,14 +62,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser() {
-        String email = editTextEmail.getText().toString().trim();
+        //final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        //final String name = editTextName.getText().toString().trim();
+        //final String religion = editTextReligion.getText().toString().trim();
 
-        if (email.isEmpty()) {
+        if (editTextEmail.getText().toString().trim().isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(editTextEmail.getText().toString().trim()).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
 
@@ -82,9 +87,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         progressBar.setVisibility(View.VISIBLE);
 
-        user.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.createUserWithEmailAndPassword(editTextEmail.getText().toString().trim(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                String email = editTextEmail.getText().toString().trim();
+                String name = editTextName.getText().toString().trim();
+                String religion = editTextReligion.getText().toString().trim();
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     String user_id = user.getCurrentUser().getUid();
@@ -97,6 +105,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     }
                     current_user.child("ShelterRegistered").setValue("none");
                     current_user.child("NumberClaimed").setValue("0");
+                    current_user.child("Email").setValue(email);
+                    current_user.child("Name").setValue(name);
+                    current_user.child("Religion").setValue(religion);
+
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, WelcomePageActivity.class));
                 } else {
@@ -113,9 +125,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
-
-
-
+    //to get current user's id
+    public static String getCurrentUser() {
+        return user.getCurrentUser().getUid();
+    }
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.buttonRegister) {

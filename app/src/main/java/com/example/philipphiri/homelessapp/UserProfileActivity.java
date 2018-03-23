@@ -22,10 +22,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private ImageView userPicture;
     private TextView userName;
     private TextView userEmail;
-    private TextView residence;
-    private TextView curresidence;
-    private TextView claims;
-    private TextView numClaims;
+    private TextView residence, curresidence;
+    private TextView claims, numClaims;
+    private TextView religion, religionIs;
     private DatabaseReference userData;
     private FirebaseAuth user;
 
@@ -42,6 +41,8 @@ public class UserProfileActivity extends AppCompatActivity {
         claims = findViewById(R.id.numClaims);
         curresidence = findViewById(R.id.residencySetTextView);
         numClaims = findViewById(R.id.claimsSetTextView);
+        religion = findViewById(R.id.religionTextView);
+        religionIs = findViewById(R.id.religionSetTextView);
 
         //release claims and set residence back to None
         user = FirebaseAuth.getInstance();
@@ -68,12 +69,15 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = new User((String)dataSnapshot.child("UserType").getValue(), (String)dataSnapshot.child("PermissionLevel").getValue(),
-                        (String)dataSnapshot.child("ShelterRegistered").getValue(), "meep", (String)dataSnapshot.child("NumberClaimed").getValue());
+                        (String)dataSnapshot.child("ShelterRegistered").getValue(), (String)dataSnapshot.child("Name").getValue(),
+                        (String)dataSnapshot.child("NumberClaimed").getValue(), (String)dataSnapshot.child("Email").getValue(),
+                        (String)dataSnapshot.child("Religion").getValue());
                 curresidence.setText(u.getUserResidence());
-                //set name
-                numClaims.setText(u.getNumClaims());
-                //set userEmail.setText(u.getEmail()); also add to constructor^
                 userName.setText(u.getUserName());
+                numClaims.setText(u.getNumClaims());
+                userEmail.setText(u.getUserEmail());
+                userName.setText(u.getUserName());
+                religionIs.setText(u.getUserReligion());
             }
 
             @Override
