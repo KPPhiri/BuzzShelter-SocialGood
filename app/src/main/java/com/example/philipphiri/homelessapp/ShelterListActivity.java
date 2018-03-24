@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.TextWatcher;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +49,8 @@ import java.util.Map;
 public class ShelterListActivity extends AppCompatActivity {
     //private Button logout;
     private Button filter;
+    FirebaseAuth user;
+    DatabaseReference userData;
     Dialog myDialog;
     Dialog genderCategories;
     Dialog ageCategories;
@@ -59,12 +62,12 @@ public class ShelterListActivity extends AppCompatActivity {
     ShelterList shelterAdapter;
 
 
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
         Intent intent = getIntent();
+
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
@@ -105,6 +108,11 @@ public class ShelterListActivity extends AppCompatActivity {
 //                startActivity(new Intent(ShelterListActivity.this, WelcomePageActivity.class ));
 //            }
 //        });
+
+        //for getting current user's info
+        user = FirebaseAuth.getInstance();
+        userData = FirebaseDatabase.getInstance().getReference().child("Users");
+
         listViewShelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -238,24 +246,27 @@ public class ShelterListActivity extends AppCompatActivity {
 
     }
 
-
-
-
-//    protected void onStart() {
-//        super.onStart();
-//
-//
-//    }
-
     //for shelter details popup
     public void ShowDetails(View v, Shelter s) {
+        final Shelter cur = s;
+        Button claimButton;
         TextView detailclose;
         myDialog.setContentView(R.layout.shelter_detail);
+        claimButton = (Button) myDialog.findViewById(R.id.claim_button);
         detailclose = (TextView) myDialog.findViewById(R.id.detailclose);
         detailclose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 myDialog.dismiss();
+            }
+        });
+        claimButton.setOnClickListener(new View.OnClickListener() {
+            //this line not working
+            //DatabaseReference current_user = userData.child(RegistrationActivity.getCurrentUser());
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+                //current_user.child("ShelterRegistered").setValue(cur.getShelterName());
             }
         });
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -276,6 +287,5 @@ public class ShelterListActivity extends AppCompatActivity {
         tv7.setText(s.getShelterNotes());
 
         myDialog.show();
-
     }
 }

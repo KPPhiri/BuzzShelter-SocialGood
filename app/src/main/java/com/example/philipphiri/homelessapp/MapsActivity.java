@@ -1,12 +1,17 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -17,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     DatabaseReference databaseShelters;
     //private static final String TAG = "MapsActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         shelters = new ArrayList<>();
+
+//        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+//            @Override
+//            public View getInfoWindow(Marker marker) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//                View v = getLayoutInflater().inflate(R.layout.window_layout, null);
+//                //LatLng latLng = marker.getPosition();
+//                TextView tvname = v.findViewById(R.id.tv_name);
+//                TextView tvphone = v.findViewById(R.id.tv_phone);
+//                tvname.setText(marker.getTitle());
+//                tvphone.setText(marker.getSnippet());
+//
+//                return v;
+//            }
+//        });
     }
 
 
@@ -96,10 +122,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //
 //    }
 
-
-
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -124,10 +146,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     shelters.add(shelter);
 
                     LatLng x = new LatLng(Double.parseDouble((String)tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
-                    mMap.addMarker(new MarkerOptions().position(x).title((String) tuple.child("Shelter Name").getValue()));
+                    mMap.addMarker(new MarkerOptions()
+                            .position(x).title((String) tuple.child("Shelter Name").getValue())
+                                        .snippet((String) tuple.child("Phone Number").getValue()));
                     float zoomLevel = 11f;
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746, -84.386330), zoomLevel));
-
                 }
 
 
@@ -138,11 +161,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         mMap = googleMap;
-
+//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                for (Shelter s : shelters) {
+//                    if (marker.getTitle().equals(s.getShelterName())) {
+//                        marker.showInfoWindow();
+//                    }
+//                }
+//                return false;
+//            }
+//        });
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         //puts all the shelters on the map
     }
+
 }
