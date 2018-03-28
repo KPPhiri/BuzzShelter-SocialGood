@@ -1,5 +1,6 @@
 package com.example.philipphiri.homelessapp;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Context;
@@ -39,6 +40,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,7 +125,29 @@ public class ShelterListActivity extends AppCompatActivity {
         });
 
     }
+    /**
+    private void vacancies() {
+        int input = 0; // vacancies user wants to put
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(listViewShelters.this);
+        builder.setMessage(shelters.get().getVacancies()).setNegativeButton("Exit", null);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(listViewShelters. this);
+        builder2.setView(input);
+        builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
+                (dialog, which) -> {
+                    try {
+                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
+                        builder3.setMessage("Not enough space").setNegativeButton("Exit",
+                                null).show();
+                    }
+                    catch (NumberFormatException n) {
+                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters, this);
+                        builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
+                    }
+        }).show();
 
+    }
+     */
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
         filter = (Button) genderCategories.findViewById(R.id.filterButton);
