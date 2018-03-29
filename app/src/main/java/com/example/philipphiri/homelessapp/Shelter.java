@@ -14,6 +14,8 @@ public class Shelter {
     private String shelterName;
     private String specialNotes;
     private String uniqueKey;
+    private String vacancies;
+
 
     public Shelter(String address, String capacity, double latitude, double longitude, String phoneNumber, String restrictions, String shelterName, String specialNotes, String uniqueKey) {
         this.address = address;
@@ -25,6 +27,7 @@ public class Shelter {
         this.shelterName = shelterName;
         this.specialNotes = specialNotes;
         this.uniqueKey = uniqueKey;
+
     }
 
     public String getShelterName() {
@@ -45,5 +48,6 @@ public class Shelter {
     public String getShelterNotes() {
         return specialNotes;
     }
+    public String getVacancies() { return vacancies; }
 
 }
