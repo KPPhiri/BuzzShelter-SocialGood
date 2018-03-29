@@ -26,7 +26,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView claims, numClaims;
     private TextView religion, religionIs;
     private DatabaseReference userData;
-    private FirebaseAuth user;
+    //private FirebaseAuth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +45,19 @@ public class UserProfileActivity extends AppCompatActivity {
         religionIs = findViewById(R.id.religionSetTextView);
 
         //release claims and set residence back to None
-        user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
 
-
         claimsButton.setOnClickListener(new View.OnClickListener() {
-            String user_id = user.getCurrentUser().getUid();
-            DatabaseReference current_user = userData.child(user_id);
+            //String user_id = user.getCurrentUser().getUid();
+            DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+
             @Override
             public void onClick(View view) {
                 current_user.child("ShelterRegistered").setValue("none");
                 current_user.child("NumberClaimed").setValue("0");
+
+                ShelterListActivity.release(numClaims.getText().toString()); //call method in shelterlistactivity to release shelter claims
+
             }
         });
     }
@@ -63,8 +65,8 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        String user_id = user.getCurrentUser().getUid();
-        final DatabaseReference current_user = userData.child(user_id);
+        //String user_id = user.getCurrentUser().getUid();
+        final DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
         current_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
