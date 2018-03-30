@@ -125,10 +125,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         });
 
     }
-    //to get current user's id
-    public static String getCurrentUser() {
-        return user.getCurrentUser().getUid();
-    }
+
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.buttonRegister) {

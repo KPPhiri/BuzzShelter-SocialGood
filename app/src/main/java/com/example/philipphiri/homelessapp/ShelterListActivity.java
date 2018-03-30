@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.text.TextWatcher;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,10 +61,12 @@ public class ShelterListActivity extends AppCompatActivity {
 
     ListView listViewShelters;
     List<Shelter> shelters;
-    DatabaseReference databaseShelters;
+    static DatabaseReference databaseShelters;
     NDSpinner filters;
     ShelterList shelterAdapter;
 
+    int pos;
+    static Shelter cur;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -120,6 +123,7 @@ public class ShelterListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Shelter s = (Shelter) listViewShelters.getItemAtPosition(position);
+                //curShelter(pos);
                 ShowDetails(v,s);
             }
         });
@@ -227,7 +231,7 @@ public class ShelterListActivity extends AppCompatActivity {
                     Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
                             Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
                             (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
-                    //Shelter shelter = tuple.getValue(Shelter.class);
+
                     shelters.add(shelter);
                 }
                 //creating adapter
@@ -262,23 +266,46 @@ public class ShelterListActivity extends AppCompatActivity {
                 });
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
     }
 
+    public void curShelter(Integer pos) {
+        cur = (Shelter) listViewShelters.getItemAtPosition(pos);
+
+    }
+    public static void release(String added) {
+        DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
+        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
+        //just adds right now, subtraction part of claim isn't working
+    }
+    //update registered shelter and claim number
+    public void claim(Shelter cur, EditText claims) {
+        curShelter(Integer.parseInt(cur.getUniqueKey()));
+        user = FirebaseAuth.getInstance();
+        userData = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+        current_user.child("ShelterRegistered").setValue(cur.getShelterName());
+        current_user.child("NumberClaimed").setValue(claims.getText().toString());
+        DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
+        TextView cap = findViewById(R.id.textViewCapacity);
+
+        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
+        //this changes the value in firebase but the shelter instance is different for different users?
+    }
     //for shelter details popup
     public void ShowDetails(View v, Shelter s) {
         final Shelter cur = s;
         Button claimButton;
         TextView detailclose;
+        final EditText claims;
         myDialog.setContentView(R.layout.shelter_detail);
         claimButton = (Button) myDialog.findViewById(R.id.claim_button);
         detailclose = (TextView) myDialog.findViewById(R.id.detailclose);
+        claims = (EditText) myDialog.findViewById(R.id.claim_number);
         detailclose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -286,14 +313,12 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
         claimButton.setOnClickListener(new View.OnClickListener() {
-            //this line not working
-            //DatabaseReference current_user = userData.child(RegistrationActivity.getCurrentUser());
             @Override
             public void onClick(View view) {
-                myDialog.dismiss();
-                //current_user.child("ShelterRegistered").setValue(cur.getShelterName());
+                claim(cur,claims);
             }
         });
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView tv1 = (TextView) myDialog.findViewById(R.id.shelterName);

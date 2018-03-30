@@ -33,21 +33,31 @@ public class Shelter {
     public String getShelterName() {
         return shelterName;
     }
+    public void setShelterName(String name) { shelterName = name; }
     public String getShelterAddress(){
         return address;
     }
+    public void setShelterAddress(String add) { address = add; }
     public String getShelterCapacity() { return capacity; }
+    public void setCapacity(String c) { capacity = c; }
     public String getShelterRestrictions() { return restrictions; }
+    public void setShelterRestrictions(String restrict) { restrictions = restrict; }
     public double getShelterLongitude() {
         return longitude;
     }
+    public void setShelterLongitude(Double longi) { longitude = longi; }
     public double getShelterLatitude() { return latitude; }
+    public void setShelterLatitude(Double lati) { latitude = lati; }
     public String getShelterPhone() {
         return phoneNumber;
     }
+    public void setShelterPhone(String phone) { phoneNumber = phone; }
     public String getShelterNotes() {
         return specialNotes;
     }
-    public String getVacancies() { return vacancies; }
+    public void setShelterNotes(String notes) { specialNotes = notes; }
+    //public String getVacancies() { return vacancies; }
+    public String getUniqueKey() {return uniqueKey; }
+    public void setUniqueKey(String key) { uniqueKey = key; }
 
 }

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:orientation="vertical"
-    android:layout_height="340dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
     android:padding="5dp"
     android:layout_gravity="center"
@@ -174,7 +174,9 @@
             android:hint="how many claims?"
             android:layout_gravity="center_horizontal"
             android:textColorHint="@color/LightSlateGray"
-            android:textSize="15sp"/>
+            android:textColor="@color/White"
+            android:textSize="15sp"
+            android:gravity="center"/>
 
         <Button
             android:id="@+id/claim_button"
