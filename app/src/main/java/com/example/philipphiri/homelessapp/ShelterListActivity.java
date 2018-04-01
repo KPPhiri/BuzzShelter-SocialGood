@@ -65,8 +65,10 @@ public class ShelterListActivity extends AppCompatActivity {
     NDSpinner filters;
     ShelterList shelterAdapter;
 
-    int pos;
+    //int pos;
     static Shelter cur;
+    //static String numbo;
+    Dialog myDialogPop;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         //logout = findViewById(R.id.logoutButton);
         myDialog = new Dialog(this);
+        myDialogPop = new Dialog(this);
 
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
@@ -280,7 +283,7 @@ public class ShelterListActivity extends AppCompatActivity {
     public static void release(String added) {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
         shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
-        //just adds right now, subtraction part of claim isn't working
+
     }
     //update registered shelter and claim number
     public void claim(Shelter cur, EditText claims) {
@@ -291,10 +294,7 @@ public class ShelterListActivity extends AppCompatActivity {
         current_user.child("ShelterRegistered").setValue(cur.getShelterName());
         current_user.child("NumberClaimed").setValue(claims.getText().toString());
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        TextView cap = findViewById(R.id.textViewCapacity);
-
         shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
-        //this changes the value in firebase but the shelter instance is different for different users?
     }
     //for shelter details popup
     public void ShowDetails(View v, Shelter s) {
@@ -315,7 +315,20 @@ public class ShelterListActivity extends AppCompatActivity {
         claimButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                claim(cur,claims);
+
+                if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
+                    //should we have a check to see if what they typed is even a number?
+                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+                        claim(cur,claims);
+                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
+                        claims.setError("Not Enough Space");
+                    } else {
+                        claims.setError("Please Enter Valid Number");
+                    }
+                } else {
+                    ShowReleasePopUp(view);
+                }
+
             }
         });
 
@@ -337,5 +350,23 @@ public class ShelterListActivity extends AppCompatActivity {
         tv7.setText(s.getShelterNotes());
 
         myDialog.show();
+    }
+
+    private void ShowReleasePopUp(View v) {
+        Button okButton;
+        myDialogPop.setContentView(R.layout.release_claims_popup);
+        okButton = (Button) myDialogPop.findViewById(R.id.okButt);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialogPop.dismiss();
+            }
+        });
+
+        TextView release;
+        release = (TextView) myDialogPop.findViewById(R.id.releaseTextView);
+        myDialogPop.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialogPop.show();
+
     }
 }

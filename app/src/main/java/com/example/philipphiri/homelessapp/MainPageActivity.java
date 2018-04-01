@@ -10,6 +10,12 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.view.View;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 public class MainPageActivity extends AppCompatActivity {
@@ -22,6 +28,9 @@ public class MainPageActivity extends AppCompatActivity {
     private TextView profileText;
     private TextView mapText;
     private TextView shelterText;
+
+    DatabaseReference userData;
+    static User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +70,32 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainPageActivity.this, UserProfileActivity.class ));
+            }
+        });
+
+    }
+
+    public static User getCurrentUser() {
+        return u;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        userData = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+        current_user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                u = new User((String)dataSnapshot.child("UserType").getValue(), (String)dataSnapshot.child("PermissionLevel").getValue(),
+                        (String)dataSnapshot.child("ShelterRegistered").getValue(), (String)dataSnapshot.child("Name").getValue(),
+                        (String)dataSnapshot.child("NumberClaimed").getValue(), (String)dataSnapshot.child("Email").getValue(),
+                        (String)dataSnapshot.child("Religion").getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

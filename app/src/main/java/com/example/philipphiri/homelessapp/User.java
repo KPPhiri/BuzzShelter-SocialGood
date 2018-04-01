@@ -1,5 +1,11 @@
 package com.example.philipphiri.homelessapp;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by philipphiri on 2/20/18.
  */
@@ -12,6 +18,9 @@ public class User {
     private String claims;
     private String religion;
     private String email;
+    //static DatabaseReference databaseUsers;
+    DatabaseReference userData;
+
 
     public User(String userType, String permissionLevel, String residence, String name, String claims, String email, String religion) {
         this.userType = userType;
@@ -21,6 +30,7 @@ public class User {
         this.claims = claims;
         this.email = email;
         this.religion = religion;
+
     }
 
     public String getUserType(){
@@ -33,7 +43,23 @@ public class User {
     public String getUserResidence() { return residence; }
     public void setUserResidence(String res) { this.residence = res; }
 
-    public String getNumClaims() { return claims; }
+    public String getNumClaims() {
+
+        userData = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+        current_user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                claims = (String) dataSnapshot.child("NumberClaimed").getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return claims; }
     public void setNumClaims(String num) {this.claims = num; }
 
     public String getUserName() {return name; }
