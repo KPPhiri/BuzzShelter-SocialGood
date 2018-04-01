@@ -55,9 +55,9 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 current_user.child("ShelterRegistered").setValue("none");
                 current_user.child("NumberClaimed").setValue("0");
-
-                ShelterListActivity.release(numClaims.getText().toString()); //call method in shelterlistactivity to release shelter claims
-
+                //releasing crashes when emulator is restarted and the first thing you do is try to release a previous claim
+                //but is fine in between logins during same emulator usage
+                ShelterListActivity.release(MainPageActivity.getCurrentUser().getNumClaims());
             }
         });
     }
@@ -65,27 +65,11 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //String user_id = user.getCurrentUser().getUid();
-        final DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
-        current_user.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User u = new User((String)dataSnapshot.child("UserType").getValue(), (String)dataSnapshot.child("PermissionLevel").getValue(),
-                        (String)dataSnapshot.child("ShelterRegistered").getValue(), (String)dataSnapshot.child("Name").getValue(),
-                        (String)dataSnapshot.child("NumberClaimed").getValue(), (String)dataSnapshot.child("Email").getValue(),
-                        (String)dataSnapshot.child("Religion").getValue());
-                curresidence.setText(u.getUserResidence());
-                userName.setText(u.getUserName());
-                numClaims.setText(u.getNumClaims());
-                userEmail.setText(u.getUserEmail());
-                userName.setText(u.getUserName());
-                religionIs.setText(u.getUserReligion());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        curresidence.setText(MainPageActivity.getCurrentUser().getUserResidence());
+        userName.setText(MainPageActivity.getCurrentUser().getUserName());
+        numClaims.setText(MainPageActivity.getCurrentUser().getNumClaims());
+        userEmail.setText(MainPageActivity.getCurrentUser().getUserEmail());
+        userName.setText(MainPageActivity.getCurrentUser().getUserName());
+        religionIs.setText(MainPageActivity.getCurrentUser().getUserReligion());
     }
 }
