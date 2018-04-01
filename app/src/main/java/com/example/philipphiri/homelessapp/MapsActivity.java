@@ -9,7 +9,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List<Shelter> shelters;
     DatabaseReference databaseShelters;
     //private static final String TAG = "MapsActivity";
+    NDSpinner filters;
+    Dialog genderCategories;
+    Dialog ageCategories;
+    private Button filter;
+    ShelterList shelterAdapter;
 
 
     @Override
@@ -93,34 +101,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        return false;
 //    }
 //
-//    protected void addShelters() {
-//        databaseShelters.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                shelters.clear();
-//
-//                for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-//                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
-//                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-//                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
-//                    //Shelter shelter = tuple.getValue(Shelter.class);
-//                    shelters.add(shelter);
-//
-//
-//                    Log.d("test value", Double.parseDouble((String) tuple.child("Longitude ").getValue())+" ");
-//                    latLngs.add(new LatLng(Double.parseDouble((String)tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue())));
-//                    Log.d("ADD SHELTERS SIZE", latLngs.size()+" ");
-//                }
-//
-//
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
 
     /**
      * Manipulates the map once available.
@@ -133,50 +113,118 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        genderCategories = new Dialog(this);
+        ageCategories = new Dialog(this);
+        filters = (NDSpinner) findViewById(R.id.filterSpinner);
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this, android.R.layout.simple_spinner_item,
+                Filter.values());
+        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        filters.setAdapter(filterAdapter);
+
+        filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Gender")) {
+                    showGenderPopUp();
+                } else if (selectedItem.equals("Age")) {
+                    showAgePopUp();
+                } else if (selectedItem.equals("No Filters")) {
+                    showAllShelters();
+                }
+            }
+
+            // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    
+    private void showAllShelters() {
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 shelters.clear();
 
-                for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
-                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                for (DataSnapshot tuple : dataSnapshot.getChildren()) {
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(), (String) tuple.child("Capacity").getValue(), Double.parseDouble((String) tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String) tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(), (String) tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
                     //Shelter shelter = tuple.getValue(Shelter.class);
                     shelters.add(shelter);
 
-                    LatLng x = new LatLng(Double.parseDouble((String)tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
+                    LatLng x = new LatLng(Double.parseDouble((String) tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
                     mMap.addMarker(new MarkerOptions()
                             .position(x).title((String) tuple.child("Shelter Name").getValue())
-                                        .snippet((String) tuple.child("Phone Number").getValue()));
+                            .snippet((String) tuple.child("Phone Number").getValue()));
                     float zoomLevel = 11f;
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746, -84.386330), zoomLevel));
                 }
 
 
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        mMap = googleMap;
-//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//            @Override
-//            public boolean onMarkerClick(Marker marker) {
-//                for (Shelter s : shelters) {
-//                    if (marker.getTitle().equals(s.getShelterName())) {
-//                        marker.showInfoWindow();
-//                    }
-//                }
-//                return false;
-//            }
-//        });
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        //puts all the shelters on the map
+    }
+    private void showGenderPopUp() {
+        genderCategories.setContentView(R.layout.gender_categories);
+        filter = (Button) genderCategories.findViewById(R.id.filterButton);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
+                CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+
+                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
+                    shelterAdapter.genFilter("Men");
+                }
+                if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
+                    shelterAdapter.genFilter("Women");
+                }
+
+                genderCategories.dismiss();
+            }
+        });
+        genderCategories.show();
+    }
+
+    private void showAgePopUp() {
+        ageCategories.setContentView(R.layout.age_categories);
+        filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox checkBoxN = (CheckBox) ageCategories.findViewById(R.id.Newborns);
+                CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
+                CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
+                CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
+
+                if(checkBoxN.isChecked()) {
+                    //adds all the shelters that contain only Newborns restrictions
+                    shelterAdapter.ageFilter("Newborns");
+                    shelterAdapter.ageFilter("Families w/ Newborns");
+                    shelterAdapter.ageFilter("newborns");
+                }
+                if(checkBoxC.isChecked()) {
+                    shelterAdapter.ageFilter("Children");
+                }
+                if (checkBoxY.isChecked()) {
+                    shelterAdapter.ageFilter("Young Adults");
+                    shelterAdapter.ageFilter("Young adults");
+                }
+                if (checkBoxA.isChecked()) {
+                    shelterAdapter.ageFilter("Anyone");
+                }
+
+                ageCategories.dismiss();
+            }
+        });
+        ageCategories.show();
     }
 
 }
