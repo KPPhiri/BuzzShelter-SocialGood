@@ -305,13 +305,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    shelterAdapter.ageFilter("Families w/ Newborns");
 //                    shelterAdapter.noFilter();
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("newborns"))){
+                        if(!(a.getShelterRestrictions().contains("newborns"))
+                                || !(a.getShelterRestrictions().contains("Newborns"))
+                                || !(a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("newborns"))){
+                        if((a.getShelterRestrictions().contains("newborns"))
+                                || (a.getShelterRestrictions().contains("Newborns"))
+                                || (a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }
@@ -339,13 +343,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    shelterAdapter.ageFilter("Young Adults");
 //                    shelterAdapter.ageFilter("Young adults");
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("Young adults"))){
+                        if(!(a.getShelterRestrictions().contains("Young adults"))
+                                || !(a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("Young adults"))){
+                        if((a.getShelterRestrictions().contains("Young adults"))
+                                || (a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }
