@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,6 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Dialog ageCategories;
     private Button filter;
     ShelterList shelterAdapter;
+    HashMap<String,Marker> hashMapMarker;
 
 
     @Override
@@ -60,6 +62,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         shelters = new ArrayList<>();
+
+        shelterAdapter = new ShelterList(MapsActivity.this, shelters);
+
+
+
+
+
 
 //        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 //            @Override
@@ -117,6 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
+        hashMapMarker = new HashMap<>();
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this, android.R.layout.simple_spinner_item,
                 Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -128,10 +138,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (selectedItem.equals("Gender")) {
                     showGenderPopUp();
                 } else if (selectedItem.equals("Age")) {
-                    showAgePopUp();
+                   showAgePopUp();
                 } else if (selectedItem.equals("No Filters")) {
                     showAllShelters();
+                    Log.d("ShelterY", shelters.size() + " ");
                 }
+
             }
 
             // to close the onItemSelected
@@ -139,6 +151,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+        Log.d("ShelterX", shelters.size() + " ");
+        final EditText searchET = (EditText)findViewById(R.id.searchBar);
+
+
+        searchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                String text = searchET.getText().toString();
+                //shelterAdapter.filter(text);
+                for (Shelter a: shelters) {
+                    if(!(a.getShelterName().contains(text))){
+                        Marker marker = hashMapMarker.get(a.getShelterName());
+                        marker.setVisible(false);
+                    }
+                }
+                for (Shelter a: shelters) {
+                    if((a.getShelterName().contains(text))){
+                        Marker marker = hashMapMarker.get(a.getShelterName());
+                        marker.setVisible(true);
+                    }
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0 , int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+            }
+
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+
+
+
+
     }
     
     private void showAllShelters() {
@@ -155,9 +209,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     shelters.add(shelter);
 
                     LatLng x = new LatLng(Double.parseDouble((String) tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
-                    mMap.addMarker(new MarkerOptions()
+                    Marker temp = mMap.addMarker(new MarkerOptions()
                             .position(x).title((String) tuple.child("Shelter Name").getValue())
                             .snippet((String) tuple.child("Phone Number").getValue()));
+                    hashMapMarker.put(shelter.getShelterName(), temp);
                     float zoomLevel = 11f;
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746, -84.386330), zoomLevel));
                 }
@@ -171,6 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
         filter = (Button) genderCategories.findViewById(R.id.filterButton);
@@ -181,10 +237,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
 
                 if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
-                    shelterAdapter.genFilter("Men");
+                    //shelterAdapter.genFilter("Men");
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("Men"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("Men"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
+
                 }
                 if(checkBoxF.isChecked() && !checkBoxM.isChecked()) {
-                    shelterAdapter.genFilter("Women");
+                    //shelterAdapter.genFilter("Women");
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("Women"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("Women"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
                 }
 
                 genderCategories.dismiss();
@@ -194,8 +275,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void showAgePopUp() {
+
+//
+//        Marker marker3 = hashMapMarker.get("Eden Village");
+//        marker3.setVisible(false);
+//        hashMapMarker.remove("Eden Village");
+//
+//
+//        Marker marker1 = hashMapMarker.get("The Shepherd's Inn");
+//        marker1.setVisible(false);
+//        hashMapMarker.remove("The Shepherd's Inn");
+//
+//        Marker marker2 = hashMapMarker.get("Fuqua Hall");
+//        marker2.setVisible(false);
+//        hashMapMarker.remove("Fuqua Hall");
+
         ageCategories.setContentView(R.layout.age_categories);
         filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,22 +300,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
                 CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
                 CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
-
                 if(checkBoxN.isChecked()) {
-                    //adds all the shelters that contain only Newborns restrictions
-                    shelterAdapter.ageFilter("Newborns");
-                    shelterAdapter.ageFilter("Families w/ Newborns");
-                    shelterAdapter.ageFilter("newborns");
+//                    shelterAdapter.ageFilter("Newborns");
+//                    shelterAdapter.ageFilter("Families w/ Newborns");
+//                    shelterAdapter.noFilter();
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("newborns"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("newborns"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
+
+
                 }
                 if(checkBoxC.isChecked()) {
-                    shelterAdapter.ageFilter("Children");
+                    //shelterAdapter.ageFilter("Children");
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("Children"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("Children"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
                 }
                 if (checkBoxY.isChecked()) {
-                    shelterAdapter.ageFilter("Young Adults");
-                    shelterAdapter.ageFilter("Young adults");
+//                    shelterAdapter.ageFilter("Young Adults");
+//                    shelterAdapter.ageFilter("Young adults");
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("Young adults"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("Young adults"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
                 }
                 if (checkBoxA.isChecked()) {
-                    shelterAdapter.ageFilter("Anyone");
+                    //shelterAdapter.ageFilter("Anyone");
+                    for (Shelter a: shelters) {
+                        if(!(a.getShelterRestrictions().contains("Anyone"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(false);
+                        }
+                    }
+                    for (Shelter a: shelters) {
+                        if((a.getShelterRestrictions().contains("Anyone"))){
+                            Marker marker = hashMapMarker.get(a.getShelterName());
+                            marker.setVisible(true);
+                        }
+                    }
                 }
 
                 ageCategories.dismiss();
