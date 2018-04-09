@@ -50,6 +50,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * shelter list activity
+ */
 public class ShelterListActivity extends AppCompatActivity {
     //private Button logout;
     private Button filter;
@@ -276,16 +279,28 @@ public class ShelterListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * @param pos position of current shelter
+     */
     public void curShelter(Integer pos) {
         cur = (Shelter) listViewShelters.getItemAtPosition(pos);
 
     }
+
+    /**
+     * @param added add to shelter capacity
+     */
     public static void release(String added) {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
         shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
 
     }
-    //update registered shelter and claim number
+
+    /**
+     * update registered shelter and claim number
+     * @param cur current shelter
+     * @param claims claim number
+     */
     public void claim(Shelter cur, EditText claims) {
         curShelter(Integer.parseInt(cur.getUniqueKey()));
         user = FirebaseAuth.getInstance();
@@ -296,7 +311,12 @@ public class ShelterListActivity extends AppCompatActivity {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
         shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
     }
-    //for shelter details popup
+
+    /**
+     * for shelter details popup
+     * @param v view
+     * @param s shelter
+     */
     public void ShowDetails(View v, Shelter s) {
         final Shelter cur = s;
         Button claimButton;

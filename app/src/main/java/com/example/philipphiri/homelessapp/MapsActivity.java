@@ -38,6 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Maps Activity
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private GoogleMap mMap;

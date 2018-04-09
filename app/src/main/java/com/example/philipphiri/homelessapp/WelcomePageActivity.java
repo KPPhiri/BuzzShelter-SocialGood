@@ -34,6 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+/**
+ * welcome page activity
+ */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     static FirebaseAuth user;
     private DatabaseReference userData;
@@ -165,7 +168,10 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         myDialog.show();
 
     }
-    //to get current user's id
+
+    /**
+     * @return current user's id
+     */
     public static String getCurrentUser() {
         return user.getCurrentUser().getUid();
     }

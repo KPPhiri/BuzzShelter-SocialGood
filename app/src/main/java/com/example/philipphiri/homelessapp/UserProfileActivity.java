@@ -16,6 +16,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ * user profile activity
+ */
 public class UserProfileActivity extends AppCompatActivity {
 
     private Button claimsButton;

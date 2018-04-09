@@ -18,6 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ * Main Page Activity
+ */
 public class MainPageActivity extends AppCompatActivity {
 
     private ImageButton userProfileButton;
@@ -75,6 +78,9 @@ public class MainPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @return current user
+     */
     public static User getCurrentUser() {
         return u;
     }
