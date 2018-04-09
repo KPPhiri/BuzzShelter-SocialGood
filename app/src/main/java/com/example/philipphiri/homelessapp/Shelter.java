@@ -6,10 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by philipphiri on 2/24/18.
- */
-
 public class Shelter {
     private String address;
     private String capacity;
@@ -34,7 +30,9 @@ public class Shelter {
      * @param specialNotes special notes of shelter
      * @param uniqueKey unique key of shelter
      */
-    public Shelter(String address, String capacity, double latitude, double longitude, String phoneNumber, String restrictions, String shelterName, String specialNotes, String uniqueKey) {
+    public Shelter(String address, String capacity, double latitude, double longitude,
+                   String phoneNumber, String restrictions, String shelterName,
+                   String specialNotes, String uniqueKey) {
         this.address = address;
         this.capacity = capacity;
         this.latitude = latitude;

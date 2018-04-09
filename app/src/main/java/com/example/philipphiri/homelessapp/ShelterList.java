@@ -17,10 +17,6 @@ import java.util.Locale;
 
 import static com.example.philipphiri.homelessapp.R.layout.activity_shelter_list;
 
-/**
- * Created by philipphiri on 2/24/18.
- */
-
 public class ShelterList extends ArrayAdapter<Shelter>{
     private Activity context;
     List<Shelter> shelterList;

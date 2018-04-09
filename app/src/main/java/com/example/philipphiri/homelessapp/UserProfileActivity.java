@@ -58,7 +58,8 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 current_user.child("ShelterRegistered").setValue("none");
                 current_user.child("NumberClaimed").setValue("0");
-                //releasing crashes when emulator is restarted and the first thing you do is try to release a previous claim
+                //releasing crashes when emulator is restarted and the first thing you do is try to
+                // release a previous claim
                 //but is fine in between logins during same emulator usage
                 ShelterListActivity.release(MainPageActivity.getCurrentUser().getNumClaims());
             }

@@ -6,10 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by philipphiri on 2/20/18.
- */
-
 public class User {
     private String userType;
     private String permissionLevel;
@@ -31,7 +27,8 @@ public class User {
      * @param email email of user
      * @param religion religion of user
      */
-    public User(String userType, String permissionLevel, String residence, String name, String claims, String email, String religion) {
+    public User(String userType, String permissionLevel, String residence, String name,
+                String claims, String email, String religion) {
         this.userType = userType;
         this.permissionLevel = permissionLevel;
         this.residence = residence;

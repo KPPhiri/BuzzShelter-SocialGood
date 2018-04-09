@@ -93,8 +93,8 @@ public class ShelterListActivity extends AppCompatActivity {
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
-                Filter.values());
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (
+                this, android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
@@ -146,12 +146,14 @@ public class ShelterListActivity extends AppCompatActivity {
         builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
                 (dialog, which) -> {
                     try {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
+                        AlertDialog.Builder builder3 =
+                        new AlertDialog.Builder(listViewShelters.this);
                         builder3.setMessage("Not enough space").setNegativeButton("Exit",
                                 null).show();
                     }
                     catch (NumberFormatException n) {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters, this);
+                        AlertDialog.Builder builder3 =
+                        new AlertDialog.Builder(listViewShelters, this);
                         builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
                     }
         }).show();
@@ -234,9 +236,15 @@ public class ShelterListActivity extends AppCompatActivity {
                 shelters.clear();
 
                 for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
-                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),
+                            (String) tuple.child("Capacity").getValue(),
+                            Double.parseDouble((String)tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()),
+                            (String)tuple.child("Phone Number").getValue(),
+                            (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(),
+                            (String)tuple.child("Special Notes").getValue(),
+                            (String) tuple.child("Unique Key").getValue());
 
                     shelters.add(shelter);
                 }
@@ -253,7 +261,8 @@ public class ShelterListActivity extends AppCompatActivity {
                     @Override
                     public void afterTextChanged(Editable arg0) {
                         // TODO Auto-generated method stub
-                        String text = searchET.getText().toString().toLowerCase(Locale.getDefault());
+                        String text = searchET.getText().toString().
+                                toLowerCase(Locale.getDefault());
                         shelterAdapter.filter(text);
                     }
 
@@ -292,7 +301,8 @@ public class ShelterListActivity extends AppCompatActivity {
      */
     public static void release(String added) {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
+        shelter.child("Capacity").setValue(Integer.toString(
+                Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
 
     }
 
@@ -309,7 +319,9 @@ public class ShelterListActivity extends AppCompatActivity {
         current_user.child("ShelterRegistered").setValue(cur.getShelterName());
         current_user.child("NumberClaimed").setValue(claims.getText().toString());
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
+        shelter.child("Capacity").setValue(Integer.toString(
+                Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(
+                        claims.getText().toString())));
     }
 
     /**
@@ -338,9 +350,12 @@ public class ShelterListActivity extends AppCompatActivity {
 
                 if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
                     //should we have a check to see if what they typed is even a number?
-                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+                    if (Integer.parseInt(claims.getText().toString()) != 0
+                            && Integer.parseInt(claims.getText().toString())
+                            < Integer.parseInt(cur.getShelterCapacity())) {
                         claim(cur,claims);
-                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
+                    } else if ( Integer.parseInt(claims.getText().toString())
+                            > Integer.parseInt(cur.getShelterCapacity())){
                         claims.setError("Not Enough Space");
                     } else {
                         claims.setError("Please Enter Valid Number");

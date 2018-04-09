@@ -5,7 +5,8 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 
 
-/** Spinner extension that callas onItemSelected even when the selection is the same as its previous value */
+/** Spinner extension that callas onItemSelected even when the selection is the same as its
+ * previous value */
 public class NDSpinner extends AppCompatSpinner {
 
     /**
@@ -34,8 +35,10 @@ public class NDSpinner extends AppCompatSpinner {
         boolean sameSelected = position == getSelectedItemPosition();
         super.setSelection(position, animate);
         if (sameSelected) {
-            // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            // Spinner does not call the OnItemSelectedListener if the same item is selected,
+            // so do it manually now
+            getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
+                    position, getSelectedItemId());
         }
     }
 
@@ -44,8 +47,10 @@ public class NDSpinner extends AppCompatSpinner {
         boolean sameSelected = position == getSelectedItemPosition();
         super.setSelection(position);
         if (sameSelected) {
-            // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            // Spinner does not call the OnItemSelectedListener if the same item is selected,
+            // so do it manually now
+            getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
+                    position, getSelectedItemId());
         }
     }
 
