@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Registration Activity
+ */
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar progressBar;
@@ -71,7 +74,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(editTextEmail.getText().toString().trim()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(
+                editTextEmail.getText().toString().trim()).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
 
@@ -87,7 +91,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         progressBar.setVisibility(View.VISIBLE);
 
-        user.createUserWithEmailAndPassword(editTextEmail.getText().toString().trim(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.createUserWithEmailAndPassword(editTextEmail.getText().toString().trim(),
+                password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String email = editTextEmail.getText().toString().trim();
@@ -114,10 +119,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                        Toast.makeText(getApplicationContext(), "Email is already used", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                "Email is already used", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

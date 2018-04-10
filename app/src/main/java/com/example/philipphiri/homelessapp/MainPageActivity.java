@@ -18,6 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ * Main Page Activity
+ */
 public class MainPageActivity extends AppCompatActivity {
 
     private ImageButton userProfileButton;
@@ -75,6 +78,9 @@ public class MainPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @return current user
+     */
     public static User getCurrentUser() {
         return u;
     }
@@ -87,9 +93,12 @@ public class MainPageActivity extends AppCompatActivity {
         current_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                u = new User((String)dataSnapshot.child("UserType").getValue(), (String)dataSnapshot.child("PermissionLevel").getValue(),
-                        (String)dataSnapshot.child("ShelterRegistered").getValue(), (String)dataSnapshot.child("Name").getValue(),
-                        (String)dataSnapshot.child("NumberClaimed").getValue(), (String)dataSnapshot.child("Email").getValue(),
+                u = new User((String)dataSnapshot.child("UserType").getValue(),
+                        (String)dataSnapshot.child("PermissionLevel").getValue(),
+                        (String)dataSnapshot.child("ShelterRegistered").getValue(),
+                        (String)dataSnapshot.child("Name").getValue(),
+                        (String)dataSnapshot.child("NumberClaimed").getValue(),
+                        (String)dataSnapshot.child("Email").getValue(),
                         (String)dataSnapshot.child("Religion").getValue());
             }
 
