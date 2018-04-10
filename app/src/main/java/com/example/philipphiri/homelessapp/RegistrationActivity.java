@@ -26,19 +26,19 @@ import com.google.firebase.database.FirebaseDatabase;
  * Registration Activity
  */
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-
+    RadioButton buttonUser;
     private ProgressBar progressBar;
     private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
-
+    private RadioButton buttonAdmin;
+    private RadioGroup radioGroup;
     private static FirebaseAuth user;
     private DatabaseReference userData;
 
-    private RadioButton buttonAdmin;
-    private RadioButton buttonUser;
-    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 

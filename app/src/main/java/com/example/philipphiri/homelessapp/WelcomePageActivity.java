@@ -41,10 +41,10 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
-    private Button okay;
-    private Button cancel;
-    private Button back;
-    private Button loginButton, regButton;
+    Button okay;
+    Button cancel;
+    Button back;
+    Button loginButton, regButton;
 
 
     Dialog myDialog;
