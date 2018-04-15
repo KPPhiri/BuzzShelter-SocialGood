@@ -1,8 +1,6 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,12 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,8 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
+/**
+ * Maps Activity
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private GoogleMap mMap;
@@ -64,6 +58,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    //check if user has up-to-date google services
+//    public boolean isServicesOK() {
+//        Log.d(TAG, "isServicesOK: checking google services version");
+//        int available = GoogleApiAvailability.getInstance()
+//          .isGooglePlayServicesAvailable(MapsActivity.this);
+//        //user is okay
+//        if (available == ConnectionResult.SUCCESS) {
+//            Log.d(TAG, "isServicesOK: checking google is working");
+//            return true;
+//        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+//            //error like update google play (fixable error)
+//            Log.d(TAG, "isServicesOK: error occured but we can fix it");
+//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapsActivity.this,
+//              available, ERROR_DIALOG_REQUEST);
+//            dialog.show();
+//        } else {
+//            Toast.makeText(this, "You can't make map request.";)
+//        }
+//        return false;
+//    }
+//
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -80,8 +96,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this, android.R.layout.simple_spinner_item,
-                Filter.values());
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
@@ -111,7 +127,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
                 String text = searchET.getText().toString();
                 //shelterAdapter.filter(text);
                 for (Shelter a: shelters) {
@@ -131,14 +146,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void beforeTextChanged(CharSequence arg0 , int arg1,
                                           int arg2, int arg3) {
-                // TODO Auto-generated method stub
             }
 
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                       int arg3) {
-                // TODO Auto-generated method stub
             }
         });
 
@@ -155,19 +168,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 shelters.clear();
 
                 for (DataSnapshot tuple : dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(), (String) tuple.child("Capacity").getValue(), Double.parseDouble((String) tuple.child("Latitude ").getValue()),
-                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String) tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                            (String) tuple.child("Shelter Name").getValue(), (String) tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),
+                            (String) tuple.child("Capacity").getValue(),
+                            Double.parseDouble((String) tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()),
+                            (String) tuple.child("Phone Number").getValue(),
+                            (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(),
+                            (String) tuple.child("Special Notes").getValue(),
+                            (String) tuple.child("Unique Key").getValue());
                     //Shelter shelter = tuple.getValue(Shelter.class);
                     shelters.add(shelter);
 
-                    LatLng x = new LatLng(Double.parseDouble((String) tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
+                    LatLng x = new LatLng(Double.parseDouble((String)
+                            tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()));
                     Marker temp = mMap.addMarker(new MarkerOptions()
                             .position(x).title((String) tuple.child("Shelter Name").getValue())
                             .snippet((String) tuple.child("Phone Number").getValue()));
                     hashMapMarker.put(shelter.getShelterName(), temp);
                     float zoomLevel = 11f;
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746, -84.386330), zoomLevel));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746,
+                            -84.386330), zoomLevel));
                 }
 
 
@@ -241,13 +263,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
                 if(checkBoxN.isChecked()) {
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("newborns"))){
+                        if(!(a.getShelterRestrictions().contains("newborns"))
+                                || !(a.getShelterRestrictions().contains("Newborns"))
+                                || !(a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("newborns"))){
+                        if((a.getShelterRestrictions().contains("newborns"))
+                                || (a.getShelterRestrictions().contains("Newborns"))
+                                || (a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }
@@ -272,13 +298,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 if (checkBoxY.isChecked()) {
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("Young adults"))){
+                        if(!(a.getShelterRestrictions().contains("Young adults"))
+                                || !(a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("Young adults"))){
+                        if((a.getShelterRestrictions().contains("Young adults"))
+                                || (a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }

@@ -1,9 +1,8 @@
 package com.example.philipphiri.homelessapp;
 
 /**
- * Created by Bianca on 3/4/18.
+ * Filter enum
  */
-
 public enum Filter{
     INITIAL("No Filters"),
     GENDER("Gender"),

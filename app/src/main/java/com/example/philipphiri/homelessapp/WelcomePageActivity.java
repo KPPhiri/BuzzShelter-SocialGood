@@ -5,24 +5,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.util.Patterns;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,14 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+/**
+ * welcome page activity
+ */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     private static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
-    private Button okay;
-    private Button cancel;
-    private Button back;
-    private Button loginButton, regButton;
+    Button okay;
+    Button cancel;
+    Button back;
+    Button loginButton, regButton;
 
 
     private Dialog myDialog;
@@ -87,7 +79,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        user.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -99,19 +92,23 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String type = dataSnapshot.child("UserType").getValue(String.class);
                             if (type.equals("Admin")) {
-//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                Intent i = new Intent(WelcomePageActivity.this,
+//                                  RegistrationActivity.class);
 //                                startActivity(i);
                             } else {
-//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                Intent i = new Intent(WelcomePageActivity.this,
+//                                  RegistrationActivity.class);
 //                                startActivity(i);
                             }
 //                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
-                            Intent i = new Intent(WelcomePageActivity.this, MainPageActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this,
+                                    MainPageActivity.class);
                             startActivity(i);
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Intent i = new Intent(WelcomePageActivity.this, WelcomePageActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this,
+                                    WelcomePageActivity.class);
                             startActivity(i);
                         }
                     });
@@ -165,7 +162,10 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         myDialog.show();
 
     }
-    //to get current user's id
+
+    /**
+     * @return current user's id
+     */
     public static String getCurrentUser() {
         return user.getCurrentUser().getUid();
     }
@@ -175,7 +175,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         if (view.getId() == R.id.loginButton) {
             ShowPopUp(view);
         } else if (view.getId() == R.id.regButton) {
-            Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+            Intent b = new Intent(WelcomePageActivity.this,
+                    RegistrationActivity.class);
             //restarts welcome screen to refresh buttons
             startActivity(b);
         }
