@@ -13,43 +13,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.TextWatcher;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
+/**
+ * shelter list activity
+ */
 public class ShelterListActivity extends AppCompatActivity {
     //private Button logout;
     private Button filter;
@@ -75,6 +62,14 @@ public class ShelterListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
 
+        //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
+        Shelter original = new Shelter("ee", "capacity", 2.0,
+                0.0,"phone", "rest", "name",
+                "note", "100");
+        List <Shelter> o = new ArrayList<>();
+        o.add(original);
+        shelterAdapter = new ShelterList(ShelterListActivity.this,o);
+
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
@@ -89,8 +84,8 @@ public class ShelterListActivity extends AppCompatActivity {
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (this, android.R.layout.simple_spinner_item,
-                Filter.values());
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<> (
+                this, android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
@@ -132,6 +127,27 @@ public class ShelterListActivity extends AppCompatActivity {
 
     }
     /**
+    private void vacancies() {
+        int input = 0; // vacancies user wants to put
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(listViewShelters.this);
+        builder.setMessage(shelters.get().getVacancies()).setNegativeButton("Exit", null);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(listViewShelters. this);
+        builder2.setView(input);
+        builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
+                (dialog, which) -> {
+                    try {
+                        AlertDialog.Builder builder3 = new AlertDialog.
+                            Builder(listViewShelters.this);
+                        builder3.setMessage("Not enough space").setNegativeButton("Exit",
+                                null).show();
+                    }
+                    catch (NumberFormatException n) {
+                        AlertDialog.Builder builder3 =
+                        new AlertDialog.Builder(listViewShelters, this);
+                        builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
+                    }
+        }).show();
      private void vacancies() {
      int input = 0; // vacancies user wants to put
      ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
@@ -230,9 +246,15 @@ public class ShelterListActivity extends AppCompatActivity {
                 shelters.clear();
 
                 for (DataSnapshot tuple: dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),(String) tuple.child("Capacity").getValue(), Double.parseDouble((String)tuple.child("Latitude ").getValue()),
-                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String)tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                            (String) tuple.child("Shelter Name").getValue(), (String)tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),
+                            (String) tuple.child("Capacity").getValue(),
+                            Double.parseDouble((String)tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()),
+                            (String)tuple.child("Phone Number").getValue(),
+                            (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(),
+                            (String)tuple.child("Special Notes").getValue(),
+                            (String) tuple.child("Unique Key").getValue());
 
                     shelters.add(shelter);
                 }
@@ -248,22 +270,20 @@ public class ShelterListActivity extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable arg0) {
-                        // TODO Auto-generated method stub
-                        String text = searchET.getText().toString().toLowerCase(Locale.getDefault());
+                        String text = searchET.getText().toString().
+                                toLowerCase(Locale.getDefault());
                         shelterAdapter.filter(text);
                     }
 
                     @Override
                     public void beforeTextChanged(CharSequence arg0 , int arg1,
                                                   int arg2, int arg3) {
-                        // TODO Auto-generated method stub
                     }
 
 
                     @Override
                     public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                               int arg3) {
-                        // TODO Auto-generated method stub
                     }
                 });
             }
@@ -275,17 +295,32 @@ public class ShelterListActivity extends AppCompatActivity {
         });
     }
 
-    private void curShelter(Integer pos) {
+    /**
+     * @param pos position of current shelter
+     */
+    public void curShelter(Integer pos) {
         cur = (Shelter) listViewShelters.getItemAtPosition(pos);
 
     }
+
+    /**
+     * @param added add to shelter capacity
+     */
     public static void release(String added) {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
+        shelter.child("Capacity").setValue(Integer.toString(
+                Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
 
     }
     //update registered shelter and claim number
     private void claim(Shelter cur, EditText claims) {
+
+    /**
+     * update registered shelter and claim number
+     * @param cur current shelter
+     * @param claims claim number
+     */
+    public void claim(Shelter cur, EditText claims) {
         curShelter(Integer.parseInt(cur.getUniqueKey()));
         // user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -293,10 +328,48 @@ public class ShelterListActivity extends AppCompatActivity {
         current_user.child("ShelterRegistered").setValue(cur.getShelterName());
         current_user.child("NumberClaimed").setValue(claims.getText().toString());
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
+        shelter.child("Capacity").setValue(Integer.toString(
+                Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(
+                        claims.getText().toString())));
     }
+
+
+    static boolean verification;
+
+    /**
+     * helper to verify legal claim
+     * @param claimNum number of claims
+     * @param cap capacity
+     * @return boolean value
+     */
+    public boolean verifyClaim(String claimNum, String cap) {
+        if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
+            verification = true;
+            return true;
+        } else {
+            verification = false;
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @return boolean if verified
+     */
+    public static boolean getVerify() {
+        return verification;
+    }
+
     //for shelter details popup
     private void ShowDetails(Shelter s) {
+
+    /**
+     * for shelter details popup
+     * @param v view
+     * @param s shelter
+     */
+
+    public void ShowDetails(View v, Shelter s) {
         final Shelter cur = s;
         Button claimButton;
         TextView detailclose;
@@ -316,14 +389,27 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
+                    boolean check = verifyClaim(claims.getText().toString(),
+                            cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?
-                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+
+                    if (check) {
                         claim(cur,claims);
-                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
-                        claims.setError("Not Enough Space");
+
                     } else {
-                        claims.setError("Please Enter Valid Number");
+                        claims.setError("Not Enough Space");
                     }
+                    //DO NOT DELETE THIS COMMENTED CODE****
+//                    if (Integer.parseInt(claims.getText().toString()) != 0
+//                      && Integer.parseInt(claims.getText().
+//                      toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+//                        claim(cur,claims);
+//                    } else if ( Integer.parseInt(claims.getText().
+//                      toString()) > Integer.parseInt(cur.getShelterCapacity())){
+//                        claims.setError("Not Enough Space");
+//                    } else {
+//                        claims.setError("Please Enter Valid Number");
+//                    }
                 } else {
                     ShowReleasePopUp();
                 }
@@ -351,7 +437,7 @@ public class ShelterListActivity extends AppCompatActivity {
         myDialog.show();
     }
 
-    private void ShowReleasePopUp() {
+    private void ShowReleasePopUp(View v) {
         Button okButton;
         myDialogPop.setContentView(R.layout.release_claims_popup);
         okButton = (Button) myDialogPop.findViewById(R.id.okButt);

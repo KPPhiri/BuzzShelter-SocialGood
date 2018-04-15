@@ -7,22 +7,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * Created by philipphiri on 2/20/18.
+ * User class with attributes
  */
-
 public class User {
-    private final String userType;
-    private final String permissionLevel;
-    private final String residence;
-    private final String name;
+    private  String userType;
+    private  String permissionLevel;
+    private  String residence;
+    private  String name;
     private String claims;
-    private final String religion;
-    private final String email;
+    private  String religion;
+    private  String email;
     //static DatabaseReference databaseUsers;
     private DatabaseReference userData;
 
 
-    public User(String userType, String permissionLevel, String residence, String name, String claims, String email, String religion) {
+    /**
+     * @param userType type of user
+     * @param permissionLevel permission level of user
+     * @param residence residence of user
+     * @param name name of user
+     * @param claims claims of user
+     * @param email email of user
+     * @param religion religion of user
+     */
+    public User(String userType, String permissionLevel, String residence, String name,
+                String claims, String email, String religion) {
         this.userType = userType;
         this.permissionLevel = permissionLevel;
         this.residence = residence;
@@ -40,10 +49,35 @@ public class User {
 //        this.userType = type;
 //    }
 
+    /**
+     * @return user type
+     */
+    public String getUserType(){
+        return userType;
+    }
+
+    /**
+     * @param type new user type
+     */
+    public void setUserType(String type){
+        this.userType = type;
+    }
+
+    /**
+     * @return residence of user
+     */
     public String getUserResidence() { return residence; }
     //UD WARNING
     // public void setUserResidence(String res) { this.residence = res; }
 
+    /**
+     * @param res new user residence
+     */
+    public void setUserResidence(String res) { this.residence = res; }
+
+    /**
+     * @return user's number of claims
+     */
     public String getNumClaims() {
 
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -64,17 +98,46 @@ public class User {
     //UD WARNING
     //public void setNumClaims(String num) {this.claims = num; }
 
+    /**
+     * @param num new number of claims
+     */
+    public void setNumClaims(String num) {this.claims = num; }
+
+    /**
+     * @return name of user
+     */
     public String getUserName() {return name; }
 //    UD WARNING
 //    public void setUserName(String newName) {this.name = newName; }
 
+    /**
+     * @param newName new name of user
+     */
+    public void setUserName(String newName) {this.name = newName; }
+
+    /**
+     * @return email of user
+     */
     public String getUserEmail() { return email; }
     //UD WARNING
     //public void setUserEmail(String newEmail) { this.email = newEmail; }
 
+    /**
+     * @param newEmail new email of user
+     */
+    public void setUserEmail(String newEmail) { this.email = newEmail; }
+
     //UD WARNING
+    /**
+     * @return religion of user
+     */
     public String getUserReligion() { return religion; }
     // public void setUserReligion(String newRel) {this.religion = newRel; }
+
+    /**
+     * @param newRel new religion of user
+     */
+    public void setUserReligion(String newRel) {this.religion = newRel; }
 
     //UD WARNING
 //    public String getPermissionLevel(){
@@ -83,5 +146,18 @@ public class User {
 //    public void setPermissionLevel(String permlvl){
 //        this.permissionLevel = permlvl;
 //    }
+    /**
+     * @return permission level of user
+     */
+    public String getPermissionLevel(){
+        return permissionLevel;
+    }
+
+    /**
+     * @param permlvl new permission level of user
+     */
+    public void setPermissionLevel(String permlvl){
+        this.permissionLevel = permlvl;
+    }
 
 }
