@@ -21,9 +21,9 @@ import static com.example.philipphiri.homelessapp.R.layout.activity_shelter_list
  * Created by philipphiri on 2/24/18.
  */
 
-public class ShelterList extends ArrayAdapter<Shelter>{
-    private Activity context;
-    List<Shelter> shelterList;
+class ShelterList extends ArrayAdapter<Shelter>{
+    private final Activity context;
+    private final List<Shelter> shelterList;
     private ArrayList<Shelter> arraylist=null;
 
     public ShelterList(Activity context, List<Shelter> shelterList) {
@@ -95,7 +95,7 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         shelterList.clear();
         {
             for (Shelter wp : arraylist) {
-                    shelterList.add(wp);
+                shelterList.add(wp);
             }
         }
         notifyDataSetChanged();

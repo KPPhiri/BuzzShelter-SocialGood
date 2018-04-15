@@ -31,7 +31,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private DatabaseReference userData;
 
     private RadioButton buttonAdmin;
-    private RadioButton buttonUser;
+    //private RadioButton buttonUser;
     private RadioGroup radioGroup;
 
     @Override
@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
-        buttonUser = (RadioButton) findViewById(R.id.buttonUser);
+        //buttonUser = (RadioButton) findViewById(R.id.buttonUser);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
 

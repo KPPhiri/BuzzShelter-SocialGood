@@ -11,15 +11,15 @@ import com.google.firebase.database.ValueEventListener;
  */
 
 public class User {
-    private String userType;
-    private String permissionLevel;
-    private String residence;
-    private String name;
+    private final String userType;
+    private final String permissionLevel;
+    private final String residence;
+    private final String name;
     private String claims;
-    private String religion;
-    private String email;
+    private final String religion;
+    private final String email;
     //static DatabaseReference databaseUsers;
-    DatabaseReference userData;
+    private DatabaseReference userData;
 
 
     public User(String userType, String permissionLevel, String residence, String name, String claims, String email, String religion) {
@@ -32,16 +32,17 @@ public class User {
         this.religion = religion;
 
     }
-
-    public String getUserType(){
-        return userType;
-    }
-    public void setUserType(String type){
-        this.userType = type;
-    }
+    //UD WARNING
+//    public String getUserType(){
+//        return userType;
+//    }
+//    public void setUserType(String type){
+//        this.userType = type;
+//    }
 
     public String getUserResidence() { return residence; }
-    public void setUserResidence(String res) { this.residence = res; }
+    //UD WARNING
+    // public void setUserResidence(String res) { this.residence = res; }
 
     public String getNumClaims() {
 
@@ -60,22 +61,27 @@ public class User {
         });
 
         return claims; }
-    public void setNumClaims(String num) {this.claims = num; }
+    //UD WARNING
+    //public void setNumClaims(String num) {this.claims = num; }
 
     public String getUserName() {return name; }
-    public void setUserName(String newName) {this.name = newName; }
+//    UD WARNING
+//    public void setUserName(String newName) {this.name = newName; }
 
     public String getUserEmail() { return email; }
-    public void setUserEmail(String newEmail) { this.email = newEmail; }
+    //UD WARNING
+    //public void setUserEmail(String newEmail) { this.email = newEmail; }
 
+    //UD WARNING
     public String getUserReligion() { return religion; }
-    public void setUserReligion(String newRel) {this.religion = newRel; }
+    // public void setUserReligion(String newRel) {this.religion = newRel; }
 
-    public String getPermissionLevel(){
-        return permissionLevel;
-    }
-    public void setPermissionLevel(String permlvl){
-        this.permissionLevel = permlvl;
-    }
+    //UD WARNING
+//    public String getPermissionLevel(){
+//        return permissionLevel;
+//    }
+//    public void setPermissionLevel(String permlvl){
+//        this.permissionLevel = permlvl;
+//    }
 
 }

@@ -41,15 +41,14 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private GoogleMap mMap;
-    List<Shelter> shelters;
-    DatabaseReference databaseShelters;
+    private List<Shelter> shelters;
+    private DatabaseReference databaseShelters;
     //private static final String TAG = "MapsActivity";
-    NDSpinner filters;
-    Dialog genderCategories;
-    Dialog ageCategories;
+    private NDSpinner filters;
+    private Dialog genderCategories;
+    private Dialog ageCategories;
     private Button filter;
-    ShelterList shelterAdapter;
-    HashMap<String,Marker> hashMapMarker;
+    private HashMap<String,Marker> hashMapMarker;
 
 
     @Override
@@ -62,54 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         shelters = new ArrayList<>();
-
-        shelterAdapter = new ShelterList(MapsActivity.this, shelters);
-
-
-
-
-
-
-//        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-//            @Override
-//            public View getInfoWindow(Marker marker) {
-//                return null;
-//            }
-//
-//            @Override
-//            public View getInfoContents(Marker marker) {
-//                View v = getLayoutInflater().inflate(R.layout.window_layout, null);
-//                //LatLng latLng = marker.getPosition();
-//                TextView tvname = v.findViewById(R.id.tv_name);
-//                TextView tvphone = v.findViewById(R.id.tv_phone);
-//                tvname.setText(marker.getTitle());
-//                tvphone.setText(marker.getSnippet());
-//
-//                return v;
-//            }
-//        });
     }
 
-
-    //check if user has up-to-date google services
-//    public boolean isServicesOK() {
-//        Log.d(TAG, "isServicesOK: checking google services version");
-//        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapsActivity.this);
-//        //user is okay
-//        if (available == ConnectionResult.SUCCESS) {
-//            Log.d(TAG, "isServicesOK: checking google is working");
-//            return true;
-//        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-//            //error like update google play (fixable error)
-//            Log.d(TAG, "isServicesOK: error occured but we can fix it");
-//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapsActivity.this, available, ERROR_DIALOG_REQUEST);
-//            dialog.show();
-//        } else {
-//            Toast.makeText(this, "You can't make map request.";)
-//        }
-//        return false;
-//    }
-//
 
     /**
      * Manipulates the map once available.
@@ -138,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (selectedItem.equals("Gender")) {
                     showGenderPopUp();
                 } else if (selectedItem.equals("Age")) {
-                   showAgePopUp();
+                    showAgePopUp();
                 } else if (selectedItem.equals("No Filters")) {
                     showAllShelters();
                     Log.d("ShelterY", shelters.size() + " ");
@@ -194,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-    
+
     private void showAllShelters() {
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -276,20 +229,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void showAgePopUp() {
 
-//
-//        Marker marker3 = hashMapMarker.get("Eden Village");
-//        marker3.setVisible(false);
-//        hashMapMarker.remove("Eden Village");
-//
-//
-//        Marker marker1 = hashMapMarker.get("The Shepherd's Inn");
-//        marker1.setVisible(false);
-//        hashMapMarker.remove("The Shepherd's Inn");
-//
-//        Marker marker2 = hashMapMarker.get("Fuqua Hall");
-//        marker2.setVisible(false);
-//        hashMapMarker.remove("Fuqua Hall");
-
         ageCategories.setContentView(R.layout.age_categories);
         filter = (Button) ageCategories.findViewById(R.id.filterButton2);
 
@@ -301,9 +240,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
                 CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
                 if(checkBoxN.isChecked()) {
-//                    shelterAdapter.ageFilter("Newborns");
-//                    shelterAdapter.ageFilter("Families w/ Newborns");
-//                    shelterAdapter.noFilter();
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
@@ -320,7 +256,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
                 if(checkBoxC.isChecked()) {
-                    //shelterAdapter.ageFilter("Children");
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("Children"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
@@ -336,8 +271,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 if (checkBoxY.isChecked()) {
-//                    shelterAdapter.ageFilter("Young Adults");
-//                    shelterAdapter.ageFilter("Young adults");
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("Young adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
@@ -352,7 +285,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 if (checkBoxA.isChecked()) {
-                    //shelterAdapter.ageFilter("Anyone");
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("Anyone"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());

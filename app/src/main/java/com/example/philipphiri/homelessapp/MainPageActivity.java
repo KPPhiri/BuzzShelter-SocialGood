@@ -25,12 +25,12 @@ public class MainPageActivity extends AppCompatActivity {
     private ImageButton shelterListButton;
     private Button logout;
 
-    private TextView profileText;
-    private TextView mapText;
-    private TextView shelterText;
+//    private TextView profileText;
+//    private TextView mapText;
+//    private TextView shelterText;
 
-    DatabaseReference userData;
-    static User u;
+    private DatabaseReference userData;
+    private static User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,9 @@ public class MainPageActivity extends AppCompatActivity {
         userProfileButton = findViewById(R.id.profileButton);
         mapActivityButton = findViewById(R.id.mapButton);
         shelterListButton = findViewById(R.id.sheltersButton);
-        profileText = findViewById(R.id.profileTextView);
-        mapText = findViewById(R.id.mapTextView);
-        shelterText = findViewById(R.id.shelterTextView);
+//        profileText = findViewById(R.id.profileTextView);
+//        mapText = findViewById(R.id.mapTextView);
+//        shelterText = findViewById(R.id.shelterTextView);
         logout = findViewById(R.id.logoutButton);
 
         logout.setOnClickListener(new View.OnClickListener() {

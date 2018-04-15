@@ -53,28 +53,27 @@ import java.util.Map;
 public class ShelterListActivity extends AppCompatActivity {
     //private Button logout;
     private Button filter;
-    FirebaseAuth user;
-    DatabaseReference userData;
-    Dialog myDialog;
-    Dialog genderCategories;
-    Dialog ageCategories;
+    //private FirebaseAuth user;
+    private DatabaseReference userData;
+    private Dialog myDialog;
+    private Dialog genderCategories;
+    private Dialog ageCategories;
 
-    ListView listViewShelters;
-    List<Shelter> shelters;
-    static DatabaseReference databaseShelters;
-    NDSpinner filters;
-    ShelterList shelterAdapter;
+    private ListView listViewShelters;
+    private List<Shelter> shelters;
+    private static DatabaseReference databaseShelters;
+    private NDSpinner filters;
+    private ShelterList shelterAdapter;
 
     //int pos;
-    static Shelter cur;
+    private static Shelter cur;
     //static String numbo;
-    Dialog myDialogPop;
+    private Dialog myDialogPop;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
-        Intent intent = getIntent();
 
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
@@ -119,7 +118,7 @@ public class ShelterListActivity extends AppCompatActivity {
 //        });
 
         //for getting current user's info
-        user = FirebaseAuth.getInstance();
+        //user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
 
         listViewShelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,33 +126,33 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Shelter s = (Shelter) listViewShelters.getItemAtPosition(position);
                 //curShelter(pos);
-                ShowDetails(v,s);
+                ShowDetails(s);
             }
         });
 
     }
     /**
-    private void vacancies() {
-        int input = 0; // vacancies user wants to put
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(listViewShelters.this);
-        builder.setMessage(shelters.get().getVacancies()).setNegativeButton("Exit", null);
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(listViewShelters. this);
-        builder2.setView(input);
-        builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
-                (dialog, which) -> {
-                    try {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
-                        builder3.setMessage("Not enough space").setNegativeButton("Exit",
-                                null).show();
-                    }
-                    catch (NumberFormatException n) {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters, this);
-                        builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
-                    }
-        }).show();
+     private void vacancies() {
+     int input = 0; // vacancies user wants to put
+     ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
+     final AlertDialog.Builder builder = new AlertDialog.Builder(listViewShelters.this);
+     builder.setMessage(shelters.get().getVacancies()).setNegativeButton("Exit", null);
+     AlertDialog.Builder builder2 = new AlertDialog.Builder(listViewShelters. this);
+     builder2.setView(input);
+     builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
+     (dialog, which) -> {
+     try {
+     AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
+     builder3.setMessage("Not enough space").setNegativeButton("Exit",
+     null).show();
+     }
+     catch (NumberFormatException n) {
+     AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters, this);
+     builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
+     }
+     }).show();
 
-    }
+     }
      */
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
@@ -276,7 +275,7 @@ public class ShelterListActivity extends AppCompatActivity {
         });
     }
 
-    public void curShelter(Integer pos) {
+    private void curShelter(Integer pos) {
         cur = (Shelter) listViewShelters.getItemAtPosition(pos);
 
     }
@@ -286,9 +285,9 @@ public class ShelterListActivity extends AppCompatActivity {
 
     }
     //update registered shelter and claim number
-    public void claim(Shelter cur, EditText claims) {
+    private void claim(Shelter cur, EditText claims) {
         curShelter(Integer.parseInt(cur.getUniqueKey()));
-        user = FirebaseAuth.getInstance();
+        // user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
         DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
         current_user.child("ShelterRegistered").setValue(cur.getShelterName());
@@ -297,7 +296,7 @@ public class ShelterListActivity extends AppCompatActivity {
         shelter.child("Capacity").setValue(Integer.toString(Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(claims.getText().toString())));
     }
     //for shelter details popup
-    public void ShowDetails(View v, Shelter s) {
+    private void ShowDetails(Shelter s) {
         final Shelter cur = s;
         Button claimButton;
         TextView detailclose;
@@ -326,7 +325,7 @@ public class ShelterListActivity extends AppCompatActivity {
                         claims.setError("Please Enter Valid Number");
                     }
                 } else {
-                    ShowReleasePopUp(view);
+                    ShowReleasePopUp();
                 }
 
             }
@@ -352,7 +351,7 @@ public class ShelterListActivity extends AppCompatActivity {
         myDialog.show();
     }
 
-    private void ShowReleasePopUp(View v) {
+    private void ShowReleasePopUp() {
         Button okButton;
         myDialogPop.setContentView(R.layout.release_claims_popup);
         okButton = (Button) myDialogPop.findViewById(R.id.okButt);
