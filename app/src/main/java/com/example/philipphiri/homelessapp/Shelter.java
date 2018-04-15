@@ -6,10 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by philipphiri on 2/24/18.
- */
-
 public class Shelter {
     private String address;
     private String capacity;
@@ -23,7 +19,20 @@ public class Shelter {
 
     static DatabaseReference databaseShelters;
 
-    public Shelter(String address, String capacity, double latitude, double longitude, String phoneNumber, String restrictions, String shelterName, String specialNotes, String uniqueKey) {
+    /**
+     * @param address address of shelter
+     * @param capacity capacity of shelter
+     * @param latitude latitude of shelter
+     * @param longitude longitude of shelter
+     * @param phoneNumber phone number of shelter
+     * @param restrictions restrictions of shelter
+     * @param shelterName name of shelter
+     * @param specialNotes special notes of shelter
+     * @param uniqueKey unique key of shelter
+     */
+    public Shelter(String address, String capacity, double latitude, double longitude,
+                   String phoneNumber, String restrictions, String shelterName,
+                   String specialNotes, String uniqueKey) {
         this.address = address;
         this.capacity = capacity;
         this.latitude = latitude;
@@ -36,6 +45,9 @@ public class Shelter {
         //this.claims = "0";
     }
 
+    /**
+     * @return shelter name
+     */
     public String getShelterName() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -55,9 +67,16 @@ public class Shelter {
         });
         return shelterName;
     }
+
+    /**
+     * @param name new shelter name
+     */
     public void setShelterName(String name) { shelterName = name; }
 
-    public String getShelterAddress(){
+    /**
+     * @return shelter address
+     */
+    public synchronized String getShelterAddress(){
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,8 +95,15 @@ public class Shelter {
         });
         return address;
     }
+
+    /**
+     * @param add new shelter address
+     */
     public void setShelterAddress(String add) { address = add; }
 
+    /**
+     * @return shelter capacity
+     */
     public String getShelterCapacity() {
 
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
@@ -97,8 +123,15 @@ public class Shelter {
             }
         });
         return capacity; }
+
+    /**
+     * @param c new capacity of shelter
+     */
     public void setCapacity(String c) { capacity = c; }
 
+    /**
+     * @return shelter restrictions
+     */
     public String getShelterRestrictions() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -117,18 +150,40 @@ public class Shelter {
             }
         });
         return restrictions; }
+
+    /**
+     * @param restrict new shelter restrictions
+     */
     public void setShelterRestrictions(String restrict) { restrictions = restrict; }
+
+    /**
+     * @return shelter longitude
+     */
     public double getShelterLongitude() {
 
         return longitude;
     }
+
+    /**
+     * @param longi new shelter longitude
+     */
     public void setShelterLongitude(Double longi) { longitude = longi; }
 
+    /**
+     * @return shelter latitude
+     */
     public double getShelterLatitude() {
 
         return latitude; }
+
+    /**
+     * @param lati new shelter latitude
+     */
     public void setShelterLatitude(Double lati) { latitude = lati; }
 
+    /**
+     * @return shelter phone number
+     */
     public String getShelterPhone() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -149,8 +204,15 @@ public class Shelter {
 
         return phoneNumber;
     }
+
+    /**
+     * @param phone new shelter phone number
+     */
     public void setShelterPhone(String phone) { phoneNumber = phone; }
 
+    /**
+     * @return shelter notes
+     */
     public String getShelterNotes() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -170,8 +232,15 @@ public class Shelter {
         });
         return specialNotes;
     }
+
+    /**
+     * @param notes new shelter notes
+     */
     public void setShelterNotes(String notes) { specialNotes = notes; }
 
+    /**
+     * @return unique shelter key
+     */
     public String getUniqueKey() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -190,6 +259,10 @@ public class Shelter {
             }
         });
         return uniqueKey; }
+
+    /**
+     * @param key new unique shelter key
+     */
     public void setUniqueKey(String key) { uniqueKey = key; }
 
 

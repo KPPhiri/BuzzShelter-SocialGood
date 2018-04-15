@@ -1,8 +1,5 @@
 package com.example.philipphiri.homelessapp;
 
-/**
- * Created by Bianca on 3/4/18.
- */
 
 public enum Filter{
     INITIAL("No Filters"),

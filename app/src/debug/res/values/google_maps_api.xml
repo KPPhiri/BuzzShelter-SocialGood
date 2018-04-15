@@ -4,7 +4,9 @@
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=E6:3F:1A:60:1D:56:91:7A:14:6C:86:9B:B9:A9:F9:74:0E:75:B1:8A%3Bcom.example.philipphiri.homelessapp
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_
+    SIDE_ANDROID&r=E6:3F:1A:60:1D:56:91:7A:14:6C:86:9B:B9:A9:F9:74:0E:75:B1:8A%3Bcom
+    .example.philipphiri.homelessapp
 
     You can also add your credentials to an existing key, using these values:
 
@@ -21,5 +23,6 @@
     string in this file.
     -->
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD7RUnKLJ-P_VklBOVi8Hcz5bTXYfN3Hcc</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve"
+        translatable="false">AIzaSyD7RUnKLJ-P_VklBOVi8Hcz5bTXYfN3Hcc</string>
 </resources>

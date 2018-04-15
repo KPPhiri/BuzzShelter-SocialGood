@@ -18,22 +18,26 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ * Main Page Activity
+ */
 public class MainPageActivity extends AppCompatActivity {
 
-    private ImageButton userProfileButton;
-    private ImageButton mapActivityButton;
-    private ImageButton shelterListButton;
-    private Button logout;
 
-    private TextView profileText;
-    private TextView mapText;
-    private TextView shelterText;
 
     DatabaseReference userData;
     static User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final ImageButton userProfileButton;
+        final ImageButton mapActivityButton;
+        final ImageButton shelterListButton;
+        final Button logout;
+
+        final TextView profileText;
+        final TextView mapText;
+        final TextView shelterText;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
@@ -75,6 +79,9 @@ public class MainPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @return current user
+     */
     public static User getCurrentUser() {
         return u;
     }
@@ -87,9 +94,12 @@ public class MainPageActivity extends AppCompatActivity {
         current_user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                u = new User((String)dataSnapshot.child("UserType").getValue(), (String)dataSnapshot.child("PermissionLevel").getValue(),
-                        (String)dataSnapshot.child("ShelterRegistered").getValue(), (String)dataSnapshot.child("Name").getValue(),
-                        (String)dataSnapshot.child("NumberClaimed").getValue(), (String)dataSnapshot.child("Email").getValue(),
+                u = new User((String)dataSnapshot.child("UserType").getValue(),
+                        (String)dataSnapshot.child("PermissionLevel").getValue(),
+                        (String)dataSnapshot.child("ShelterRegistered").getValue(),
+                        (String)dataSnapshot.child("Name").getValue(),
+                        (String)dataSnapshot.child("NumberClaimed").getValue(),
+                        (String)dataSnapshot.child("Email").getValue(),
                         (String)dataSnapshot.child("Religion").getValue());
             }
 
