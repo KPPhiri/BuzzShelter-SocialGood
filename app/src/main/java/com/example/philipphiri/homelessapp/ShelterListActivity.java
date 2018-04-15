@@ -79,6 +79,12 @@ public class ShelterListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shelter_list);
         Intent intent = getIntent();
 
+        //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
+        Shelter original = new Shelter("ee", "capacity", 2.0, 0.0,"phone", "rest", "name", "note", "100");
+        List <Shelter> o = new ArrayList<>();
+        o.add(original);
+        shelterAdapter = new ShelterList(ShelterListActivity.this,o);
+
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
@@ -324,11 +330,30 @@ public class ShelterListActivity extends AppCompatActivity {
                         claims.getText().toString())));
     }
 
+
+    static boolean verification;
+    //helper to verifyLegalClaim
+    public boolean verifyClaim(String claimNum, String cap) {
+        if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
+            verification = true;
+            return true;
+        } else {
+            verification = false;
+            return false;
+        }
+    }
+    public static boolean getVerify() {
+        return verification;
+    }
+
+    //for shelter details popup
+
     /**
      * for shelter details popup
      * @param v view
      * @param s shelter
      */
+
     public void ShowDetails(View v, Shelter s) {
         final Shelter cur = s;
         Button claimButton;
@@ -349,17 +374,23 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
+                    boolean check = verifyClaim(claims.getText().toString(), cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?
-                    if (Integer.parseInt(claims.getText().toString()) != 0
-                            && Integer.parseInt(claims.getText().toString())
-                            < Integer.parseInt(cur.getShelterCapacity())) {
+
+                    if (check) {
                         claim(cur,claims);
-                    } else if ( Integer.parseInt(claims.getText().toString())
-                            > Integer.parseInt(cur.getShelterCapacity())){
-                        claims.setError("Not Enough Space");
+
                     } else {
-                        claims.setError("Please Enter Valid Number");
+                        claims.setError("Not Enough Space");
                     }
+                    //DO NOT DELETE THIS COMMENTED CODE****
+//                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+//                        claim(cur,claims);
+//                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
+//                        claims.setError("Not Enough Space");
+//                    } else {
+//                        claims.setError("Please Enter Valid Number");
+//                    }
                 } else {
                     ShowReleasePopUp(view);
                 }
