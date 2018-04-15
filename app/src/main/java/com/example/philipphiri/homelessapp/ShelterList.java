@@ -53,19 +53,19 @@ public class ShelterList extends ArrayAdapter<Shelter>{
     }
 
     /**
-     * filter method
-     * @param charText filter text
+     * @param charText what to filter by
      */
     public void filter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
+        String Text;
+        Text = charText.toLowerCase(Locale.getDefault());
         shelterList.clear();
-        if (charText.length() == 0) {
+        if (Text.length() == 0) {
             shelterList.addAll(arraylist);
         }
         else
         {
             for (Shelter wp : arraylist) {
-                if (wp.getShelterName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                if (wp.getShelterName().toLowerCase(Locale.getDefault()).contains(Text)) {
                     shelterList.add(wp);
                 }
             }
@@ -73,6 +73,9 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         notifyDataSetChanged();
     }
 
+    /**
+     * @param option gender options
+     */
     public void genFilter(String option) {
         shelterList.clear();
         {
@@ -85,6 +88,9 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         notifyDataSetChanged();
     }
 
+    /**
+     * @param option age options
+     */
     public void ageFilter(String option) {
         shelterList.clear();
         {
@@ -97,6 +103,9 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         notifyDataSetChanged();
     }
 
+    /**
+     * no filters
+     */
     public void noFilter() {
         shelterList.clear();
         {

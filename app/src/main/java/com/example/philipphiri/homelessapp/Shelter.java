@@ -6,10 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by philipphiri on 2/24/18.
- */
-
 public class Shelter {
     private String address;
     private String capacity;
@@ -80,7 +76,7 @@ public class Shelter {
     /**
      * @return shelter address
      */
-    public String getShelterAddress(){
+    public synchronized String getShelterAddress(){
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override

@@ -29,6 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Maps Activity
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private GoogleMap mMap;
@@ -85,7 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //check if user has up-to-date google services
 //    public boolean isServicesOK() {
 //        Log.d(TAG, "isServicesOK: checking google services version");
-//        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapsActivity.this);
+//        int available = GoogleApiAvailability.getInstance()
+//          .isGooglePlayServicesAvailable(MapsActivity.this);
 //        //user is okay
 //        if (available == ConnectionResult.SUCCESS) {
 //            Log.d(TAG, "isServicesOK: checking google is working");
@@ -93,7 +97,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
 //            //error like update google play (fixable error)
 //            Log.d(TAG, "isServicesOK: error occured but we can fix it");
-//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapsActivity.this, available, ERROR_DIALOG_REQUEST);
+//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MapsActivity.this,
+//              available, ERROR_DIALOG_REQUEST);
 //            dialog.show();
 //        } else {
 //            Toast.makeText(this, "You can't make map request.";)
@@ -118,8 +123,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this, android.R.layout.simple_spinner_item,
-                Filter.values());
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this,
+                android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
 
@@ -190,19 +195,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 shelters.clear();
 
                 for (DataSnapshot tuple : dataSnapshot.getChildren()) {
-                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(), (String) tuple.child("Capacity").getValue(), Double.parseDouble((String) tuple.child("Latitude ").getValue()),
-                            Double.parseDouble((String) tuple.child("Longitude ").getValue()), (String) tuple.child("Phone Number").getValue(), (String) tuple.child("Restrictions").getValue(),
-                            (String) tuple.child("Shelter Name").getValue(), (String) tuple.child("Special Notes").getValue(), (String) tuple.child("Unique Key").getValue());
+                    Shelter shelter = new Shelter((String) tuple.child("Address").getValue(),
+                            (String) tuple.child("Capacity").getValue(),
+                            Double.parseDouble((String) tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()),
+                            (String) tuple.child("Phone Number").getValue(),
+                            (String) tuple.child("Restrictions").getValue(),
+                            (String) tuple.child("Shelter Name").getValue(),
+                            (String) tuple.child("Special Notes").getValue(),
+                            (String) tuple.child("Unique Key").getValue());
                     //Shelter shelter = tuple.getValue(Shelter.class);
                     shelters.add(shelter);
 
-                    LatLng x = new LatLng(Double.parseDouble((String) tuple.child("Latitude ").getValue()), Double.parseDouble((String) tuple.child("Longitude ").getValue()));
+                    LatLng x = new LatLng(Double.parseDouble((String)
+                            tuple.child("Latitude ").getValue()),
+                            Double.parseDouble((String) tuple.child("Longitude ").getValue()));
                     Marker temp = mMap.addMarker(new MarkerOptions()
                             .position(x).title((String) tuple.child("Shelter Name").getValue())
                             .snippet((String) tuple.child("Phone Number").getValue()));
                     hashMapMarker.put(shelter.getShelterName(), temp);
                     float zoomLevel = 11f;
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746, -84.386330), zoomLevel));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746,
+                            -84.386330), zoomLevel));
                 }
 
 

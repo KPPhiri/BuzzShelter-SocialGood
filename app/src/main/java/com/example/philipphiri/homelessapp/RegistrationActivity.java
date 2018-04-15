@@ -24,19 +24,19 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-
+    RadioButton buttonUser;
     private ProgressBar progressBar;
     private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
-
+    private RadioButton buttonAdmin;
+    private RadioGroup radioGroup;
     private static FirebaseAuth user;
     private DatabaseReference userData;
 
-    private RadioButton buttonAdmin;
-    private RadioButton buttonUser;
-    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
@@ -72,7 +72,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
             return;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(editTextEmail.getText().toString().trim()).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(
+                editTextEmail.getText().toString().trim()).matches()) {
             editTextEmail.setError("Please enter a valid email");
             editTextEmail.requestFocus();
 
@@ -88,7 +89,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         progressBar.setVisibility(View.VISIBLE);
 
-        user.createUserWithEmailAndPassword(editTextEmail.getText().toString().trim(), password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.createUserWithEmailAndPassword(editTextEmail.getText().toString().trim(),
+                password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String email = editTextEmail.getText().toString().trim();
@@ -115,10 +117,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                        Toast.makeText(getApplicationContext(), "Email is already used", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                "Email is already used", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

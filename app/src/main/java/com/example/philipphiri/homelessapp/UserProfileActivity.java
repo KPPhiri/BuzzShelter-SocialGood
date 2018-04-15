@@ -10,20 +10,24 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * user profile activity
+ */
 public class UserProfileActivity extends AppCompatActivity {
+    Button claimsButton;
+    ImageView userPicture;
+    TextView userName;
+    TextView userEmail;
+    TextView residence, curresidence;
+    TextView claims, numClaims;
+    TextView religion, religionIs;
+    DatabaseReference userData;
 
-    private Button claimsButton;
-    private ImageView userPicture;
-    private TextView userName;
-    private TextView userEmail;
-    private TextView residence, curresidence;
-    private TextView claims, numClaims;
-    private TextView religion, religionIs;
-    private DatabaseReference userData;
     //private FirebaseAuth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
@@ -49,7 +53,8 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 current_user.child("ShelterRegistered").setValue("none");
                 current_user.child("NumberClaimed").setValue("0");
-                //releasing crashes when emulator is restarted and the first thing you do is try to release a previous claim
+                //releasing crashes when emulator is restarted and the first thing you do is try to
+                // release a previous claim
                 //but is fine in between logins during same emulator usage
                 ShelterListActivity.release(MainPageActivity.getCurrentUser().getNumClaims());
             }

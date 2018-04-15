@@ -23,14 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+/**
+ * welcome page activity
+ */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
-    private Button okay;
-    private Button cancel;
-    private Button back;
-    private Button loginButton, regButton;
+    Button okay;
+    Button cancel;
+    Button back;
+    Button loginButton, regButton;
 
 
     Dialog myDialog;
@@ -76,7 +79,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        user.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        user.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -88,19 +92,23 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String type = dataSnapshot.child("UserType").getValue(String.class);
                             if (type.equals("Admin")) {
-//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                Intent i = new Intent(WelcomePageActivity.this,
+//                                  RegistrationActivity.class);
 //                                startActivity(i);
                             } else {
-//                                Intent i = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+//                                Intent i = new Intent(WelcomePageActivity.this,
+//                                  RegistrationActivity.class);
 //                                startActivity(i);
                             }
 //                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
-                            Intent i = new Intent(WelcomePageActivity.this, MainPageActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this,
+                                    MainPageActivity.class);
                             startActivity(i);
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Intent i = new Intent(WelcomePageActivity.this, WelcomePageActivity.class);
+                            Intent i = new Intent(WelcomePageActivity.this,
+                                    WelcomePageActivity.class);
                             startActivity(i);
                         }
                     });
@@ -154,7 +162,10 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         myDialog.show();
 
     }
-    //to get current user's id
+
+    /**
+     * @return current user's id
+     */
     public static String getCurrentUser() {
         return user.getCurrentUser().getUid();
     }
@@ -164,7 +175,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         if (view.getId() == R.id.loginButton) {
             ShowPopUp(view);
         } else if (view.getId() == R.id.regButton) {
-            Intent b = new Intent(WelcomePageActivity.this, RegistrationActivity.class);
+            Intent b = new Intent(WelcomePageActivity.this,
+                    RegistrationActivity.class);
             //restarts welcome screen to refresh buttons
             startActivity(b);
         }

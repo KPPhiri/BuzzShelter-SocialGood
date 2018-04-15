@@ -6,10 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by philipphiri on 2/20/18.
- */
-
 public class User {
     private String userType;
     private String permissionLevel;
@@ -129,6 +125,10 @@ public class User {
     public String getPermissionLevel(){
         return permissionLevel;
     }
+
+    /**
+     * @param permlvl new permission level of user
+     */
     public void setPermissionLevel(String permlvl){
         this.permissionLevel = permlvl;
     }
