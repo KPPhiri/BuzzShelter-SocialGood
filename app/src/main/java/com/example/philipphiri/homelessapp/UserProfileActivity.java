@@ -20,19 +20,20 @@ import org.w3c.dom.Text;
  * user profile activity
  */
 public class UserProfileActivity extends AppCompatActivity {
+    Button claimsButton;
+    ImageView userPicture;
+    TextView userName;
+    TextView userEmail;
+    TextView residence, curresidence;
+    TextView claims, numClaims;
+    TextView religion, religionIs;
+    DatabaseReference userData;
 
-    private Button claimsButton;
-    private ImageView userPicture;
-    private TextView userName;
-    private TextView userEmail;
-    private TextView residence, curresidence;
-    private TextView claims, numClaims;
-    private TextView religion, religionIs;
-    private DatabaseReference userData;
     //private FirebaseAuth user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 

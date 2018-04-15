@@ -76,7 +76,7 @@ public class Shelter {
     /**
      * @return shelter address
      */
-    public String getShelterAddress(){
+    public synchronized String getShelterAddress(){
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
