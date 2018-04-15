@@ -14,14 +14,17 @@ import com.google.firebase.database.FirebaseDatabase;
  * user profile activity
  */
 public class UserProfileActivity extends AppCompatActivity {
-    Button claimsButton;
-    ImageView userPicture;
-    TextView userName;
-    TextView userEmail;
-    TextView residence, curresidence;
-    TextView claims, numClaims;
-    TextView religion, religionIs;
-    DatabaseReference userData;
+    private Button claimsButton;
+    private ImageView userPicture;
+    private TextView userName;
+    private TextView userEmail;
+    private TextView residence;
+    private TextView curresidence;
+    private TextView claims;
+    private TextView numClaims;
+    private TextView religion;
+    private TextView religionIs;
+    private DatabaseReference userData;
 
     //private FirebaseAuth user;
 

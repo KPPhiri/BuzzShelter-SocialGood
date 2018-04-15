@@ -9,11 +9,11 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Shelter class with attributes
  */
-public class Shelter {
+class Shelter {
     private String address;
     private String capacity;
-    private final double latitude;
-    private final double longitude;
+    private  double latitude;
+    private  double longitude;
     private String phoneNumber;
     private String restrictions;
     private String shelterName;
