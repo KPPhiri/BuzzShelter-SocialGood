@@ -298,7 +298,7 @@ public class ShelterListActivity extends AppCompatActivity {
     /**
      * @param pos position of current shelter
      */
-    public void curShelter(Integer pos) {
+    private void curShelter(Integer pos) {
         cur = (Shelter) listViewShelters.getItemAtPosition(pos);
 
     }
@@ -313,28 +313,25 @@ public class ShelterListActivity extends AppCompatActivity {
 
     }
     //update registered shelter and claim number
-    private void claim(Shelter cur, EditText claims) {
+        /**
+         * update registered shelter and claim number
+         * @param cur current shelter
+         * @param claims claim number
+         */
+        public void claim (Shelter cur, EditText claims){
+            curShelter(Integer.parseInt(cur.getUniqueKey()));
+            // user = FirebaseAuth.getInstance();
+            userData = FirebaseDatabase.getInstance().getReference().child("Users");
+            DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+            current_user.child("ShelterRegistered").setValue(cur.getShelterName());
+            current_user.child("NumberClaimed").setValue(claims.getText().toString());
+            DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
+            shelter.child("Capacity").setValue(Integer.toString(
+                    Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(
+                            claims.getText().toString())));
+        }
 
-    /**
-     * update registered shelter and claim number
-     * @param cur current shelter
-     * @param claims claim number
-     */
-    public void claim(Shelter cur, EditText claims) {
-        curShelter(Integer.parseInt(cur.getUniqueKey()));
-        // user = FirebaseAuth.getInstance();
-        userData = FirebaseDatabase.getInstance().getReference().child("Users");
-        DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
-        current_user.child("ShelterRegistered").setValue(cur.getShelterName());
-        current_user.child("NumberClaimed").setValue(claims.getText().toString());
-        DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
-        shelter.child("Capacity").setValue(Integer.toString(
-                Integer.parseInt(cur.getShelterCapacity()) - Integer.parseInt(
-                        claims.getText().toString())));
-    }
-
-
-    static boolean verification;
+     private static boolean verification;
 
     /**
      * helper to verify legal claim
@@ -342,7 +339,8 @@ public class ShelterListActivity extends AppCompatActivity {
      * @param cap capacity
      * @return boolean value
      */
-    public boolean verifyClaim(String claimNum, String cap) {
+
+    private boolean verifyClaim(String claimNum, String cap) {
         if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
             verification = true;
             return true;
@@ -361,15 +359,13 @@ public class ShelterListActivity extends AppCompatActivity {
     }
 
     //for shelter details popup
-    private void ShowDetails(Shelter s) {
 
     /**
      * for shelter details popup
-     * @param v view
      * @param s shelter
      */
 
-    public void ShowDetails(View v, Shelter s) {
+    public void ShowDetails(Shelter s) {
         final Shelter cur = s;
         Button claimButton;
         TextView detailclose;
@@ -437,7 +433,7 @@ public class ShelterListActivity extends AppCompatActivity {
         myDialog.show();
     }
 
-    private void ShowReleasePopUp(View v) {
+    private void ShowReleasePopUp() {
         Button okButton;
         myDialogPop.setContentView(R.layout.release_claims_popup);
         okButton = (Button) myDialogPop.findViewById(R.id.okButt);

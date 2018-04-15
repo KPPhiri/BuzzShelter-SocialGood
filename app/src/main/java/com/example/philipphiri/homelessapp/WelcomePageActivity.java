@@ -30,10 +30,11 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     private static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
-    Button okay;
-    Button cancel;
-    Button back;
-    Button loginButton, regButton;
+    private Button okay;
+    private Button cancel;
+    private Button back;
+//    private Button loginButton;
+//    private Button regButton;
 
 
     private Dialog myDialog;
@@ -48,8 +49,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         userData = FirebaseDatabase.getInstance().getReference();
 
 
-        loginButton = (Button) findViewById(R.id.loginButton);
-        regButton = (Button) findViewById(R.id.regButton);
+//        loginButton = (Button) findViewById(R.id.loginButton);
+//        regButton = (Button) findViewById(R.id.regButton);
 
 
         findViewById(R.id.loginButton).setOnClickListener(this);
@@ -118,7 +119,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                     back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ShowPopUp(view);
+                            ShowPopUp();
                         }
                     });
                 }
@@ -138,7 +139,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 //        }
 //
 //    }
-    private void ShowPopUp(View v) {
+    private void ShowPopUp() {
 
         myDialog.setContentView(R.layout.loginpopup);
         cancel = (Button) myDialog.findViewById(R.id.cancelButton);
@@ -173,7 +174,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.loginButton) {
-            ShowPopUp(view);
+            ShowPopUp();
         } else if (view.getId() == R.id.regButton) {
             Intent b = new Intent(WelcomePageActivity.this,
                     RegistrationActivity.class);
