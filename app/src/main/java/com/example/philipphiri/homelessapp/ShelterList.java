@@ -18,15 +18,16 @@ import java.util.Locale;
  * of appropriate shelters
  */
 
-/**
- * Created by philipphiri on 2/24/18.
- */
-
 public class ShelterList extends ArrayAdapter<Shelter>{
     private Activity context;
     List<Shelter> shelterList;
     private ArrayList<Shelter> arraylist=null;
 
+    /**
+     * Shelterlist Activity
+     * @param context context
+     * @param shelterList list of Shelter objects
+     */
     public ShelterList(Activity context, List<Shelter> shelterList) {
         super(context, R.layout.layout_shelter_list, shelterList);
         this.context = context;
@@ -51,6 +52,10 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         return listViewItem;
     }
 
+    /**
+     * filter method
+     * @param charText filter text
+     */
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         shelterList.clear();
