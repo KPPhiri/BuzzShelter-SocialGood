@@ -318,7 +318,7 @@ public class ShelterListActivity extends AppCompatActivity {
          * @param cur current shelter
          * @param claims claim number
          */
-        public void claim (Shelter cur, EditText claims){
+        private void claim(Shelter cur, EditText claims){
             curShelter(Integer.parseInt(cur.getUniqueKey()));
             // user = FirebaseAuth.getInstance();
             userData = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -365,7 +365,7 @@ public class ShelterListActivity extends AppCompatActivity {
      * @param s shelter
      */
 
-    public void ShowDetails(Shelter s) {
+    private void ShowDetails(Shelter s) {
         final Shelter cur = s;
         Button claimButton;
         TextView detailclose;
