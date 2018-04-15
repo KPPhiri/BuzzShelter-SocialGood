@@ -1,8 +1,6 @@
 package com.example.philipphiri.homelessapp;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,12 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Maps Activity
@@ -132,7 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this,
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
@@ -163,7 +154,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
                 String text = searchET.getText().toString();
                 //shelterAdapter.filter(text);
                 for (Shelter a: shelters) {
@@ -183,14 +173,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void beforeTextChanged(CharSequence arg0 , int arg1,
                                           int arg2, int arg3) {
-                // TODO Auto-generated method stub
             }
 
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                       int arg3) {
-                // TODO Auto-generated method stub
             }
         });
 
@@ -319,13 +307,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    shelterAdapter.ageFilter("Families w/ Newborns");
 //                    shelterAdapter.noFilter();
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("newborns"))){
+                        if(!(a.getShelterRestrictions().contains("newborns"))
+                                || !(a.getShelterRestrictions().contains("Newborns"))
+                                || !(a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("newborns"))){
+                        if((a.getShelterRestrictions().contains("newborns"))
+                                || (a.getShelterRestrictions().contains("Newborns"))
+                                || (a.getShelterRestrictions().contains("Families w/ Newborns"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }
@@ -353,13 +345,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    shelterAdapter.ageFilter("Young Adults");
 //                    shelterAdapter.ageFilter("Young adults");
                     for (Shelter a: shelters) {
-                        if(!(a.getShelterRestrictions().contains("Young adults"))){
+                        if(!(a.getShelterRestrictions().contains("Young adults"))
+                                || !(a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(false);
                         }
                     }
                     for (Shelter a: shelters) {
-                        if((a.getShelterRestrictions().contains("Young adults"))){
+                        if((a.getShelterRestrictions().contains("Young adults"))
+                                || (a.getShelterRestrictions().contains("Young Adults"))){
                             Marker marker = hashMapMarker.get(a.getShelterName());
                             marker.setVisible(true);
                         }

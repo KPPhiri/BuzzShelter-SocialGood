@@ -1,6 +1,8 @@
 package com.example.philipphiri.homelessapp;
 
-
+/**
+ * Filter enum
+ */
 public enum Filter{
     INITIAL("No Filters"),
     GENDER("Gender"),

@@ -1,54 +1,32 @@
 package com.example.philipphiri.homelessapp;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
-import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.TextWatcher;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * shelter list activity
@@ -80,7 +58,9 @@ public class ShelterListActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
-        Shelter original = new Shelter("ee", "capacity", 2.0, 0.0,"phone", "rest", "name", "note", "100");
+        Shelter original = new Shelter("ee", "capacity", 2.0,
+                0.0,"phone", "rest", "name",
+                "note", "100");
         List <Shelter> o = new ArrayList<>();
         o.add(original);
         shelterAdapter = new ShelterList(ShelterListActivity.this,o);
@@ -99,7 +79,7 @@ public class ShelterListActivity extends AppCompatActivity {
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<> (
                 this, android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
@@ -152,8 +132,8 @@ public class ShelterListActivity extends AppCompatActivity {
         builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
                 (dialog, which) -> {
                     try {
-                        AlertDialog.Builder builder3 =
-                        new AlertDialog.Builder(listViewShelters.this);
+                        AlertDialog.Builder builder3 = new AlertDialog.
+                            Builder(listViewShelters.this);
                         builder3.setMessage("Not enough space").setNegativeButton("Exit",
                                 null).show();
                     }
@@ -266,7 +246,6 @@ public class ShelterListActivity extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable arg0) {
-                        // TODO Auto-generated method stub
                         String text = searchET.getText().toString().
                                 toLowerCase(Locale.getDefault());
                         shelterAdapter.filter(text);
@@ -275,14 +254,12 @@ public class ShelterListActivity extends AppCompatActivity {
                     @Override
                     public void beforeTextChanged(CharSequence arg0 , int arg1,
                                                   int arg2, int arg3) {
-                        // TODO Auto-generated method stub
                     }
 
 
                     @Override
                     public void onTextChanged(CharSequence arg0, int arg1, int arg2,
                                               int arg3) {
-                        // TODO Auto-generated method stub
                     }
                 });
             }
@@ -332,7 +309,13 @@ public class ShelterListActivity extends AppCompatActivity {
 
 
     static boolean verification;
-    //helper to verifyLegalClaim
+
+    /**
+     * helper to verify legal claim
+     * @param claimNum number of claims
+     * @param cap capacity
+     * @return boolean value
+     */
     public boolean verifyClaim(String claimNum, String cap) {
         if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
             verification = true;
@@ -342,6 +325,11 @@ public class ShelterListActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     *
+     * @return boolean if verified
+     */
     public static boolean getVerify() {
         return verification;
     }
@@ -374,7 +362,8 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
-                    boolean check = verifyClaim(claims.getText().toString(), cur.getShelterCapacity());
+                    boolean check = verifyClaim(claims.getText().toString(),
+                            cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?
 
                     if (check) {
@@ -384,9 +373,12 @@ public class ShelterListActivity extends AppCompatActivity {
                         claims.setError("Not Enough Space");
                     }
                     //DO NOT DELETE THIS COMMENTED CODE****
-//                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+//                    if (Integer.parseInt(claims.getText().toString()) != 0
+//                      && Integer.parseInt(claims.getText().
+//                      toString()) < Integer.parseInt(cur.getShelterCapacity())) {
 //                        claim(cur,claims);
-//                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
+//                    } else if ( Integer.parseInt(claims.getText().
+//                      toString()) > Integer.parseInt(cur.getShelterCapacity())){
 //                        claims.setError("Not Enough Space");
 //                    } else {
 //                        claims.setError("Please Enter Valid Number");
