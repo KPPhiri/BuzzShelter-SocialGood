@@ -1,8 +1,5 @@
 package com.example.philipphiri.homelessapp;
 
-/**
- * Created by Bianca on 4/8/18.
- */
 import android.os.SystemClock;
 import android.support.test.espresso.Espresso;
 
@@ -29,13 +26,18 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.Matchers.anything;
 
-
+/**
+ * Junit test
+ */
 @RunWith(AndroidJUnit4.class)
 public class ShelterDetails{
     @Rule
     public ActivityTestRule<WelcomePageActivity> mActivityRule =
             new ActivityTestRule<>(WelcomePageActivity.class);
 
+    /**
+     * validate claim Test
+     */
     @Test
     public void validateClaimT() {
         onView(withId(R.id.loginButton)).perform(click());
@@ -47,7 +49,8 @@ public class ShelterDetails{
         onView(withId(R.id.sheltersButton)).perform(click());
         SystemClock.sleep(10000);
 
-        onData(anything()).inAdapterView(withId(R.id.shelterListView)).atPosition(0).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.shelterListView)).
+                atPosition(0).perform(click());
         onView(withId(R.id.claim_number)).perform(typeText("3"), closeSoftKeyboard());
         onView(withId(R.id.claim_button)).perform(click());
 
@@ -55,6 +58,10 @@ public class ShelterDetails{
         Assert.assertTrue(validate);
         Espresso.pressBack();
     }
+
+    /**
+     * validate claim Test
+     */
     @Test
     public void validateClaimF() {
         DatabaseReference userData;
@@ -73,7 +80,8 @@ public class ShelterDetails{
         current_user.child("ShelterRegistered").setValue("none");
         current_user.child("NumberClaimed").setValue("0");
 
-        onData(anything()).inAdapterView(withId(R.id.shelterListView)).atPosition(0).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.shelterListView)).
+                atPosition(0).perform(click());
         onView(withId(R.id.claim_number)).perform(typeText("300"), closeSoftKeyboard());
         onView(withId(R.id.claim_button)).perform(click());
 

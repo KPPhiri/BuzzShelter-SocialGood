@@ -123,7 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter>(this,
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);

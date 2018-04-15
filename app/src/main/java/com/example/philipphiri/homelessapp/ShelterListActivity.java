@@ -58,7 +58,9 @@ public class ShelterListActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
-        Shelter original = new Shelter("ee", "capacity", 2.0, 0.0,"phone", "rest", "name", "note", "100");
+        Shelter original = new Shelter("ee", "capacity", 2.0,
+                0.0,"phone", "rest", "name",
+                "note", "100");
         List <Shelter> o = new ArrayList<>();
         o.add(original);
         shelterAdapter = new ShelterList(ShelterListActivity.this,o);
@@ -77,7 +79,7 @@ public class ShelterListActivity extends AppCompatActivity {
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
-        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<Filter> (
+        ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<> (
                 this, android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         filters.setAdapter(filterAdapter);
@@ -130,7 +132,8 @@ public class ShelterListActivity extends AppCompatActivity {
         builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
                 (dialog, which) -> {
                     try {
-                        AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
+                        AlertDialog.Builder builder3 = new AlertDialog.
+                            Builder(listViewShelters.this);
                         builder3.setMessage("Not enough space").setNegativeButton("Exit",
                                 null).show();
                     }
@@ -306,7 +309,13 @@ public class ShelterListActivity extends AppCompatActivity {
 
 
     static boolean verification;
-    //helper to verifyLegalClaim
+
+    /**
+     * helper to verify legal claim
+     * @param claimNum number of claims
+     * @param cap capacity
+     * @return boolean value
+     */
     public boolean verifyClaim(String claimNum, String cap) {
         if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
             verification = true;
@@ -316,6 +325,11 @@ public class ShelterListActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     *
+     * @return boolean if verified
+     */
     public static boolean getVerify() {
         return verification;
     }
@@ -348,7 +362,8 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
-                    boolean check = verifyClaim(claims.getText().toString(), cur.getShelterCapacity());
+                    boolean check = verifyClaim(claims.getText().toString(),
+                            cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?
 
                     if (check) {
@@ -358,9 +373,12 @@ public class ShelterListActivity extends AppCompatActivity {
                         claims.setError("Not Enough Space");
                     }
                     //DO NOT DELETE THIS COMMENTED CODE****
-//                    if (Integer.parseInt(claims.getText().toString()) != 0 && Integer.parseInt(claims.getText().toString()) < Integer.parseInt(cur.getShelterCapacity())) {
+//                    if (Integer.parseInt(claims.getText().toString()) != 0
+//                      && Integer.parseInt(claims.getText().
+//                      toString()) < Integer.parseInt(cur.getShelterCapacity())) {
 //                        claim(cur,claims);
-//                    } else if ( Integer.parseInt(claims.getText().toString()) > Integer.parseInt(cur.getShelterCapacity())){
+//                    } else if ( Integer.parseInt(claims.getText().
+//                      toString()) > Integer.parseInt(cur.getShelterCapacity())){
 //                        claims.setError("Not Enough Space");
 //                    } else {
 //                        claims.setError("Please Enter Valid Number");
