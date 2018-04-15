@@ -18,9 +18,9 @@ import java.util.Locale;
  * of appropriate shelters
  */
 
-public class ShelterList extends ArrayAdapter<Shelter>{
-    private Activity context;
-    List<Shelter> shelterList;
+class ShelterList extends ArrayAdapter<Shelter>{
+    private final Activity context;
+    private final List<Shelter> shelterList;
     private ArrayList<Shelter> arraylist=null;
 
     /**
@@ -110,7 +110,7 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         shelterList.clear();
         {
             for (Shelter wp : arraylist) {
-                    shelterList.add(wp);
+                shelterList.add(wp);
             }
         }
         notifyDataSetChanged();

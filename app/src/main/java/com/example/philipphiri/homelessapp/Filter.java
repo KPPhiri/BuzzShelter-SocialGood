@@ -8,7 +8,7 @@ public enum Filter{
     GENDER("Gender"),
     AGE("Age");
 
-    private String filter;
+    private final String filter;
     Filter(String filter) {
         this.filter = filter;
     }

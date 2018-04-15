@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
  * welcome page activity
  */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
-    static FirebaseAuth user;
+    private static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
     Button okay;
@@ -36,7 +36,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     Button loginButton, regButton;
 
 
-    Dialog myDialog;
+    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,17 +10,19 @@ import com.google.firebase.database.ValueEventListener;
  * Shelter class with attributes
  */
 public class Shelter {
+
+class Shelter {
     private String address;
     private String capacity;
-    private double latitude;
-    private double longitude;
+    private final double latitude;
+    private final double longitude;
     private String phoneNumber;
     private String restrictions;
     private String shelterName;
     private String specialNotes;
     private String uniqueKey;
 
-    static DatabaseReference databaseShelters;
+    private static DatabaseReference databaseShelters;
 
     /**
      * @param address address of shelter
@@ -75,6 +77,11 @@ public class Shelter {
      * @param name new shelter name
      */
     public void setShelterName(String name) { shelterName = name; }
+    public void setShelterName(String name) {
+        if((name.length() != 0) && isLetter(name)) {
+            shelterName = name;
+        }
+    }
 
     /**
      * @return shelter address
@@ -103,6 +110,7 @@ public class Shelter {
      * @param add new shelter address
      */
     public void setShelterAddress(String add) { address = add; }
+    // public void setShelterAddress(String add) { address = add; }
 
     /**
      * @return shelter capacity
@@ -131,6 +139,7 @@ public class Shelter {
      * @param c new capacity of shelter
      */
     public void setCapacity(String c) { capacity = c; }
+    //public void setCapacity(String c) { capacity = c; }
 
     /**
      * @return shelter restrictions
@@ -162,6 +171,7 @@ public class Shelter {
     /**
      * @return shelter longitude
      */
+    // public void setShelterRestrictions(String restrict) { restrictions = restrict; }
     public double getShelterLongitude() {
 
         return longitude;
@@ -171,6 +181,7 @@ public class Shelter {
      * @param longi new shelter longitude
      */
     public void setShelterLongitude(Double longi) { longitude = longi; }
+    // public void setShelterLongitude(Double longi) { longitude = longi; }
 
     /**
      * @return shelter latitude
@@ -183,6 +194,7 @@ public class Shelter {
      * @param lati new shelter latitude
      */
     public void setShelterLatitude(Double lati) { latitude = lati; }
+    // public void setShelterLatitude(Double lati) { latitude = lati; }
 
     /**
      * @return shelter phone number
@@ -212,6 +224,7 @@ public class Shelter {
      * @param phone new shelter phone number
      */
     public void setShelterPhone(String phone) { phoneNumber = phone; }
+    //  public void setShelterPhone(String phone) { phoneNumber = phone; }
 
     /**
      * @return shelter notes
@@ -240,6 +253,7 @@ public class Shelter {
      * @param notes new shelter notes
      */
     public void setShelterNotes(String notes) { specialNotes = notes; }
+    // public void setShelterNotes(String notes) { specialNotes = notes; }
 
     /**
      * @return unique shelter key
@@ -267,6 +281,19 @@ public class Shelter {
      * @param key new unique shelter key
      */
     public void setUniqueKey(String key) { uniqueKey = key; }
+    // public void setUniqueKey(String key) { uniqueKey = key; }
+
+    private boolean isLetter(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 
 }

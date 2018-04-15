@@ -47,7 +47,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         claimsButton.setOnClickListener(new View.OnClickListener() {
             //String user_id = user.getCurrentUser().getUid();
-            DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+            final DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
 
             @Override
             public void onClick(View view) {

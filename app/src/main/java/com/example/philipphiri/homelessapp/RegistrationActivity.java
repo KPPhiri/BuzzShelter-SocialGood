@@ -28,6 +28,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private ProgressBar progressBar;
     private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
     private RadioButton buttonAdmin;
+    //private RadioButton buttonUser;
     private RadioGroup radioGroup;
     private static FirebaseAuth user;
     private DatabaseReference userData;
@@ -48,7 +49,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
-        buttonUser = (RadioButton) findViewById(R.id.buttonUser);
+        //buttonUser = (RadioButton) findViewById(R.id.buttonUser);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
 

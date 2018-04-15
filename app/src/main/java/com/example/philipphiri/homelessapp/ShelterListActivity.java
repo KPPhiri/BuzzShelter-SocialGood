@@ -1,11 +1,17 @@
 package com.example.philipphiri.homelessapp;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.ContactsContract;
+import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,28 +40,27 @@ import java.util.Locale;
 public class ShelterListActivity extends AppCompatActivity {
     //private Button logout;
     private Button filter;
-    FirebaseAuth user;
-    DatabaseReference userData;
-    Dialog myDialog;
-    Dialog genderCategories;
-    Dialog ageCategories;
+    //private FirebaseAuth user;
+    private DatabaseReference userData;
+    private Dialog myDialog;
+    private Dialog genderCategories;
+    private Dialog ageCategories;
 
-    ListView listViewShelters;
-    List<Shelter> shelters;
-    static DatabaseReference databaseShelters;
-    NDSpinner filters;
-    ShelterList shelterAdapter;
+    private ListView listViewShelters;
+    private List<Shelter> shelters;
+    private static DatabaseReference databaseShelters;
+    private NDSpinner filters;
+    private ShelterList shelterAdapter;
 
     //int pos;
-    static Shelter cur;
+    private static Shelter cur;
     //static String numbo;
-    Dialog myDialogPop;
+    private Dialog myDialogPop;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
-        Intent intent = getIntent();
 
         //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
         Shelter original = new Shelter("ee", "capacity", 2.0,
@@ -108,7 +113,7 @@ public class ShelterListActivity extends AppCompatActivity {
 //        });
 
         //for getting current user's info
-        user = FirebaseAuth.getInstance();
+        //user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
 
         listViewShelters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,7 +121,7 @@ public class ShelterListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Shelter s = (Shelter) listViewShelters.getItemAtPosition(position);
                 //curShelter(pos);
-                ShowDetails(v,s);
+                ShowDetails(s);
             }
         });
 
@@ -143,8 +148,27 @@ public class ShelterListActivity extends AppCompatActivity {
                         builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
                     }
         }).show();
+     private void vacancies() {
+     int input = 0; // vacancies user wants to put
+     ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_shelter_list,);
+     final AlertDialog.Builder builder = new AlertDialog.Builder(listViewShelters.this);
+     builder.setMessage(shelters.get().getVacancies()).setNegativeButton("Exit", null);
+     AlertDialog.Builder builder2 = new AlertDialog.Builder(listViewShelters. this);
+     builder2.setView(input);
+     builder2.setMessage("How many spaces to reserve in?").setPositiveButton("Enter",
+     (dialog, which) -> {
+     try {
+     AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters.this);
+     builder3.setMessage("Not enough space").setNegativeButton("Exit",
+     null).show();
+     }
+     catch (NumberFormatException n) {
+     AlertDialog.Builder builder3 = new AlertDialog.Builder(listViewShelters, this);
+     builder3.setMessage("Invalid input").setNegativeButton("Exit, null").show();
+     }
+     }).show();
 
-    }
+     }
      */
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
@@ -288,6 +312,8 @@ public class ShelterListActivity extends AppCompatActivity {
                 Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
 
     }
+    //update registered shelter and claim number
+    private void claim(Shelter cur, EditText claims) {
 
     /**
      * update registered shelter and claim number
@@ -296,7 +322,7 @@ public class ShelterListActivity extends AppCompatActivity {
      */
     public void claim(Shelter cur, EditText claims) {
         curShelter(Integer.parseInt(cur.getUniqueKey()));
-        user = FirebaseAuth.getInstance();
+        // user = FirebaseAuth.getInstance();
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
         DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
         current_user.child("ShelterRegistered").setValue(cur.getShelterName());
@@ -335,6 +361,7 @@ public class ShelterListActivity extends AppCompatActivity {
     }
 
     //for shelter details popup
+    private void ShowDetails(Shelter s) {
 
     /**
      * for shelter details popup
@@ -384,7 +411,7 @@ public class ShelterListActivity extends AppCompatActivity {
 //                        claims.setError("Please Enter Valid Number");
 //                    }
                 } else {
-                    ShowReleasePopUp(view);
+                    ShowReleasePopUp();
                 }
 
             }

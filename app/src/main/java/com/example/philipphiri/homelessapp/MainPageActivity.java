@@ -20,9 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 public class MainPageActivity extends AppCompatActivity {
 
 
+//    private TextView profileText;
+//    private TextView mapText;
+//    private TextView shelterText;
 
-    DatabaseReference userData;
-    static User u;
+    private DatabaseReference userData;
+    private static User u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
