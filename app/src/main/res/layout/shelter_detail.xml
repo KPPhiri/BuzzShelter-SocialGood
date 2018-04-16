@@ -46,7 +46,7 @@
                 android:text="Phone Number: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -66,7 +66,7 @@
                 android:text="Address: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -86,7 +86,7 @@
                 android:text="Shelter Capacity: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -106,7 +106,7 @@
                 android:text="Restrictions: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -127,7 +127,7 @@
                 android:text="Longitude and Latitude: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -148,7 +148,7 @@
                 android:text="Special Notes: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"/>
             <TextView
@@ -171,6 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
+            android:inputType="numberSigned"
             android:hint="how many claims?"
             android:layout_gravity="center_horizontal"
             android:textColorHint="@color/LightSlateGray"

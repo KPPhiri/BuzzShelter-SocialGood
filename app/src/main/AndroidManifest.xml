@@ -59,7 +59,7 @@
             android:name=".MapsActivity"
             android:label="Map" />
         <activity android:name=".MainPageActivity" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".UserProfileActivity"/>
     </application>
 
 </manifest>
