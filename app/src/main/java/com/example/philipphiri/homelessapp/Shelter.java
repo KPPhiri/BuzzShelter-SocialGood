@@ -69,12 +69,13 @@ class Shelter {
             }
         });
         return shelterName;
+
     }
 
 //    /**
 //     * @param name new shelter name
 //     */
-//   // public void setShelterName(String name) { shelterName = name; }
+   // public void setShelterName(String name) { shelterName = name; }
 //    public void setShelterName(String name) {
 //        if(!name.isEmpty() && isLetter(name)) {
 //            shelterName = name;

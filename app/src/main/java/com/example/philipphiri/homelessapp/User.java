@@ -13,7 +13,7 @@ public class User {
     private final String userType;
     private final String permissionLevel;
     private final String residence;
-    private final String name;
+    private  String name;
     private String claims;
     private final String religion;
     private final String email;
@@ -108,7 +108,12 @@ public class User {
      */
     public CharSequence getUserName() {return name; }
 //    UD WARNING
-//    public void setUserName(String newName) {this.name = newName; }
+   public void setUserName(String newName) {
+
+        if(!newName.isEmpty() && newName.length() < 10) {
+            this.name = newName;
+        }
+    }
 
 //    /**
 //     * @param newName new name of user
