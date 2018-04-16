@@ -26,7 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
    // RadioButton buttonUser;
     private ProgressBar progressBar;
-    private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private EditText editTextName;
+    private EditText editTextReligion;
     private RadioButton buttonAdmin;
     //private RadioButton buttonUser;
     private RadioGroup radioGroup;

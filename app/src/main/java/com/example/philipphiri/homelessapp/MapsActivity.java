@@ -104,11 +104,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals("Gender")) {
+                if ("Gender".equals(selectedItem)) {
                     showGenderPopUp();
-                } else if (selectedItem.equals("Age")) {
+                } else if ("Age".equals(selectedItem)) {
                     showAgePopUp();
-                } else if (selectedItem.equals("No Filters")) {
+                } else if ("No Filters".equals(selectedItem)) {
                     showAllShelters();
                     Log.d("ShelterY", shelters.size() + " ");
                 }

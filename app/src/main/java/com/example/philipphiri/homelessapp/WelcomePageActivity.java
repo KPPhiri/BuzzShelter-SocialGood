@@ -29,7 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
     private  static FirebaseAuth user;
     private DatabaseReference userData;
-    private EditText editTextEmail, editTextPassword;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
     private Button okay;
     private Button cancel;
     private Button back;
@@ -92,7 +93,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String type = dataSnapshot.child("UserType").getValue(String.class);
-                            if (type.equals("Admin")) {
+                            if ("Admin".equals(type)) {
 //                                Intent i = new Intent(WelcomePageActivity.this,
 //                                  RegistrationActivity.class);
 //                                startActivity(i);

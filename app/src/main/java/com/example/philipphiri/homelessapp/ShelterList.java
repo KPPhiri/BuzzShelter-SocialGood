@@ -63,7 +63,7 @@ class ShelterList extends ArrayAdapter<Shelter>{
         String Text;
         Text = charText.toLowerCase(Locale.getDefault());
         shelterList.clear();
-        if (Text.length() == 0) {
+        if (Text.isEmpty()) {
             shelterList.addAll(arraylist);
         }
         else
