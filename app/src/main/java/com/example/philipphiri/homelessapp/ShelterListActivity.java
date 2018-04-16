@@ -3,7 +3,6 @@ package com.example.philipphiri.homelessapp;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -342,7 +340,8 @@ public class ShelterListActivity extends AppCompatActivity {
      */
 
     private boolean verifyClaim(String claimNum, String cap) {
-        if ((Integer.parseInt(claimNum) != 0) && (Integer.parseInt(claimNum) < Integer.parseInt(cap))) {
+        if ((Integer.parseInt(claimNum) != 0)
+                && (Integer.parseInt(claimNum) < Integer.parseInt(cap))) {
             verification = true;
             return true;
         } else {

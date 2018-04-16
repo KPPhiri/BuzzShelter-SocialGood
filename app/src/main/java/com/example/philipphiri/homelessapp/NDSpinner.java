@@ -1,7 +1,6 @@
 package com.example.philipphiri.homelessapp;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 
@@ -42,7 +41,8 @@ public class NDSpinner extends AppCompatSpinner {
                 getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
                         position, getSelectedItemId());
             }
-            //getOnItemSelectedListener().onItemSelected(this, getSelectedView(),position, getSelectedItemId());
+            //getOnItemSelectedListener().onItemSelected(this,
+            // getSelectedView(),position, getSelectedItemId());
         }
     }
 
@@ -57,7 +57,8 @@ public class NDSpinner extends AppCompatSpinner {
                 getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
                         position, getSelectedItemId());
             }
-            //getOnItemSelectedListener().onItemSelected(this, getSelectedView(),position, getSelectedItemId());
+            //getOnItemSelectedListener().onItemSelected(this,
+            // getSelectedView(),position, getSelectedItemId());
         }
     }
 
