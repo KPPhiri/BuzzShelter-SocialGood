@@ -10,8 +10,6 @@ import com.google.firebase.database.ValueEventListener;
  * User class with attributes
  */
 public class User {
-    private final String userType;
-    private final String permissionLevel;
     private final String residence;
     private  String name;
     private String claims;
@@ -32,8 +30,8 @@ public class User {
      */
     public User(String userType, String permissionLevel, String residence, String name,
                 String claims, String email, String religion) {
-        this.userType = userType;
-        this.permissionLevel = permissionLevel;
+        String userType1 = userType;
+        String permissionLevel1 = permissionLevel;
         this.residence = residence;
         this.name = name;
         this.claims = claims;
@@ -110,7 +108,7 @@ public class User {
 //    UD WARNING
    public void setUserName(String newName) {
 
-        if(!newName.isEmpty() && newName.length() < 10) {
+        if(!newName.isEmpty() && (newName.length() < 10)) {
             this.name = newName;
         }
     }

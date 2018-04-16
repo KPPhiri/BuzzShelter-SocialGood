@@ -30,7 +30,8 @@ public class FilterJunit {
     private String[] wArray;
     private String[] mArray;
     @Rule
-    public ActivityTestRule<ShelterListActivity> mActivityRule = new ActivityTestRule<>(ShelterListActivity.class);
+    public ActivityTestRule<ShelterListActivity> mActivityRule
+            = new ActivityTestRule<>(ShelterListActivity.class);
 
     @Before
     public void initWomenShelterList() {
@@ -56,7 +57,9 @@ public class FilterJunit {
         onView(withText("Gender")).perform(click());
         onView(withId(R.id.female)).perform(click());
         onView(withId(R.id.filterButton)).perform(click());
-        int numItems = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView)).getAdapter().getCount();
+        int numItems
+                = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView))
+                .getAdapter().getCount();
         Assert.assertEquals(3,numItems);
         for (int i = 0; i < numItems; i++) {
             onData(anything())
@@ -76,7 +79,9 @@ public class FilterJunit {
         onView(withText("Gender")).perform(click());
         onView(withId(R.id.male)).perform(click());
         onView(withId(R.id.filterButton)).perform(click());
-        int numItems = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView)).getAdapter().getCount();
+        int numItems
+                = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView))
+                .getAdapter().getCount();
         Assert.assertEquals(3,numItems);
         for (int i = 0; i < numItems; i++) {
             onData(anything())
