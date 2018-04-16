@@ -1,17 +1,10 @@
 package com.example.philipphiri.homelessapp;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.TabActivity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
-import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.text.TextWatcher;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +45,7 @@ public class ShelterListActivity extends AppCompatActivity {
     private ShelterList shelterAdapter;
 
     //int pos;
-    private static Shelter cur;
+    private static  Shelter cur;
     //static String numbo;
     private Dialog myDialogPop;
 
@@ -306,7 +298,7 @@ public class ShelterListActivity extends AppCompatActivity {
     /**
      * @param added add to shelter capacity
      */
-    public static void release(String added) {
+    public  static void release(String added) {
         DatabaseReference shelter = databaseShelters.child(cur.getUniqueKey());
         shelter.child("Capacity").setValue(Integer.toString(
                 Integer.parseInt(cur.getShelterCapacity()) + Integer.parseInt(added)));
@@ -331,7 +323,7 @@ public class ShelterListActivity extends AppCompatActivity {
                             claims.getText().toString())));
         }
 
-     private static boolean verification;
+     private static  boolean verification;
 
     /**
      * helper to verify legal claim
@@ -354,7 +346,7 @@ public class ShelterListActivity extends AppCompatActivity {
      *
      * @return boolean if verified
      */
-    public static boolean getVerify() {
+    public  static boolean getVerify() {
         return verification;
     }
 

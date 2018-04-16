@@ -24,7 +24,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView numClaims;
     private TextView religion;
     private TextView religionIs;
-    private DatabaseReference userData;
+    private static DatabaseReference userData;
 
     //private FirebaseAuth user;
 
@@ -50,7 +50,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
         claimsButton.setOnClickListener(new View.OnClickListener() {
             //String user_id = user.getCurrentUser().getUid();
-            final DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
+            final DatabaseReference current_user
+                    = userData.child(WelcomePageActivity.getCurrentUser());
 
             @Override
             public void onClick(View view) {

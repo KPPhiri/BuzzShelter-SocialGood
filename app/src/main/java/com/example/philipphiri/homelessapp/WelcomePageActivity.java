@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
  * welcome page activity
  */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
-    private static FirebaseAuth user;
+    private  static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail, editTextPassword;
     private Button okay;
