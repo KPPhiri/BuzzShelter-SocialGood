@@ -44,16 +44,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        editTextReligion = (EditText) findViewById(R.id.editTextReligion);
+        editTextName =  findViewById(R.id.editTextName);
+        editTextEmail =  findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextReligion =  findViewById(R.id.editTextReligion);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar = findViewById(R.id.progressbar);
 
-        buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
+        buttonAdmin = findViewById(R.id.buttonAdmin);
         //buttonUser = (RadioButton) findViewById(R.id.buttonUser);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
 
 
 

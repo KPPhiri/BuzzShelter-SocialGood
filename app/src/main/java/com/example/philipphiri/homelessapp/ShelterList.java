@@ -47,8 +47,8 @@ class ShelterList extends ArrayAdapter<Shelter>{
         } else {
             listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         }
-        TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
+        TextView textViewName = listViewItem.findViewById(R.id.textViewName);
+        TextView textViewCapacity = listViewItem.findViewById(R.id.textViewCapacity);
 
         Shelter shelter = shelterList.get(position);
         textViewName.setText(shelter.getShelterName());

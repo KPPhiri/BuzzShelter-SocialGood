@@ -99,7 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         NDSpinner filters;
-        filters = (NDSpinner) findViewById(R.id.filterSpinner);
+        filters = findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Filter.values());
@@ -128,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         Log.d("ShelterX", shelters.size() + " ");
-        final EditText searchET = (EditText)findViewById(R.id.searchBar);
+        final EditText searchET = findViewById(R.id.searchBar);
 
 
         searchET.addTextChangedListener(new TextWatcher() {
@@ -211,12 +211,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
-        filter = (Button) genderCategories.findViewById(R.id.filterButton);
+        filter = genderCategories.findViewById(R.id.filterButton);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Checkable checkBoxM= (Checkable) genderCategories.findViewById(R.id.male);
-                Checkable checkBoxF = (Checkable) genderCategories.findViewById(R.id.female);
+                Checkable checkBoxM = genderCategories.findViewById(R.id.male);
+                Checkable checkBoxF =  genderCategories.findViewById(R.id.female);
 
                 if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
                     //shelterAdapter.genFilter("Men");
@@ -259,15 +259,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void showAgePopUp() {
 
         ageCategories.setContentView(R.layout.age_categories);
-        filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+        filter = ageCategories.findViewById(R.id.filterButton2);
 
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Checkable checkBoxN = (Checkable) ageCategories.findViewById(R.id.Newborns);
-                Checkable checkBoxC = (Checkable) ageCategories.findViewById(R.id.Children);
-                Checkable checkBoxY = (Checkable) ageCategories.findViewById(R.id.Young_Adults);
-                Checkable checkBoxA = (Checkable) ageCategories.findViewById(R.id.Anyone);
+                Checkable checkBoxN =  ageCategories.findViewById(R.id.Newborns);
+                Checkable checkBoxC =  ageCategories.findViewById(R.id.Children);
+                Checkable checkBoxY =  ageCategories.findViewById(R.id.Young_Adults);
+                Checkable checkBoxA =  ageCategories.findViewById(R.id.Anyone);
                 if(checkBoxN.isChecked()) {
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("newborns"))
