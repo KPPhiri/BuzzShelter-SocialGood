@@ -1,6 +1,7 @@
 package com.example.philipphiri.homelessapp;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 
@@ -37,8 +38,11 @@ public class NDSpinner extends AppCompatSpinner {
         if (sameSelected) {
             // Spinner does not call the OnItemSelectedListener if the same item is selected,
             // so do it manually now
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
-                    position, getSelectedItemId());
+            if (getOnItemSelectedListener() != null) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
+                        position, getSelectedItemId());
+            }
+            //getOnItemSelectedListener().onItemSelected(this, getSelectedView(),position, getSelectedItemId());
         }
     }
 
@@ -49,8 +53,11 @@ public class NDSpinner extends AppCompatSpinner {
         if (sameSelected) {
             // Spinner does not call the OnItemSelectedListener if the same item is selected,
             // so do it manually now
-            getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
-                    position, getSelectedItemId());
+            if (getOnItemSelectedListener() != null) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(),
+                        position, getSelectedItemId());
+            }
+            //getOnItemSelectedListener().onItemSelected(this, getSelectedView(),position, getSelectedItemId());
         }
     }
 

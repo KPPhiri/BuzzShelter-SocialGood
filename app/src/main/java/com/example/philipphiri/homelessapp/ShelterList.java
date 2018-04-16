@@ -21,7 +21,7 @@ import java.util.Locale;
 class ShelterList extends ArrayAdapter<Shelter>{
     private final Activity context;
     private final List<Shelter> shelterList;
-    private ArrayList<Shelter> arraylist=null;
+    private List<Shelter> arraylist=null;
 
     /**
      * Shelterlist Activity
@@ -44,8 +44,9 @@ class ShelterList extends ArrayAdapter<Shelter>{
         View listViewItem;
         if (convertView == null) {
             listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
+        } else {
+            listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         }
-        listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
 
@@ -80,7 +81,7 @@ class ShelterList extends ArrayAdapter<Shelter>{
     /**
      * @param option gender options
      */
-    public void genFilter(String option) {
+    public void genFilter(CharSequence option) {
         shelterList.clear();
         {
             for (Shelter wp : arraylist) {
@@ -95,7 +96,7 @@ class ShelterList extends ArrayAdapter<Shelter>{
     /**
      * @param option age options
      */
-    public void ageFilter(String option) {
+    public void ageFilter(CharSequence option) {
         shelterList.clear();
         {
             for (Shelter wp : arraylist) {

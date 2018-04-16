@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 class Shelter {
     private String address;
     private String capacity;
-    private  double latitude;
+    private final double latitude;
     private final double longitude;
     private String phoneNumber;
     private String restrictions;
@@ -71,20 +71,20 @@ class Shelter {
         return shelterName;
     }
 
-    /**
-     * @param name new shelter name
-     */
-   // public void setShelterName(String name) { shelterName = name; }
-    public void setShelterName(String name) {
-        if(!name.isEmpty() && isLetter(name)) {
-            shelterName = name;
-        }
-    }
+//    /**
+//     * @param name new shelter name
+//     */
+//   // public void setShelterName(String name) { shelterName = name; }
+//    public void setShelterName(String name) {
+//        if(!name.isEmpty() && isLetter(name)) {
+//            shelterName = name;
+//        }
+//    }
 
     /**
      * @return shelter address
      */
-    public synchronized String getShelterAddress(){
+    public synchronized CharSequence getShelterAddress(){
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,11 +104,11 @@ class Shelter {
         return address;
     }
 
-    /**
-     * @param add new shelter address
-     */
-    public void setShelterAddress(String add) { address = add; }
-    // public void setShelterAddress(String add) { address = add; }
+//    /**
+//     * @param add new shelter address
+//     */
+//    public void setShelterAddress(String add) { address = add; }
+//    // public void setShelterAddress(String add) { address = add; }
 
     /**
      * @return shelter capacity
@@ -133,11 +133,11 @@ class Shelter {
         });
         return capacity; }
 
-    /**
-     * @param c new capacity of shelter
-     */
-    public void setCapacity(String c) { capacity = c; }
-    //public void setCapacity(String c) { capacity = c; }
+//    /**
+//     * @param c new capacity of shelter
+//     */
+//    public void setCapacity(String c) { capacity = c; }
+//    //public void setCapacity(String c) { capacity = c; }
 
     /**
      * @return shelter restrictions
@@ -161,10 +161,10 @@ class Shelter {
         });
         return restrictions; }
 
-    /**
-     * @param restrict new shelter restrictions
-     */
-    public void setShelterRestrictions(String restrict) { restrictions = restrict; }
+//    /**
+//     * @param restrict new shelter restrictions
+//     */
+//    public void setShelterRestrictions(String restrict) { restrictions = restrict; }
 
     /**
      * @return shelter longitude
@@ -175,11 +175,11 @@ class Shelter {
         return longitude;
     }
 
-    /**
-     * @param longi new shelter longitude
-     */
-//    public void setShelterLongitude(Double longi) { longitude = longi; }
-    //public void setShelterLongitude(Double longi) { longitude = longi; }
+//    /**
+//     * @param longi new shelter longitude
+//     */
+////    public void setShelterLongitude(Double longi) { longitude = longi; }
+//    //public void setShelterLongitude(Double longi) { longitude = longi; }
 
     /**
      * @return shelter latitude
@@ -188,16 +188,16 @@ class Shelter {
 
         return latitude; }
 
-    /**
-     * @param lati new shelter latitude
-     */
-    public void setShelterLatitude(Double lati) { latitude = lati; }
+//    /**
+//     * @param lati new shelter latitude
+//     */
+//    public void setShelterLatitude(Double lati) { latitude = lati; }
     // public void setShelterLatitude(Double lati) { latitude = lati; }
 
     /**
      * @return shelter phone number
      */
-    public String getShelterPhone() {
+    public CharSequence getShelterPhone() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -218,16 +218,16 @@ class Shelter {
         return phoneNumber;
     }
 
-    /**
-     * @param phone new shelter phone number
-     */
-    public void setShelterPhone(String phone) { phoneNumber = phone; }
+//    /**
+//     * @param phone new shelter phone number
+//     */
+//    public void setShelterPhone(String phone) { phoneNumber = phone; }
     //  public void setShelterPhone(String phone) { phoneNumber = phone; }
 
     /**
      * @return shelter notes
      */
-    public String getShelterNotes() {
+    public CharSequence getShelterNotes() {
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         databaseShelters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -247,10 +247,10 @@ class Shelter {
         return specialNotes;
     }
 
-    /**
-     * @param notes new shelter notes
-     */
-    public void setShelterNotes(String notes) { specialNotes = notes; }
+//    /**
+//     * @param notes new shelter notes
+//     */
+//    public void setShelterNotes(String notes) { specialNotes = notes; }
     // public void setShelterNotes(String notes) { specialNotes = notes; }
 
     /**
@@ -275,23 +275,24 @@ class Shelter {
         });
         return uniqueKey; }
 
-    /**
-     * @param key new unique shelter key
-     */
-    public void setUniqueKey(String key) { uniqueKey = key; }
+//    /**
+//     * @param key new unique shelter key
+//     */
+//    public void setUniqueKey(String key) { uniqueKey = key; }
     // public void setUniqueKey(String key) { uniqueKey = key; }
 
-    private boolean isLetter(String name) {
-        char[] chars = name.toCharArray();
-
-        for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
+    //why is this here?
+//    private boolean isLetter(String name) {
+//        char[] chars = name.toCharArray();
+//
+//        for (char c : chars) {
+//            if(!Character.isLetter(c)) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
 
 
 }

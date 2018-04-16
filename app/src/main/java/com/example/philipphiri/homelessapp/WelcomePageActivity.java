@@ -31,8 +31,8 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     private DatabaseReference userData;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button okay;
-    private Button cancel;
+    //private Button okay;
+    //private Button cancel;
     private Button back;
 //    private Button loginButton;
 //    private Button regButton;
@@ -87,21 +87,24 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.i("clicks", "Success");
-                    String user_id = user.getCurrentUser().getUid();
+                    String user_id = "0"; //check this v
+                    if (user.getCurrentUser() != null) {
+                        user_id = user.getCurrentUser().getUid();
+                    }
                     DatabaseReference current_user = userData.child("Users").child(user_id);
                     current_user.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String type = dataSnapshot.child("UserType").getValue(String.class);
-                            if ("Admin".equals(type)) {
-//                                Intent i = new Intent(WelcomePageActivity.this,
-//                                  RegistrationActivity.class);
-//                                startActivity(i);
-                            } else {
-//                                Intent i = new Intent(WelcomePageActivity.this,
-//                                  RegistrationActivity.class);
-//                                startActivity(i);
-                            }
+                            //String type = dataSnapshot.child("UserType").getValue(String.class);
+//                            if ("Admin".equals(type)) {
+////                                Intent i = new Intent(WelcomePageActivity.this,
+////                                  RegistrationActivity.class);
+////                                startActivity(i);
+//                            } else {
+////                                Intent i = new Intent(WelcomePageActivity.this,
+////                                  RegistrationActivity.class);
+////                                startActivity(i);
+//                            }
 //                            Intent i = new Intent(WelcomePageActivity.this, MapsActivity.class);
                             Intent i = new Intent(WelcomePageActivity.this,
                                     MainPageActivity.class);
@@ -143,6 +146,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     private void ShowPopUp() {
 
         myDialog.setContentView(R.layout.loginpopup);
+        Button cancel;
         cancel = (Button) myDialog.findViewById(R.id.cancelButton);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +155,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+        Button okay;
         okay = (Button) myDialog.findViewById(R.id.okayButton);
         editTextEmail = (EditText) myDialog.findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) myDialog.findViewById(R.id.editTextPassword);
@@ -160,7 +165,9 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                 loginUser();
             }
         });
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if (myDialog.getWindow() != null) {
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
         myDialog.show();
 
     }
@@ -169,7 +176,10 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
      * @return current user's id
      */
     public static String getCurrentUser() {
-        return user.getCurrentUser().getUid();
+        if (user.getCurrentUser() != null) {
+            return user.getCurrentUser().getUid();
+        }
+        return "0"; //check this-- changed for inspection
     }
 
     @Override

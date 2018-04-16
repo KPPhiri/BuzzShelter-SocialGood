@@ -102,7 +102,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 String religion = editTextReligion.getText().toString().trim();
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    String user_id = user.getCurrentUser().getUid();
+                    String user_id = "none"; //check - this might do something weird?
+                    if (user.getCurrentUser() != null) {
+                        user_id = user.getCurrentUser().getUid();
+                    }
                     DatabaseReference current_user = userData.child(user_id);
 
                     if(radioGroup.getCheckedRadioButtonId() == buttonAdmin.getId()) {
@@ -125,8 +128,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 "Email is already used", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Toast.makeText(getApplicationContext(),
-                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        //check this may do something weird?
+                        if (task.getException() != null) {
+                            Toast.makeText(getApplicationContext(),
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
