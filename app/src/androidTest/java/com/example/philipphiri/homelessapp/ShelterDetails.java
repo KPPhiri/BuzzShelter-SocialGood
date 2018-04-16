@@ -31,6 +31,7 @@ import static org.hamcrest.Matchers.anything;
  */
 @RunWith(AndroidJUnit4.class)
 public class ShelterDetails{
+    private static final int time = 10000;
     @Rule
     public ActivityTestRule<WelcomePageActivity> mActivityRule =
             new ActivityTestRule<>(WelcomePageActivity.class);
@@ -45,9 +46,9 @@ public class ShelterDetails{
         onView(withId(R.id.editTextPassword)).perform(typeText("sanrio"),closeSoftKeyboard());
         onView(withId(R.id.okayButton)).perform(click());
 
-        SystemClock.sleep(10000);
+        SystemClock.sleep(time);
         onView(withId(R.id.sheltersButton)).perform(click());
-        SystemClock.sleep(10000);
+        SystemClock.sleep(time);
 
         onData(anything()).inAdapterView(withId(R.id.shelterListView)).
                 atPosition(0).perform(click());
@@ -71,9 +72,9 @@ public class ShelterDetails{
         onView(withId(R.id.editTextPassword)).perform(typeText("sanrio"),closeSoftKeyboard());
         onView(withId(R.id.okayButton)).perform(click());
 
-        SystemClock.sleep(10000);
+        SystemClock.sleep(time);
         onView(withId(R.id.sheltersButton)).perform(click());
-        SystemClock.sleep(10000);
+        SystemClock.sleep(time);
 
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
         DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());

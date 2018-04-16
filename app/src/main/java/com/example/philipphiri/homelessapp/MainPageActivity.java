@@ -24,7 +24,7 @@ public class MainPageActivity extends AppCompatActivity {
 //    private TextView mapText;
 //    private TextView shelterText;
 
-    private DatabaseReference userData;
+    //private DatabaseReference userData;
     private static User u;
 
     @Override
@@ -34,18 +34,19 @@ public class MainPageActivity extends AppCompatActivity {
         final ImageButton shelterListButton;
         final Button logout;
 
-        final TextView profileText;
-        final TextView mapText;
-        final TextView shelterText;
+        //final TextView profileText;
+        //final TextView mapText;
+        //final TextView shelterText;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
         userProfileButton = findViewById(R.id.profileButton);
         mapActivityButton = findViewById(R.id.mapButton);
         shelterListButton = findViewById(R.id.sheltersButton);
-        profileText = findViewById(R.id.profileTextView);
-        mapText = findViewById(R.id.mapTextView);
-        shelterText = findViewById(R.id.shelterTextView);
+        //profileText = findViewById(R.id.profileTextView);
+        //mapText = findViewById(R.id.mapTextView);
+        //shelterText = findViewById(R.id.shelterTextView);
+
         logout = findViewById(R.id.logoutButton);
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +89,7 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        DatabaseReference userData;
         userData = FirebaseDatabase.getInstance().getReference().child("Users");
         DatabaseReference current_user = userData.child(WelcomePageActivity.getCurrentUser());
         current_user.addValueEventListener(new ValueEventListener() {

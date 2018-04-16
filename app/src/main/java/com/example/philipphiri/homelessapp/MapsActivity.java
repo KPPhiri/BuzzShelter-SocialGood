@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Maps Activity
@@ -38,11 +40,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<Shelter> shelters;
     private DatabaseReference databaseShelters;
     //private static final String TAG = "MapsActivity";
-    private NDSpinner filters;
+    //private NDSpinner filters;
     private Dialog genderCategories;
     private Dialog ageCategories;
     private Button filter;
-    private HashMap<String,Marker> hashMapMarker;
+    private Map<String,Marker> hashMapMarker;
+    private static final float zoomLevel = 11f;
+    private static final float lat = 33.753746f;
+    private static final float lng = -84.386330f;
 
 
     @Override
@@ -94,6 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
+        NDSpinner filters;
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         hashMapMarker = new HashMap<>();
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<>(this,
@@ -102,6 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filters.setAdapter(filterAdapter);
 
         filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if ("Gender".equals(selectedItem)) {
@@ -116,6 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             // to close the onItemSelected
+            @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
@@ -187,9 +195,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .position(x).title((String) tuple.child("Shelter Name").getValue())
                             .snippet((String) tuple.child("Phone Number").getValue()));
                     hashMapMarker.put(shelter.getShelterName(), temp);
-                    float zoomLevel = 11f;
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.753746,
-                            -84.386330), zoomLevel));
+                    //float zoomLevel = 11f;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,
+                            lng), zoomLevel));
                 }
 
 
@@ -208,8 +216,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
-                CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+                Checkable checkBoxM= (Checkable) genderCategories.findViewById(R.id.male);
+                Checkable checkBoxF = (Checkable) genderCategories.findViewById(R.id.female);
 
                 if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
                     //shelterAdapter.genFilter("Men");
@@ -257,10 +265,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckBox checkBoxN = (CheckBox) ageCategories.findViewById(R.id.Newborns);
-                CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
-                CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
-                CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
+                Checkable checkBoxN = (Checkable) ageCategories.findViewById(R.id.Newborns);
+                Checkable checkBoxC = (Checkable) ageCategories.findViewById(R.id.Children);
+                Checkable checkBoxY = (Checkable) ageCategories.findViewById(R.id.Young_Adults);
+                Checkable checkBoxA = (Checkable) ageCategories.findViewById(R.id.Anyone);
                 if(checkBoxN.isChecked()) {
                     for (Shelter a: shelters) {
                         if(!(a.getShelterRestrictions().contains("newborns"))

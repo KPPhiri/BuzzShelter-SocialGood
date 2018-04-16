@@ -3,6 +3,7 @@ package com.example.philipphiri.homelessapp;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,7 +43,7 @@ public class ShelterListActivity extends AppCompatActivity {
     private ListView listViewShelters;
     private List<Shelter> shelters;
     private static DatabaseReference databaseShelters;
-    private NDSpinner filters;
+    //private NDSpinner filters;
     private ShelterList shelterAdapter;
 
     //int pos;
@@ -49,13 +51,16 @@ public class ShelterListActivity extends AppCompatActivity {
     //static String numbo;
     private Dialog myDialogPop;
 
+    private final User u = MainPageActivity.getCurrentUser();
+    private static final float aLat = 2.0f;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_list);
 
         //******so that shelter adapter isnt null THIS IS FOR JUNIT TO WORK********
-        Shelter original = new Shelter("ee", "capacity", 2.0,
+        Shelter original = new Shelter("ee", "capacity", aLat,
                 0.0,"phone", "rest", "name",
                 "note", "100");
         List <Shelter> o = new ArrayList<>();
@@ -75,6 +80,7 @@ public class ShelterListActivity extends AppCompatActivity {
 
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
+        NDSpinner filters;
         filters = (NDSpinner) findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<> (
                 this, android.R.layout.simple_spinner_item, Filter.values());
@@ -82,6 +88,7 @@ public class ShelterListActivity extends AppCompatActivity {
         filters.setAdapter(filterAdapter);
 
         filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if ("Gender".equals(selectedItem)) {
@@ -92,6 +99,7 @@ public class ShelterListActivity extends AppCompatActivity {
                     showEntireList();
                 }
             } // to close the onItemSelected
+            @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
@@ -168,8 +176,8 @@ public class ShelterListActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckBox checkBoxM= (CheckBox) genderCategories.findViewById(R.id.male);
-                CheckBox checkBoxF = (CheckBox) genderCategories.findViewById(R.id.female);
+                Checkable checkBoxM= (Checkable) genderCategories.findViewById(R.id.male);
+                Checkable checkBoxF = (Checkable) genderCategories.findViewById(R.id.female);
 //                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
 //                    //remove all the shelters that contain only women restrictions
 //                    shelterAdapter.genFilter("Women");
@@ -198,10 +206,10 @@ public class ShelterListActivity extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckBox checkBoxN = (CheckBox) ageCategories.findViewById(R.id.Newborns);
-                CheckBox checkBoxC = (CheckBox) ageCategories.findViewById(R.id.Children);
-                CheckBox checkBoxY = (CheckBox) ageCategories.findViewById(R.id.Young_Adults);
-                CheckBox checkBoxA = (CheckBox) ageCategories.findViewById(R.id.Anyone);
+                Checkable checkBoxN = (Checkable) ageCategories.findViewById(R.id.Newborns);
+                Checkable checkBoxC = (Checkable) ageCategories.findViewById(R.id.Children);
+                Checkable checkBoxY = (Checkable) ageCategories.findViewById(R.id.Young_Adults);
+                Checkable checkBoxA = (Checkable) ageCategories.findViewById(R.id.Anyone);
 
                 if(checkBoxN.isChecked()) {
                     //adds all the shelters that contain only Newborns restrictions
@@ -230,6 +238,7 @@ public class ShelterListActivity extends AppCompatActivity {
         shelterAdapter.noFilter();
     }
 
+    @Override
     protected void onStart() {
         super.onStart();
         databaseShelters.addValueEventListener(new ValueEventListener() {
@@ -376,7 +385,7 @@ public class ShelterListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if ("0".equals(MainPageActivity.getCurrentUser().getNumClaims())) {
+                if ("0".equals(u.getNumClaims())) {
                     boolean check = verifyClaim(claims.getText().toString(),
                             cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?
@@ -404,8 +413,10 @@ public class ShelterListActivity extends AppCompatActivity {
 
             }
         });
-
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if (myDialog.getWindow() != null) {
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        //myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView tv1 = (TextView) myDialog.findViewById(R.id.shelterName);
         tv1.setText(s.getShelterName());
@@ -436,9 +447,12 @@ public class ShelterListActivity extends AppCompatActivity {
             }
         });
 
-        TextView release;
-        release = (TextView) myDialogPop.findViewById(R.id.releaseTextView);
-        myDialogPop.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //TextView release;
+        //release = (TextView) myDialogPop.findViewById(R.id.releaseTextView);
+        if (myDialogPop.getWindow() != null) {
+            myDialogPop.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        //myDialogPop.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialogPop.show();
 
     }
