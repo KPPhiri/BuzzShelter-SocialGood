@@ -17,6 +17,7 @@
         android:gravity="center">
 
         <ImageView
+            android:contentDescription="user pic icon"
             android:id="@+id/userImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -63,6 +64,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:baselineAligned="false"
         android:paddingTop="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"

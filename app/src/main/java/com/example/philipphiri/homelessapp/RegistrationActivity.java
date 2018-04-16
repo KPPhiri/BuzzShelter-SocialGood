@@ -24,10 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-    RadioButton buttonUser;
+   // RadioButton buttonUser;
     private ProgressBar progressBar;
-    private EditText editTextEmail, editTextPassword, editTextName, editTextReligion;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private EditText editTextName;
+    private EditText editTextReligion;
     private RadioButton buttonAdmin;
+    //private RadioButton buttonUser;
     private RadioGroup radioGroup;
     private static FirebaseAuth user;
     private DatabaseReference userData;
@@ -48,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         buttonAdmin = (RadioButton) findViewById(R.id.buttonAdmin);
-        buttonUser = (RadioButton) findViewById(R.id.buttonUser);
+        //buttonUser = (RadioButton) findViewById(R.id.buttonUser);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
 

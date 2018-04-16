@@ -10,15 +10,15 @@ import com.google.firebase.database.ValueEventListener;
  * User class with attributes
  */
 public class User {
-    private String userType;
-    private String permissionLevel;
-    private String residence;
-    private String name;
+    private  String userType;
+    private  String permissionLevel;
+    private  String residence;
+    private  String name;
     private String claims;
-    private String religion;
-    private String email;
+    private  String religion;
+    private  String email;
     //static DatabaseReference databaseUsers;
-    DatabaseReference userData;
+    private DatabaseReference userData;
 
 
     /**
@@ -41,6 +41,13 @@ public class User {
         this.religion = religion;
 
     }
+    //UD WARNING
+//    public String getUserType(){
+//        return userType;
+//    }
+//    public void setUserType(String type){
+//        this.userType = type;
+//    }
 
     /**
      * @return user type
@@ -60,6 +67,8 @@ public class User {
      * @return residence of user
      */
     public String getUserResidence() { return residence; }
+    //UD WARNING
+    // public void setUserResidence(String res) { this.residence = res; }
 
     /**
      * @param res new user residence
@@ -86,6 +95,8 @@ public class User {
         });
 
         return claims; }
+    //UD WARNING
+    //public void setNumClaims(String num) {this.claims = num; }
 
     /**
      * @param num new number of claims
@@ -96,6 +107,8 @@ public class User {
      * @return name of user
      */
     public String getUserName() {return name; }
+//    UD WARNING
+//    public void setUserName(String newName) {this.name = newName; }
 
     /**
      * @param newName new name of user
@@ -106,22 +119,33 @@ public class User {
      * @return email of user
      */
     public String getUserEmail() { return email; }
+    //UD WARNING
+    //public void setUserEmail(String newEmail) { this.email = newEmail; }
 
     /**
      * @param newEmail new email of user
      */
     public void setUserEmail(String newEmail) { this.email = newEmail; }
 
+    //UD WARNING
     /**
      * @return religion of user
      */
     public String getUserReligion() { return religion; }
+    // public void setUserReligion(String newRel) {this.religion = newRel; }
 
     /**
      * @param newRel new religion of user
      */
     public void setUserReligion(String newRel) {this.religion = newRel; }
 
+    //UD WARNING
+//    public String getPermissionLevel(){
+//        return permissionLevel;
+//    }
+//    public void setPermissionLevel(String permlvl){
+//        this.permissionLevel = permlvl;
+//    }
     /**
      * @return permission level of user
      */

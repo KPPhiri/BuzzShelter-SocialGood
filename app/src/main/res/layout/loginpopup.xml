@@ -8,14 +8,9 @@
     android:padding="5dp"
     android:layout_gravity="center"
     android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true">
-
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
+    android:layout_centerVertical="true"
+    android:layout_margin="5dp"
+   >
 
 
         <EditText
@@ -25,9 +20,9 @@
             android:layout_margin="10dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:hint="Username"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -36,14 +31,15 @@
             android:layout_margin="10dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:hint="Password"
             android:inputType="textPassword" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
             <Button
                 android:id="@+id/cancelButton"
@@ -51,7 +47,6 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:text="Cancel"
                 android:textSize="15sp" />
 
@@ -61,11 +56,10 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+
                 android:text="Log In"
                 android:textSize="15sp" />
         </LinearLayout>
 
-    </LinearLayout>
 
 </LinearLayout>

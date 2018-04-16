@@ -18,9 +18,9 @@ import java.util.Locale;
  * of appropriate shelters
  */
 
-public class ShelterList extends ArrayAdapter<Shelter>{
-    private Activity context;
-    List<Shelter> shelterList;
+class ShelterList extends ArrayAdapter<Shelter>{
+    private final Activity context;
+    private final List<Shelter> shelterList;
     private ArrayList<Shelter> arraylist=null;
 
     /**
@@ -41,7 +41,11 @@ public class ShelterList extends ArrayAdapter<Shelter>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
+        View listViewItem;
+        if (convertView == null) {
+            listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
+        }
+        listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
 
@@ -59,7 +63,7 @@ public class ShelterList extends ArrayAdapter<Shelter>{
         String Text;
         Text = charText.toLowerCase(Locale.getDefault());
         shelterList.clear();
-        if (Text.length() == 0) {
+        if (Text.isEmpty()) {
             shelterList.addAll(arraylist);
         }
         else
@@ -109,9 +113,10 @@ public class ShelterList extends ArrayAdapter<Shelter>{
     public void noFilter() {
         shelterList.clear();
         {
-            for (Shelter wp : arraylist) {
-                    shelterList.add(wp);
-            }
+//            for (Shelter wp : arraylist) {
+//                shelterList.add(wp);
+//            }
+            shelterList.addAll(arraylist);
         }
         notifyDataSetChanged();
     }
