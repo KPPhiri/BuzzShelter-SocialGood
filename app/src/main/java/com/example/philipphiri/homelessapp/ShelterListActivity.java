@@ -84,11 +84,11 @@ public class ShelterListActivity extends AppCompatActivity {
         filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if (selectedItem.equals("Gender")) {
+                if ("Gender".equals(selectedItem)) {
                     showGenderPopUp();
-                } else if (selectedItem.equals("Age")) {
+                } else if ("Age".equals(selectedItem)) {
                     showAgePopUp();
-                } else if (selectedItem.equals("No Filters")) {
+                } else if ("No Filters".equals(selectedItem)) {
                     showEntireList();
                 }
             } // to close the onItemSelected
@@ -333,7 +333,7 @@ public class ShelterListActivity extends AppCompatActivity {
      */
 
     private boolean verifyClaim(String claimNum, String cap) {
-        if (Integer.parseInt(claimNum) != 0 && Integer.parseInt(claimNum) < Integer.parseInt(cap)) {
+        if ((Integer.parseInt(claimNum) != 0) && (Integer.parseInt(claimNum) < Integer.parseInt(cap))) {
             verification = true;
             return true;
         } else {
@@ -376,7 +376,7 @@ public class ShelterListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (MainPageActivity.getCurrentUser().getNumClaims().equals("0")) {
+                if ("0".equals(MainPageActivity.getCurrentUser().getNumClaims())) {
                     boolean check = verifyClaim(claims.getText().toString(),
                             cur.getShelterCapacity());
                     //should we have a check to see if what they typed is even a number?

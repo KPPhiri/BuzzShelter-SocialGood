@@ -13,7 +13,7 @@ class Shelter {
     private String address;
     private String capacity;
     private  double latitude;
-    private  double longitude;
+    private final double longitude;
     private String phoneNumber;
     private String restrictions;
     private String shelterName;
@@ -76,7 +76,7 @@ class Shelter {
      */
    // public void setShelterName(String name) { shelterName = name; }
     public void setShelterName(String name) {
-        if((name.length() != 0) && isLetter(name)) {
+        if(!name.isEmpty() && isLetter(name)) {
             shelterName = name;
         }
     }
