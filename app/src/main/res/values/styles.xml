@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@null</item>
         <item name="colorPrimary">#94DFFF</item>
         <item name="colorPrimaryDark">#25A7FF</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -33,7 +34,5 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

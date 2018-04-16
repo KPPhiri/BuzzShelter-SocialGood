@@ -41,7 +41,11 @@ class ShelterList extends ArrayAdapter<Shelter>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
+        View listViewItem;
+        if (convertView == null) {
+            listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
+        }
+        listViewItem = inflater.inflate(R.layout.layout_shelter_list, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewCapacity = (TextView) listViewItem.findViewById(R.id.textViewCapacity);
 
@@ -109,9 +113,10 @@ class ShelterList extends ArrayAdapter<Shelter>{
     public void noFilter() {
         shelterList.clear();
         {
-            for (Shelter wp : arraylist) {
-                shelterList.add(wp);
-            }
+//            for (Shelter wp : arraylist) {
+//                shelterList.add(wp);
+//            }
+            shelterList.addAll(arraylist);
         }
         notifyDataSetChanged();
     }
