@@ -30,8 +30,12 @@ public class FilterJunit {
     private String[] wArray;
     private String[] mArray;
     @Rule
-    public ActivityTestRule<ShelterListActivity> mActivityRule = new ActivityTestRule<>(ShelterListActivity.class);
+    public ActivityTestRule<ShelterListActivity> mActivityRule =
+            new ActivityTestRule<>(ShelterListActivity.class);
 
+    /**
+     * Creates an array of women shelters
+     */
     @Before
     public void initWomenShelterList() {
         wArray = new String[3];
@@ -41,6 +45,9 @@ public class FilterJunit {
 
     }
 
+    /**
+     * Creates an array of men shelters
+     */
     @Before
     public void initMenShelterList() {
         mArray = new String[3];
@@ -50,13 +57,17 @@ public class FilterJunit {
 
     }
 
+    /**
+     * Checks that female filter works
+     */
     @Test
     public void checkedWomen() {
         onView(withId(R.id.filterSpinner)).perform(click());
         onView(withText("Gender")).perform(click());
         onView(withId(R.id.female)).perform(click());
         onView(withId(R.id.filterButton)).perform(click());
-        int numItems = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView)).getAdapter().getCount();
+        int numItems = ((ListView) mActivityRule.getActivity().
+                findViewById(R.id.shelterListView)).getAdapter().getCount();
         Assert.assertEquals(3,numItems);
         for (int i = 0; i < numItems; i++) {
             onData(anything())
@@ -70,13 +81,17 @@ public class FilterJunit {
         }
     }
 
+    /**
+     * Checks that male filter works
+     */
     @Test
     public void checkedMen() {
         onView(withId(R.id.filterSpinner)).perform(click());
         onView(withText("Gender")).perform(click());
         onView(withId(R.id.male)).perform(click());
         onView(withId(R.id.filterButton)).perform(click());
-        int numItems = ((ListView) mActivityRule.getActivity().findViewById(R.id.shelterListView)).getAdapter().getCount();
+        int numItems = ((ListView) mActivityRule.getActivity().
+                findViewById(R.id.shelterListView)).getAdapter().getCount();
         Assert.assertEquals(3,numItems);
         for (int i = 0; i < numItems; i++) {
             onData(anything())
