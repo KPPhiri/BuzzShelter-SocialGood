@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
  * welcome page activity
  */
 public class WelcomePageActivity extends AppCompatActivity implements View.OnClickListener {
-    private  static FirebaseAuth user;
+    private static FirebaseAuth user;
     private DatabaseReference userData;
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -119,7 +119,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
                     });
                 } else {
                     myDialog.setContentView(R.layout.wrong_login);
-                    back = (Button) myDialog.findViewById(R.id.backButton);
+                    back =  myDialog.findViewById(R.id.backButton);
                     back.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -147,7 +147,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
         myDialog.setContentView(R.layout.loginpopup);
         Button cancel;
-        cancel = (Button) myDialog.findViewById(R.id.cancelButton);
+        cancel =  myDialog.findViewById(R.id.cancelButton);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,9 +156,9 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
         });
 
         Button okay;
-        okay = (Button) myDialog.findViewById(R.id.okayButton);
-        editTextEmail = (EditText) myDialog.findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) myDialog.findViewById(R.id.editTextPassword);
+        okay =  myDialog.findViewById(R.id.okayButton);
+        editTextEmail =  myDialog.findViewById(R.id.editTextEmail);
+        editTextPassword =  myDialog.findViewById(R.id.editTextPassword);
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

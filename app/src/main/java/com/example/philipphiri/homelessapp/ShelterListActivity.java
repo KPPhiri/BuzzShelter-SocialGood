@@ -68,7 +68,7 @@ public class ShelterListActivity extends AppCompatActivity {
         //ref of shelters node
         databaseShelters = FirebaseDatabase.getInstance().getReference("Shelters");
         //getting views
-        listViewShelters = (ListView) findViewById(R.id.shelterListView);
+        listViewShelters =  findViewById(R.id.shelterListView);
         listViewShelters.setTextFilterEnabled(true);
         shelters = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class ShelterListActivity extends AppCompatActivity {
         genderCategories = new Dialog(this);
         ageCategories = new Dialog(this);
         NDSpinner filters;
-        filters = (NDSpinner) findViewById(R.id.filterSpinner);
+        filters = findViewById(R.id.filterSpinner);
         ArrayAdapter<Filter> filterAdapter = new ArrayAdapter<> (
                 this, android.R.layout.simple_spinner_item, Filter.values());
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -170,12 +170,12 @@ public class ShelterListActivity extends AppCompatActivity {
      */
     private void showGenderPopUp() {
         genderCategories.setContentView(R.layout.gender_categories);
-        filter = (Button) genderCategories.findViewById(R.id.filterButton);
+        filter = genderCategories.findViewById(R.id.filterButton);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Checkable checkBoxM= (Checkable) genderCategories.findViewById(R.id.male);
-                Checkable checkBoxF = (Checkable) genderCategories.findViewById(R.id.female);
+                Checkable checkBoxM=  genderCategories.findViewById(R.id.male);
+                Checkable checkBoxF =  genderCategories.findViewById(R.id.female);
 //                if(checkBoxM.isChecked() && !checkBoxF.isChecked()) {
 //                    //remove all the shelters that contain only women restrictions
 //                    shelterAdapter.genFilter("Women");
@@ -200,14 +200,14 @@ public class ShelterListActivity extends AppCompatActivity {
 
     private void showAgePopUp() {
         ageCategories.setContentView(R.layout.age_categories);
-        filter = (Button) ageCategories.findViewById(R.id.filterButton2);
+        filter =  ageCategories.findViewById(R.id.filterButton2);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Checkable checkBoxN = (Checkable) ageCategories.findViewById(R.id.Newborns);
-                Checkable checkBoxC = (Checkable) ageCategories.findViewById(R.id.Children);
-                Checkable checkBoxY = (Checkable) ageCategories.findViewById(R.id.Young_Adults);
-                Checkable checkBoxA = (Checkable) ageCategories.findViewById(R.id.Anyone);
+                Checkable checkBoxN = ageCategories.findViewById(R.id.Newborns);
+                Checkable checkBoxC = ageCategories.findViewById(R.id.Children);
+                Checkable checkBoxY = ageCategories.findViewById(R.id.Young_Adults);
+                Checkable checkBoxA = ageCategories.findViewById(R.id.Anyone);
 
                 if(checkBoxN.isChecked()) {
                     //adds all the shelters that contain only Newborns restrictions
@@ -263,7 +263,7 @@ public class ShelterListActivity extends AppCompatActivity {
                 listViewShelters.setAdapter(shelterAdapter);
 
 
-                final EditText searchET = (EditText)findViewById(R.id.searchBar);
+                final EditText searchET = findViewById(R.id.searchBar);
                 // Capture Text in EditText
                 searchET.addTextChangedListener(new TextWatcher() {
 
@@ -371,9 +371,9 @@ public class ShelterListActivity extends AppCompatActivity {
         TextView detailclose;
         final EditText claims;
         myDialog.setContentView(R.layout.shelter_detail);
-        claimButton = (Button) myDialog.findViewById(R.id.claim_button);
-        detailclose = (TextView) myDialog.findViewById(R.id.detailclose);
-        claims = (EditText) myDialog.findViewById(R.id.claim_number);
+        claimButton =  myDialog.findViewById(R.id.claim_button);
+        detailclose =  myDialog.findViewById(R.id.detailclose);
+        claims = myDialog.findViewById(R.id.claim_number);
         detailclose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -417,19 +417,19 @@ public class ShelterListActivity extends AppCompatActivity {
         }
         //myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TextView tv1 = (TextView) myDialog.findViewById(R.id.shelterName);
+        TextView tv1 =  myDialog.findViewById(R.id.shelterName);
         tv1.setText(s.getShelterName());
-        TextView tv2 = (TextView) myDialog.findViewById(R.id.shelterCap);
+        TextView tv2 =  myDialog.findViewById(R.id.shelterCap);
         tv2.setText(s.getShelterCapacity());
-        TextView tv3 = (TextView) myDialog.findViewById(R.id.shelterRes);
+        TextView tv3 =  myDialog.findViewById(R.id.shelterRes);
         tv3.setText(s.getShelterRestrictions());
-        TextView tv4 = (TextView) myDialog.findViewById(R.id.shelterLongLat);
+        TextView tv4 =  myDialog.findViewById(R.id.shelterLongLat);
         tv4.setText(s.getShelterLongitude() + " " + s.getShelterLatitude());
-        TextView tv5 = (TextView) myDialog.findViewById(R.id.shelterphone);
+        TextView tv5 = myDialog.findViewById(R.id.shelterphone);
         tv5.setText(s.getShelterPhone());
-        TextView tv6 = (TextView) myDialog.findViewById(R.id.shelteradd);
+        TextView tv6 = myDialog.findViewById(R.id.shelteradd);
         tv6.setText(s.getShelterAddress());
-        TextView tv7 = (TextView) myDialog.findViewById(R.id.shelternotes);
+        TextView tv7 = myDialog.findViewById(R.id.shelternotes);
         tv7.setText(s.getShelterNotes());
 
         myDialog.show();
@@ -438,7 +438,7 @@ public class ShelterListActivity extends AppCompatActivity {
     private void ShowReleasePopUp() {
         Button okButton;
         myDialogPop.setContentView(R.layout.release_claims_popup);
-        okButton = (Button) myDialogPop.findViewById(R.id.okButt);
+        okButton =  myDialogPop.findViewById(R.id.okButt);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
