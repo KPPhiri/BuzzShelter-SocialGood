@@ -9,7 +9,7 @@
     android:paddingRight="48dp"
     android:paddingTop="100dp"
     android:paddingBottom="100dp"
-    android:background="#60AAF9"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/main_activity_layout"
     tools:context="com.example.philipphiri.homelessapp.WelcomePageActivity">
 

@@ -84,7 +84,7 @@
                 android:id="@+id/sheltersButton"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                app:srcCompat="@android:drawable/ic_menu_mapmode" />
+                android:background="@drawable/logohouse"/>
 
             <TextView
                 android:id="@+id/shelterTextView"
