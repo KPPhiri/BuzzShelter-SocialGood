@@ -3,6 +3,7 @@ package com.example.philipphiri.homelessapp;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,7 +39,7 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
     private Button back;
 //    private Button loginButton;
 //    private Button regButton;
-
+    private AnimationDrawable homeAnimation;
 
     private Dialog myDialog;
 
@@ -52,11 +55,25 @@ public class WelcomePageActivity extends AppCompatActivity implements View.OnCli
 
 //        loginButton = (Button) findViewById(R.id.loginButton);
 //        regButton = (Button) findViewById(R.id.regButton);
-
+        ImageView home = (ImageView) findViewById(R.id.imageView);
+        home.setBackgroundResource(R.drawable.logohouse_a);
+        homeAnimation = (AnimationDrawable) home.getBackground();
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                homeAnimation.start();
+//            }
+//        });
 
         findViewById(R.id.loginButton).setOnClickListener(this);
         findViewById(R.id.regButton).setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        homeAnimation.start();
     }
 
     private void loginUser() {
