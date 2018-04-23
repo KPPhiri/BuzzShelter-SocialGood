@@ -31,7 +31,7 @@ class ShelterList extends ArrayAdapter<Shelter>{
     public ShelterList(Activity context, List<Shelter> shelterList) {
         super(context, R.layout.layout_shelter_list, shelterList);
         this.context = context;
-        this.shelterList = shelterList;
+        this.shelterList = new ArrayList<>(shelterList);
 
         this.arraylist = new ArrayList<>();
         this.arraylist.addAll(shelterList);
