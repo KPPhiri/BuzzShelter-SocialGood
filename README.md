@@ -15,7 +15,7 @@ Teamed up with Social Good to build an android application that allows the homel
 * Yuri Ahn
   * Worked on front-end functionality
 * Eugene Ahn
-  * Implemented incorrect login functionality
+  * Implemented incorrect login UI design
 * David Lim
   * Implemented password hashing algorithm
 
