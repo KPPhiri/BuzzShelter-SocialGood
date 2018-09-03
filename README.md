@@ -1,4 +1,3 @@
 # Hope Finder
 ### Let's do some math on twitter!
-
-Currently, this project scrapes twitter for as many tweets as it can get its hands on for a given hashtag
+<img alt="All Layers Input Reconstruction and Distillation Diagram" src="imgs/ss01.png /><br/>
