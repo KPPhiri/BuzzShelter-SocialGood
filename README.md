@@ -12,7 +12,7 @@ Teamed up with Social Good to build an android application that allowed homeless
 * Bianca Guerrero
   * UI/UX designer
   * Worked on front-end functionality
-* Yuri Anh
+* Yuri Ahn
   * Worked on front-end functionality
 
 
