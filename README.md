@@ -1,3 +1,3 @@
 # Hope Finder
 ### Let's do some math on twitter!
-<img alt="Top Layer Input Reconstruction and Distillation Diagram" src="imgs/ss01.png"  width="50%"  height="50%">
+<img alt="Top Layer Input Reconstruction and Distillation Diagram" src="imgs/ss01.png"  width="20%"  height="20%">
