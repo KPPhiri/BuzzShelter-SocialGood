@@ -6,7 +6,9 @@ Teamed up with Social Good to build an android application that allowed homeless
 
 ### Contributions
 * Kee-Bum Phiria
- * Integrated Google Firebase for real-time database and backend interaction among multiple devices.
+  * Integrated Google Firebase for real-time database and backend interaction among multiple devices.
 * Bianca Guerrero
-
 * Yuri Anh
+
+* Item 2
+  * Sub Item 1
