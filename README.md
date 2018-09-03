@@ -6,9 +6,9 @@ Teamed up with Social Good to build an android application that allowed homeless
 
 ### Contributions
 * Kee-Bum Phiria
+  * Worked on front-end/back-end functionality
   * Integrated Google Firebase for real-time database and backend interaction among multiple devices.
   * Implemented Google Maps API into application to display shelters 
-  * Worked on front-end/back-end functionality
 * Bianca Guerrero
   * UI/UX designer
   * Worked on front-end functionality
