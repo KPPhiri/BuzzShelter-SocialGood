@@ -13,8 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * user profile activity
  */
 public class UserProfileActivity extends AppCompatActivity {
-    //private Button claimsButton;
-    //private ImageView userPicture;
+   // User temp = User.getInstance();
     private TextView userName;
     private TextView userEmail;
     //private TextView residence;
@@ -38,6 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
 //        TextView residence;
 //        TextView claims;
 //        TextView religion;
+       // temp.setName("hi");
 
         claimsButton = findViewById(R.id.releaseButton);
         //userPicture = findViewById(R.id.userImageView); //make button for image setting later
