@@ -1,4 +1,4 @@
-# Hope Finder
+# Buzz Shelter
 ### Description
 Teamed up with Social Good to build an android application that allows the homeless community to locate the nearest homeless shelter in accordance to their preferential needs. 
 
