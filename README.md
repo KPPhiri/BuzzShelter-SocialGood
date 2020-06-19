@@ -15,6 +15,7 @@ Teamed up with Social Good to build an android application that allows the homel
 * Yuri Ahn
   * Worked on front-end functionality
 * Eugene Ahn
+  * Worked on front-end functionality
 * David Lim
   
 
